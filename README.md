@@ -1,13 +1,15 @@
 # netwhat
 
-### 1. IP address
+## 1. IP address
 
 ### 2. Netmask
 
-### 3. Subnet of an IP with Netmask
+#### 3. Subnet of an IP with Netmask
 
-### 4. Broadcast address of a subnet
+##### 4. Broadcast address of a subnet
 
-### 5. Different ways to represent an ip address with the Netmask
+###### 5. Different ways to represent an ip address with the Netmask
 
-### 6. 
+#### 6. Public IPs V.S Private IPs
+
+### 7.
