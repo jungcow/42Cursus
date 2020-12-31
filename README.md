@@ -140,11 +140,12 @@ __
 ### 9. UDP
 - **User Datagram Protocol**
 
-||TCP|UDP|
-|--|--|--|
-||<img src="https://media.discordapp.net/attachments/790600784110813264/794198536991932476/2020-12-31_10.37.46.png">|<img src="https://media.discordapp.net/attachments/790600784110813264/794198842798112840/2020-12-31_10.38.54.png">|<br>
-**즉, 신뢰성이 요구되는 어플리케이션에선 TCP를 사용**<br>
-**간단한 데이터를 빠른 속도로 전송하고자 하는 어플리케이션에서는 UDP를 사용**<br>
+|TCP|UDP|
+|--|--|
+|<img src="https://media.discordapp.net/attachments/790600784110813264/794198536991932476/2020-12-31_10.37.46.png">|<img src="https://media.discordapp.net/attachments/790600784110813264/794198842798112840/2020-12-31_10.38.54.png">|
+
+- **즉, 신뢰성이 요구되는 어플리케이션에선 TCP를 사용**<br>
+- **간단한 데이터를 빠른 속도로 전송하고자 하는 어플리케이션에서는 UDP를 사용**<br>
 ### 10. Network layers <br>
 - **네트워크 상에서 여러 대의 컴퓨터가 데이터를 주고 받으려면 서로 연동 가능하도록 표준화된 인터페이스를 지원해야 한다.**
 	- OSI 7 모델 && TCP/IP 모델 모두 `계층 구조`를 갖고 있음.
