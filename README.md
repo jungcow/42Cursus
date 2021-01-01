@@ -4,8 +4,7 @@
 - **Internet Protocol address**
 - 네트워킹이 가능한 장비를 `식별`하는 주소.
 - 네트워킹을 하는 장비들에게 숫자 12개의 고유한 주소를 주어 서로를 인식하고 통신하도록 하자.- 라는 의미의 통신규약(protocol)이 존재한다.
-__
-
+___
 ### 2. Netmask <br>
 - 네트워크 주소 부분의 비트를 1로 치환한 것이 넷마스크이다.
 - IP 주소와 넷마스크를 AND연산을 하면 네트워크 주소를 얻을 수 있다.
@@ -19,7 +18,7 @@ __
 
 - IPv4 초창기 시절 A, B, C 급으로 (고정크기 8, 16, 24 bit mask) network을 나눠 썼는데, 좀 비효울 적이어서 CIRD 후 큰 network address 를 쪼개면서 subnet mask 가 생겨났다.(가변 크기(1~32)bit mask가 가능하도록)
 	- 이제와서는 netmask, subnet mast의 구분이 사라진 것 같다.
-
+___
 ### 3. Subnet of an IP with Netmask <br>
 ##### Default subnet mask
 - IP를 클래스로 나눈다는 뜻 : 서브넷 마스크를 사용한다는 말과 같은 의미다.
@@ -53,16 +52,16 @@ __
 	- 네트워크 분리 -> 브로트캐스트 도메인의 크기가 줄어듦(브로드캐스트 주소가 다양해짐)
 		- 한 브로드캐스트 주소를 너무 많은 호스트가 갖는 걸 방지 -> 트래픽 문제 해결.
 	- > 서브넷의 브로드캐스트 주소란 : 255보다 후러씬 작은수를 가질 수 있다.
-
+___
 ### 4. Broadcast address of a subnet <br>
 - 특정 네트워크에 속하는 모든 호스트들이 갖게 되는 주소.
 - 네트워크에 있는 모든 클라이언트 모두에게 데이터를 보내기 위함.
 - 해당 네트워크에 속하는 모든 IP 주소 가운데 **맨 마지막 IP 주소**
 	- 계산 방법: 서브넷 마스크의 '0' 인 부분을 모두 1로 바꾼다.
 		- C클래스 IP - 192.168.2.0 이라고 한다면 브로드캐스트 주소는 `192.168.2.255` 가 된다.
-
+___
 ### 5. Different ways to represent an ip address with the Netmask
-
+___
 ### 6. Public IPs V.S Private IPs <br>
 #### 6-1. Public IP
 - 인터넷 사용자의 로컬 네트워크를 식별하기 위해 ISP(인터넷 서비스 공급자)가 제공하는 IP 주소.
@@ -91,7 +90,7 @@ __
 			- 공인 IP:  다른 사람이 내 서버에 접속 할 수 있도록 한다.
 			- 고정 IP: 내 서버에서만 접속이 될 수 있도록 한다.
 		- **가정 집에선 ISP에서 각 가정마다 공인 IP를 유동 IP로 부여하고, 공유기 내부에서는 사설 IP를 유동 IP로 부여하는 것이 일반적이라고 보면 될 것.**
-
+___
 ### 7. Class of IP addresses <br>
 - **하나의 IP주소에서 네트워크 영역과 호스트 영역을 나누는 방법이자, 약속.**
 - 네트워크 크기에 따른 구분이라 생각하자.
@@ -127,12 +126,13 @@ __
 		- E : 연구용
 			- 240.0.0.0 ~ 255.255.255.255 <br>
 
-
+___
 ### 8. TCP
 - **Transmission Control Protocol**
 - `전송계층`에서 사용하는 프로토콜.
 - 장치들 사이에 논리적인 접속을 성립하기 위해 연결을 설정하여 **신뢰성 보장하는 연결형 서비스**.
 - 네트워크에 연결된 컴퓨터에서 실행되는 프로그램 간에 **일련의 옥텟(데이터, 메세지, 세그먼트 라는 블록단위)를 `안정적으로`, `순서대로`, `에러없이` 교환할 수 있게 한다.**
+___
 ### 9. UDP
 - **User Datagram Protocol**
 
@@ -149,6 +149,7 @@ __
 
 - **즉, 신뢰성이 요구되는 어플리케이션에선 TCP를 사용**<br>
 - **간단한 데이터를 빠른 속도로 전송하고자 하는 어플리케이션에서는 UDP를 사용**<br>
+___
 ### 10. Network layers <br>
 - **네트워크 상에서 여러 대의 컴퓨터가 데이터를 주고 받으려면 서로 연동 가능하도록 표준화된 인터페이스를 지원해야 한다.**
 	- OSI 7 모델 && TCP/IP 모델 모두 `계층 구조`를 갖고 있음.
@@ -158,7 +159,7 @@ __
 - 또 다른 특징으로는 위, 아래 층으로만 이동할 수 있다는 점.
 	- 건너뛰어 한번에 맨 위 또는 아래로 갈 수 없다.
 	- 다음 단계로 넘어가려면 이전 계층이 `전제 조건`이 되어야 한다.
-
+___
 ### 11. OSI model <br>
 - **Open System Interconnection**
 - 네트워크 통신 과정을 7개의 계층으로 구분한 산업 표준 참조 모델.
@@ -193,23 +194,23 @@ __
 
 <br>
 [무조건 봐야하는 참고자료](http://blog.naver.com/PostView.nhn?blogId=demonicws&logNo=40117378644)
-
+___
 ### 12. DHCP server and the DHCP protocol
 ##### 12-1. DHCP
 - **Dynamic Host Configuration Protocol** : 해당 호스트에게 IP주소, 서브넷 마스크, 기본 게이트웨이 IP주소, DNS 서버 IP주소 를 자동으로 일정시간 할당해주는 인터넷 프로토콜
 - 유동 IP를 할당한다 == DHCP서버로부터 IP를 DHCP 서버에서 설정해놓은 사용시간만큼 임대해온다.
-
+___
 ### 13. DNS server and the DNS protocol
-
+___
 ### 14. The rules to make 2 devices communicate using IP addresses
-
+___
 ### 15. How does routing work with IP
-
+___
 ### 16. Default gateway for routing
-
+___
 ### 17. Port from an IP point of view and what it is used for when connecting to another device
 
-
+___
 #### $. **Segment(전송계층)**
 	- 상위 계층에서 데이터를 전달받은 전송계층에서는 아래의 정보들을 추가해 그룹화.
 	- 이때부턴 데이터는 데이터가 아닌 **세그먼트**라고 불리는 것.<br>
