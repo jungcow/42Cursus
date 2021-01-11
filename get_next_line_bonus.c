@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:40:05 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/12 02:24:32 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/01/12 02:59:43 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 int			read_buffer(int fd, t_backup *ptr, char **line)
 {
@@ -25,7 +23,6 @@ int			read_buffer(int fd, t_backup *ptr, char **line)
 			return (-1);
 		ft_memcpy(ptr->str, ptr->tmp, ptr->sum);
 		free(ptr->tmp);
-		ptr->tmp = NULL;
 		ft_memcpy((ptr->str + ptr->sum), ptr->buffer, len);
 		ptr->sum += len;
 		flag = check_buffer(ptr->str, ptr->sum);
@@ -38,8 +35,9 @@ int			read_buffer(int fd, t_backup *ptr, char **line)
 		if (!(ptr->tmp = ft_strndup(ptr->str, ptr->sum)))
 			return (-1);
 		free(ptr->str);
-		ptr->str = NULL;
 	}
+	if (len < 0)
+		return (-1);
 	return (0);
 }
 
@@ -117,7 +115,7 @@ int			get_next_line(int fd, char **line)
 	int					flag;
 	int					value;
 
-	if (line == 0 || BUFFER_SIZE == 0)
+	if (line == 0 || BUFFER_SIZE == 0 || fd < 0)
 		return (-1);
 	if (!(ptr = find_buffer(fd, &backup)))
 		return (-1);
