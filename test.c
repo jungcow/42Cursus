@@ -58,7 +58,7 @@ void		*ft_memcpy(void *dst, const void *src, ssize_t len)
 	destination = (char  *)dst;
 	source = (char *)src;
 	i = 0;
-	while (i < len && source)
+	while (i < len)
 	{
 		destination[i] = source[i];
 		i++;
@@ -96,8 +96,10 @@ t_backup	*find_buffer(int fd, t_backup **backup)
 	ptr = (t_backup *)malloc(sizeof(t_backup));
 	if (ptr == NULL)
 		return (NULL);
-	ptr->str = (char *)malloc(0);
-	ptr->tmp = (char *)malloc(0);
+//	ptr->str = (char *)malloc(0);
+	ptr->str = NULL;
+//	ptr->tmp = (char *)malloc(0);
+	ptr->tmp = NULL;
 	ptr->sum = 0;
 	ptr->fd = fd;
 	ptr->next = *backup;
@@ -116,15 +118,18 @@ int		get_next_line2(int fd, char **line)
 		return (-1);
 	while ((len = read(fd, ptr->buffer, BUFFER_SIZE)) > 0)
 	{
+		//printf("len: %zd\n", len);
+		//write(1, ptr->buffer, len);
 		ptr->str = (char *)malloc(sizeof(char) * (len + backup->sum));
 		ft_memcpy(ptr->str, ptr->tmp, ptr->sum);
 		free(ptr->tmp);
 		ft_memcpy((ptr->str + ptr->sum), ptr->buffer, len);
 		ptr->sum += len;
 		flag = check_buffer(ptr->str, ptr->sum);
-		if (flag > 0)
+		if (flag >= 0)
 		{
 			*line = ft_strdup(ptr->str, flag);
+			write(1, *line, flag + 1);
 			realloc_buffer(&(ptr), flag + 1, (ptr->sum - flag) - 1);
 			ptr->sum -= flag + 1;
 			return (1);
@@ -132,11 +137,13 @@ int		get_next_line2(int fd, char **line)
 		ptr->tmp = ft_strdup(ptr->str, ptr->sum);
 		free(ptr->str);
 	}
+	//printf("out len: %zd\n", len);
+	//write(1, ptr->buffer, len);
 	*line = ft_strdup(ptr->str, ptr->sum);
+	write(1, *line, flag + 1);
 	free(ptr->str);
 	return (0);
 }
-
 int main(void)
 {
 	int fd;
@@ -149,6 +156,8 @@ int main(void)
 	if (fd == -1)
 		return (1);
 	//fd = 0;
+	//len = read(fd, buffer, 100);
+	//printf("%d\n", len);
 	while ((len = get_next_line2(fd, &line)) == 1)
 	{
 		printf("%d : %s\n", len, line);
