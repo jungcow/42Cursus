@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:40:05 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/11 20:38:39 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/01/12 00:55:22 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		*ft_memcpy(void *dst, const void *src, ssize_t len)
 	destination = (char *)dst;
 	source = (char *)src;
 	i = -1;
-	while (++i < len)
+	while (++i < len && source)
 		destination[i] = source[i];
 	return (dst);
 }
@@ -87,7 +87,7 @@ int			check_buffer(char *str, ssize_t len)
 	ssize_t i;
 
 	i = 0;
-	while (len--)
+	while (i < len)
 	{
 		if (str[i] == '\n')
 			return (i);
@@ -96,25 +96,26 @@ int			check_buffer(char *str, ssize_t len)
 	return (-1);
 }
 
-int			realloc_buffer(t_backup **backup, ssize_t start_idx, ssize_t len)
+int			realloc_buffer(t_backup *backup, ssize_t start_idx, ssize_t len)
 {
 	char *ptr;
 
-	if (!(ptr = ft_strdup((*backup)->str + start_idx, len)))
+	if (!(ptr = ft_strdup(backup->str + start_idx, len)))
 		return (0);
-	free((*backup)->str);
-	if (!((*backup)->tmp = (char *)malloc(sizeof(char) * len)))
+	free(backup->str);
+	if (!(backup->tmp = (char *)malloc(sizeof(char) * len)))
 		return (0);
-	ft_memcpy((*backup)->tmp, ptr, len);
+	ft_memcpy(backup->tmp, ptr, len);
+	free(ptr);
 	return (1);
 }
 
-int			alloc_line(char **line, t_backup **ptr, ssize_t flag)
+int			alloc_line(char **line, t_backup *ptr, ssize_t flag)
 {
-	(*ptr)->sum -= flag + 1;
-	if (!(*line = ft_strdup((*ptr)->str, flag)))
+	ptr->sum -= flag + 1;
+	if (!(*line = ft_strdup(ptr->str, flag)))
 		return (0);
-	if (!(realloc_buffer(ptr, flag + 1, (*ptr->sum))))
+	if (!(realloc_buffer(ptr, flag + 1, ptr->sum)))
 		return (0);
 	return (1);
 }
@@ -136,7 +137,7 @@ int			read_buffer(int fd, t_backup *ptr, char **line)
 		flag = check_buffer(ptr->str, ptr->sum);
 		if (flag >= 0)
 		{
-			if (!(alloc_line(line, &ptr, flag)))
+			if (!(alloc_line(line, ptr, flag)))
 				return (-1);
 			return (1);
 		}
@@ -152,28 +153,24 @@ int			read_buffer_rest(t_backup *ptr, char **line)
 {
 	ssize_t	flag;
 
-	while (*(ptr->tmp))
+	if (!(ptr->str = (char *)malloc(sizeof(char) * ptr->sum)))
+		return (-1);
+	ft_memcpy(ptr->str, ptr->tmp, ptr->sum);
+	free(ptr->tmp);
+	ptr->tmp = NULL;
+	flag = check_buffer(ptr->str, ptr->sum);
+	if (flag >= 0)
 	{
-		if (!(ptr->str = (char *)malloc(sizeof(char) * len)))
+		if (!(alloc_line(line, ptr, flag)))
 			return (-1);
-		ft_memcpy(ptr->str, ptr->tmp, ptr->sum);
-		free(ptr->tmp);
-		ptr->tmp = NULL;
-		flag = check_buffer(ptr->tmp, ptr->sum);
-		if (flag >= 0)
-		{
-			if (!(alloc_line(line, &ptr, flag)))
-				return (-1);
-			return (1);
-		}
-		if (!(ptr->tmp = ft_strdup(ptr->str, ptr->sum)))
-			return (-1);
-		free(ptr->str);
-		ptr->str = NULL;
+		return (1);
 	}
+	if (!(*line = ft_strdup(ptr->str, ptr->sum)))
+		return (-1);
+	free(ptr->str);
+	ptr->str = NULL;
 	return (0);
 }
-
 
 void		clear_buffer(t_backup **backup)
 {
@@ -183,13 +180,40 @@ void		clear_buffer(t_backup **backup)
 	ptr = *backup;
 	while (ptr)
 	{
+		ptr->next = tmp;
 		free(ptr->str);
 		free(ptr->tmp);
-		ptr->next = tmp;
 		free(ptr);
 		ptr = tmp;
 	}
-	*backup = NULL;
+	ptr = NULL;
+}
+
+void		del_buffer(int fd, t_backup **backup)
+{
+	t_backup *ptr;
+	t_backup *before;
+
+	ptr = *backup;
+	if (ptr->fd == fd)
+	{
+		*backup = ptr->next;
+		free(ptr->tmp);
+		free(ptr);
+		return ;
+	}
+	while (ptr)
+	{
+		if (ptr->fd == fd)
+		{
+			before->next = ptr->next;
+			free(ptr->tmp);
+			free(ptr);
+			break ;
+		}
+		before = ptr;
+		ptr = ptr->next;
+	}
 }
 
 int			get_next_line(int fd, char **line)
@@ -210,41 +234,58 @@ int			get_next_line(int fd, char **line)
 	if (flag == 1)
 		return (1);
 	if (!(flag))
-		read_buffer_rest(ptr, line);
+	{
+		while (read_buffer_rest(ptr, line) == 1)
+		{
+			return (1);
+		}
+	}
+	del_buffer(fd, &backup);
 	return (0);
 }
+
 int main(void)
 {
+	char *line;
 	int fd;
 	int fd2;
-	char *line;
+	int fd3;
 	char buffer[100];
 	int		len;
 
 	fd = open("example.txt", O_CREAT | O_RDONLY, 0777);
 	fd2 = open("example2.txt", O_CREAT | O_RDONLY, 0777);
-	printf("fd : %d\n", fd);
-	printf("fd2 : %d\n", fd2);
+	fd3 = open("example3.txt", O_CREAT | O_RDONLY, 0777);
 	if (fd == -1)
 		return (1);
 	//fd = 0;
-	//len = read(fd, buffer, 100);
-	//printf("%d\n", len);
-	/*while ((len = get_next_line(fd, &line)) == 1)
+	//fd2 = 0;
+	/*while ((len = get_next_line(fd2, &line)) == 1)
 	{
-		printf("%d : %s\n", len, line);
-	}*/
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	get_next_line(fd2, &line);
-	printf("%s\n", line);
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	get_next_line(fd2, &line);
-	printf("%s\n", line);
-	//printf("%d : %s\n",len, line);
+		printf("%d, %s\n", len,  line);
+		free(line);
+	}
+	*/
+	line = "abcde";
+	len = get_next_line(fd, &line);
+	printf("%d, %s\n", len, line);
+	free(line);
+	len = get_next_line(fd2, &line);
+	printf("%d, %s\n", len, line);
+	free(line);
+	len = get_next_line(fd3, &line);
+	printf("%d, %s\n", len, line);
+	free(line);
+	len = get_next_line(fd2, &line);
+	printf("%d, %s\n", len, line);
+	free(line);
+	len = get_next_line(fd3, &line);
+	printf("%d, %s\n", len, line);
+	free(line);
 	close(fd);
 	close(fd2);
+	close(fd3);
+	while (1);
 	return (0);
 }
 
