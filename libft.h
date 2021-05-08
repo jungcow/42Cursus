@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 01:39:29 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/03/31 12:27:27 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/08 14:43:14 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void				ft_bzero(void *s, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *str);
 size_t				ft_strslen(char **strs);
+void				ft_strsfree(char **strs);
 size_t				ft_strlcat(char *dst, char *src, size_t dstsize);
 size_t				ft_strlcpy(char *dst, char *src, size_t dstsize);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);

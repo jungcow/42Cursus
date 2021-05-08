@@ -6,7 +6,7 @@
 #    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/27 15:56:39 by jungwkim          #+#    #+#              #
-#    Updated: 2021/03/31 12:29:44 by jungwkim         ###   ########.fr        #
+#    Updated: 2021/05/08 14:42:44 by jungwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	=	ft_memset.c\
 			ft_memcmp.c\
 			ft_strlen.c\
 			ft_strslen.c\
+			ft_strsfree.c \
 			ft_strlcpy.c\
 			ft_strlcat.c\
 			ft_strrchr.c\
