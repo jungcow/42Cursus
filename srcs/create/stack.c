@@ -6,14 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:05:41 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/16 23:41:28 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:18:08 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create.h"
 #include "libft.h"
 
-#include <stdio.h>
 int		init_node(t_node **head, char *buf)
 {
 	t_node	*new;
@@ -64,7 +63,7 @@ int		init_stack(t_stack *stack, char ***buf)
 int		create_stack(int argc, char ***buf, t_pair *pair)
 {
 	init_stack(&pair->a, buf);
-	init_stack(&pair->b, buf);
+	init_stack(&pair->b, NULL);
 	while (argc--)
 		ft_strsfree(buf[argc]);
 	free(buf);

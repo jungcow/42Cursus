@@ -12,10 +12,21 @@ CREATE_SRCS	=	$(addprefix ./srcs/create/, \
 					stack.c \
 					)
 
+OPERATION_SRCS	=	$(addprefix ./srcs/operation/, \
+					swap.c \
+					push.c \
+					rotate.c \
+					)
+
 SRCS	=	./srcs/main.c \
 			$(VALIDATE_SRCS) \
 			$(CREATE_SRCS) \
+			$(OPERATION_SRCS) \
 			./srcs/test/test_stack.c \
+			./srcs/test/test_swap.c \
+			./srcs/test/test_push.c \
+			./srcs/test/test_push_a.c \
+			./srcs/test/test_rotate.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
