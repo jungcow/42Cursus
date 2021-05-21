@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 20:43:16 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/19 17:12:19 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/22 01:41:27 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,5 @@
 **		sort
 */
 # include "sort.h"
-
-# include "test.h"
 
 #endif

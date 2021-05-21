@@ -6,23 +6,28 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 18:15:06 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/16 19:31:16 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/22 01:38:19 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <unistd.h>
 #include "libft.h"
 
 int		ft_isinteger(char *arg)
 {
 	int			minus;
 	long long	value;
+	char		*tmp;
 
 	minus = 0;
 	if (ft_strchr(arg, '-'))
 		minus = 1;
-	if ((int)ft_strlen(arg) > 10 + minus)
+	tmp = arg;
+	tmp += minus;
+	while (*tmp == '0')
+		tmp++;
+	if ((int)ft_strlen(tmp) > 10 + minus)
 		return (0);
 	value = ft_atoll(arg);
 	if (minus)
@@ -50,13 +55,14 @@ int		check_integer(int argc, char *arg)
 	{
 		if (!ft_isdigit(arg[i]) && arg[i] != '-' && arg[i] != '+')
 		{
-			printf("int error\n");
 			return (0);
 		}
 		i++;
 	}
 	if (!ft_isinteger(arg))
+	{
 		return (0);
+	}
 	return (1);
 }
 
@@ -72,10 +78,7 @@ int		check_dup(char *arg, char ***buf, int idx)
 		while (buf[j][i])
 		{
 			if (ft_atoi(buf[j][i]) == ft_atoi(arg))
-			{
-				printf("dup error\n");
 				return (0);
-			}
 			i++;
 		}
 		j++;

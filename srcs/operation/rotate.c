@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 20:59:51 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/21 03:01:30 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/22 00:23:16 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,31 @@ int		rotate_node(t_stack *stack)
 	return (1);
 }
 
-void	ra(t_stack *stack, int *ra)
+void	ra(t_stack *stack, int *ra, int flag)
 {
 	*ra += 1;
 	if (stack->size > 1)
 	{
 		rotate_node(stack);
-		write(1, "ra\n", 3);
+		if (flag)
+			write(1, "ra\n", 3);
 	}
 	return ;
 }
 
-void	rb(t_stack *stack, int *rb)
+void	rb(t_stack *stack, int *rb, int flag)
 {
 	*rb += 1;
 	if (stack->size > 1)
 	{
 		rotate_node(stack);
-		write(1, "rb\n", 3);
+		if (flag)
+			write(1, "rb\n", 3);
 	}
 	return ;
 }
 
-void	rr(t_pair *pair)
+void	rr(t_pair *pair, int flag)
 {
 	if (pair->a.size <= 1 && pair->b.size <= 1)
 		return ;
@@ -61,6 +63,7 @@ void	rr(t_pair *pair)
 		rotate_node(&pair->a);
 	if (pair->b.size > 1)
 		rotate_node(&pair->b);
-	write(1, "rr\n", 3);
+	if (flag)
+		write(1, "rr\n", 3);
 	return ;
 }
