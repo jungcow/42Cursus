@@ -6,11 +6,12 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:50:17 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/18 21:02:23 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/21 03:01:07 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include <unistd.h>
 #include "operation.h"
 
 int		push_stack(t_stack *dst, t_stack *src)
@@ -33,22 +34,24 @@ int		push_stack(t_stack *dst, t_stack *src)
 	return (1);
 }
 
-int		push_a(t_stack *a, t_stack *b)
+void	pa(t_pair *pair, int *pa)
 {
-	if (b->size <= 0)
-		return (0);
-	push_stack(a, b);
-	a->size++;
-	b->size--;
-	return (1);
+	*pa += 1;
+	if (pair->b.size <= 0)
+		return ;
+	push_stack(&pair->a, &pair->b);
+	write(1, "pa\n", 3);
+	pair->a.size++;
+	pair->b.size--;
 }
 
-int		push_b(t_stack *a, t_stack *b)
+void	pb(t_pair *pair, int *pb)
 {
-	if (a->size <= 0)
-		return (0);
-	push_stack(b, a);
-	b->size++;
-	a->size--;
-	return (1);
+	*pb += 1;
+	if (pair->a.size <= 0)
+		return ;
+	push_stack(&pair->b, &pair->a);
+	write(1, "pb\n", 3);
+	pair->b.size++;
+	pair->a.size--;
 }

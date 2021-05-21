@@ -4,6 +4,7 @@
 
 int test_push_a(t_pair *pair)
 {
-	push_a(&pair->a, &pair->b);
+	int		dump;
+	pa(pair, &dump);
 	return (0);
 }

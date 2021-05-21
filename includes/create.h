@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:07:59 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/16 18:27:17 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:53:54 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct		s_stack
 
 typedef struct		s_pair
 {
+	int				sum;
+	int				total_size;
 	t_stack			a;
 	t_stack			b;
 }					t_pair;

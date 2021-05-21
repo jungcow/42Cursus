@@ -6,9 +6,9 @@ int test_stack(t_pair *pair)
 	t_stack	a;
 	t_stack	b;
 
-	(void)b;
 	a = pair->a;
 	b = pair->b;
+	printf("\n==============\n");
 	while (a.head|| b.head)
 	{
 		if (a.head)
@@ -24,6 +24,7 @@ int test_stack(t_pair *pair)
 			b.head = b.head->next;
 	}
 	printf("_   _\n");
-	printf("a   b\n\n");
+	printf("a   b\n");
+	printf("==============\n\n");
 	return (0);
 }

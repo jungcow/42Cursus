@@ -6,14 +6,14 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:05:41 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/18 16:18:08 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/20 00:35:53 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create.h"
 #include "libft.h"
 
-int		init_node(t_node **head, char *buf)
+int		init_node(t_node **head, char *buf, int *sum)
 {
 	t_node	*new;
 	t_node	*ptr;
@@ -24,6 +24,7 @@ int		init_node(t_node **head, char *buf)
 	new->prev = NULL;
 	new->next = NULL;
 	new->value = ft_atoi(buf);
+	*sum += new->value;
 	if (*head == NULL)
 		*head = new;
 	else if (*head)
@@ -37,7 +38,7 @@ int		init_node(t_node **head, char *buf)
 	return (1);
 }
 
-int		init_stack(t_stack *stack, char ***buf)
+int		init_stack(t_stack *stack, char ***buf, int *sum)
 {
 	int		i;
 	int		j;
@@ -53,7 +54,7 @@ int		init_stack(t_stack *stack, char ***buf)
 		while (buf[i][++j])
 		{
 			size++;
-			init_node(&stack->head, buf[i][j]);
+			init_node(&stack->head, buf[i][j], sum);
 		}
 	}
 	stack->size = size;
@@ -62,10 +63,12 @@ int		init_stack(t_stack *stack, char ***buf)
 
 int		create_stack(int argc, char ***buf, t_pair *pair)
 {
-	init_stack(&pair->a, buf);
-	init_stack(&pair->b, NULL);
+	pair->sum = 0;
+	init_stack(&pair->a, buf, &pair->sum);
+	init_stack(&pair->b, NULL, &pair->sum);
 	while (argc--)
 		ft_strsfree(buf[argc]);
+	pair->total_size = pair->a.size;
 	free(buf);
 	return (1);
 }

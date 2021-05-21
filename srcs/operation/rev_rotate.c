@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse.c                                          :+:      :+:    :+:   */
+/*   rev_rotate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 22:23:42 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/18 22:23:47 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/21 03:13:20 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include <unistd.h>
 #include "operation.h"
 
 int		rev_rotate_node(t_stack *stack)
@@ -19,42 +20,38 @@ int		rev_rotate_node(t_stack *stack)
 
 	tmp = stack->head;
 	while (tmp->next)
-	{
 		tmp = tmp->next;
-	}
-//	tmp->next = stack->head;
-//	stack->head = stack->head->next;
-//	stack->head->prev = NULL;
-//	tmp->next->next = NULL;
 	tmp->prev->next = NULL;
-	tmp->prev = NULL;
 	tmp->next = stack->head;
+	tmp->prev = NULL;
 	stack->head->prev = tmp;
 	stack->head = tmp;
 	return (1);
 }
 
-int		rev_rotate_a(t_stack *a)
+void	rra(t_stack *stack)
 {
-	if (a->size <= 1)
-		return (0);
-	rev_rotate_node(a);
-	return (1);
+	if (stack->size <= 1)
+		return ;
+	rev_rotate_node(stack);
+	write(1, "rra\n", 4);
 }
 
-int		rev_rotate_b(t_stack *b)
+void	rrb(t_stack *stack)
 {
-	if (b->size <= 1)
-		return (0);
-	rev_rotate_node(b);
-	return (1);
+	if (stack->size <= 1)
+		return ;
+	rev_rotate_node(stack);
+	write(1, "rrb\n", 4);
 }
 
-int		rev_rotate_ab(t_pair *pair)
+void	rrr(t_pair *pair)
 {
-	if (a->size > 1)
-		rev_rotate_node(a);
-	if (b->size > 1)
-		rev_rotate_node(b);
-	return (1);
+	if (pair->a.size <= 1 && pair->b.size <= 1)
+		return ;
+	if (pair->a.size > 1)
+		rev_rotate_node(&pair->a);
+	if (pair->b.size > 1)
+		rev_rotate_node(&pair->b);
+	write(1, "rrr\n", 4);
 }

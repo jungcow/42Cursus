@@ -4,6 +4,7 @@
 
 int test_rotate(t_pair *pair)
 {
-	rotate_b(&pair->b);
+	int		d;
+	rb(&pair->b, &d);
 	return (0);
 }

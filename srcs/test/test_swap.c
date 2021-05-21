@@ -4,6 +4,7 @@
 
 int	test_swap(t_pair *pair)
 {
-	swap_a(&pair->a);
+	int	dump;
+	sa(&pair->a, &dump);
 	return (1);
 }
