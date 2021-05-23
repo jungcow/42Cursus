@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 02:01:50 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/22 05:08:31 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/23 16:58:17 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "operation.h"
 #include "test.h"
 
+#include <stdio.h>
 void	init_operation(t_operation *op)
 {
 	op->ra = 0;
@@ -28,6 +29,7 @@ void	sort_few_times_b(t_pair *pair, int time)
 	int		i;
 	t_operation	op;
 
+	printf("b time: %d\n", time);
 	if (time < 2)
 	{
 		pa(pair, &op.pa, 1);
@@ -39,9 +41,11 @@ void	sort_few_times_b(t_pair *pair, int time)
 			pa(pair, &op.pa, 1);
 		return ;
 	}
-	if (presort_before_sort(pair, time, 'b'))
+	if (sort_23_nodes(pair, &pair->b, 'b') || sort_23_times(pair, time, 'b'))
 		return ;
 	get_pivot(&pair->b, &pivot, time, 1.0);
+	printf("pivot: %d\n", pivot);
+	test_stack(pair);
 	init_operation(&op);
 	while (time--)
 	{
@@ -51,7 +55,7 @@ void	sort_few_times_b(t_pair *pair, int time)
 			rb(&pair->b, &op.rb, 1);
 	}
 	i = 0;
-	while (i++ < op.rb)
+	while (i++ < op.rb && pair->b.size > 3)
 		rrb(&pair->b, 1);
 	sort_few_times_a(pair, op.pa);
 	sort_few_times_b(pair, op.rb);
@@ -63,14 +67,17 @@ void	sort_few_times_a(t_pair *pair, int time)
 	int			i;
 	t_operation	op;
 
+	printf("a time: %d\n", time);
 	if (time < 2)
 		return ;
 	if (is_sorted(&pair->a, 'a', time))
 		return ;
-	if (presort_before_sort(pair, time, 'a'))
+	if (sort_23_nodes(pair, &pair->a, 'a') || sort_23_times(pair, time, 'a'))
 		return ;
 	init_operation(&op);
 	get_pivot(&pair->a, &pivot, time, 1.0);
+	printf("pivot: %d\n", pivot);
+	test_stack(pair);
 	while (time--)
 	{
 		if (pair->a.head->value > pivot)
@@ -79,7 +86,7 @@ void	sort_few_times_a(t_pair *pair, int time)
 			pb(pair, &op.pb, 1);
 	}
 	i = 0;
-	while (i++ < op.ra)
+	while (i++ < op.ra && pair->a.size > 3)
 		rra(&pair->a, 1);
 	sort_few_times_a(pair, op.ra);
 	sort_few_times_b(pair, op.pb);

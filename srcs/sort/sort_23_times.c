@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_few_nodes.c                                   :+:      :+:    :+:   */
+/*   sort_23_times.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:51:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/22 05:07:37 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/23 15:46:24 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		is_sorted(t_stack *stack, int type, int time)
 	return (1);
 }
 
-void	sort_2_nodes(t_pair *pair, t_stack *stack, int time, int type)
+void	sort_2_times(t_pair *pair, t_stack *stack, int time, int type)
 {
 	int		min;
 	int		max;
@@ -55,14 +55,14 @@ void	sort_2_nodes(t_pair *pair, t_stack *stack, int time, int type)
 		pa(pair, &dump, 1);
 }
 
-void	sort_3_nodes_a(t_pair *pair, int time, int min, int max)
+void	sort_3_times_a(t_pair *pair, int time, int min, int max)
 {
 	t_node	*node;
 	int		dump;
 
 	time = 0;
 	node = pair->a.head;
-//	while (!is_sorted(&pair->a, 'a', time))
+	while (!is_sorted(&pair->a, 'a', time))
 		if (node->value == max ||
 			(node->next->value == min && node->next->next->value == max))
 		{
@@ -84,7 +84,7 @@ void	sort_3_nodes_a(t_pair *pair, int time, int min, int max)
 		}
 }
 
-void	sort_3_nodes_b(t_pair *pair, int time, int min, int max)
+void	sort_3_times_b(t_pair *pair, int time, int min, int max)
 {
 	t_node	*node;
 	int		dump;
@@ -112,7 +112,7 @@ void	sort_3_nodes_b(t_pair *pair, int time, int min, int max)
 		}
 }
 
-int		sort_few_nodes(t_pair *pair, int time, int type)
+int		sort_23_times(t_pair *pair, int time, int type)
 {
 	t_stack	*stack;
 	int		min;
@@ -127,19 +127,15 @@ int		sort_few_nodes(t_pair *pair, int time, int type)
 	if (time != 2 && time != 3)
 		return (0);
 	if (time == 2)
-		sort_2_nodes(pair, stack, time, type);
-	if (time == 3)
-	{
+		sort_2_times(pair, stack, time, type);
+	else
 		if (type == 'a')
+			sort_3_times_a(pair, time, min, max);
+		else
 		{
-			sort_3_nodes_a(pair, time, min, max);
-		}
-		else if (type == 'b')
-		{
-			sort_3_nodes_b(pair, time, min, max);
+			sort_3_times_b(pair, time, min, max);
 			while (time--)
 				pa(pair, &dump, 1);
 		}
-	}
 	return (1);
 }
