@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 18:11:20 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/22 04:54:46 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/23 16:47:02 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		main(int argc, char *argv[])
 	}
 	create_stack(argc, buf, &pair);
 	a_to_b(&pair, pair.a.size);
-	test_stack(&pair);
+//	test_stack(&pair);
 	return (0);
 }

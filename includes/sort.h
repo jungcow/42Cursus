@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:24:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/22 04:38:53 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/23 16:32:40 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,15 @@ typedef struct	s_operation
 void			a_to_b(t_pair *pair, int time);
 void			b_to_a(t_pair *pair, int time);
 
-void			sort_2_nodes(t_pair *pair, t_stack *stack, int time, int type);
-//void			sort_3_nodes(t_stack *stack, int time, int type);
-int				sort_few_nodes(t_pair *pair, int time, int type);
+int				sort_23_nodes(t_pair *pair, t_stack *stack, int type);
+int				sort_23_times(t_pair *pair, int time, int type);
 int				sort_few_times(t_pair *pair, int time, int type);
 void			sort_few_times_a(t_pair *pair, int time);
 void			sort_few_times_b(t_pair *pair, int time);
 
 int				is_sorted(t_stack *stack, int type, int time);
 
-int				presort_before_sort(t_pair *pair, int time, int type);
+int				pre_sort(t_pair *pair, int time, int type);
 
 void			init_sort(t_stack *stack, int *pivot, int t, t_operation *op);
 

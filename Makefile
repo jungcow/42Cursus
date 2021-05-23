@@ -27,7 +27,8 @@ OPERATION_SRCS	=	$(addprefix ./srcs/operation/, \
 
 SORT_SRCS		=	$(addprefix ./srcs/sort/, \
 					sort.c \
-					sort_few_nodes.c \
+					sort_23_nodes.c \
+					sort_23_times.c \
 					sort_few_times.c \
 					pivot.c \
 					direction.c \
