@@ -1,7 +1,7 @@
 NAME	=	push_swap
 BONUS_NAME	=	checker
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra
 INC		=	-I ./includes -I ./libft -I ./srcs/get_next_line
 LIB		=	-L./libft -lft
 
@@ -27,11 +27,11 @@ OPERATION_SRCS	=	$(addprefix ./srcs/operation/, \
 
 SORT_SRCS		=	$(addprefix ./srcs/sort/, \
 					sort.c \
+					sort_utils.c \
 					sort_23_nodes.c \
 					sort_23_times.c \
 					sort_few_times.c \
 					pivot.c \
-					direction.c \
 					get_min_max.c \
 					)
 
@@ -41,7 +41,6 @@ SRCS	=	./srcs/main.c \
 			$(OPERATION_SRCS) \
 			$(SORT_SRCS) \
 			./srcs/error.c \
-			./srcs/sort/test/test_stack.c \
 
 BONUS_SRCS		=	./srcs/checker/checker.c \
 					./srcs/checker/check_result.c \

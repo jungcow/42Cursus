@@ -6,13 +6,11 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:40:05 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/21 17:06:58 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 16:52:09 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 int			read_buffer(int fd, t_backup *ptr, char **line)
 {

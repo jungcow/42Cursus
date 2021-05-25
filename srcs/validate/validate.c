@@ -6,12 +6,10 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 18:15:06 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/22 01:38:19 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 18:09:19 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include "libft.h"
 
 int		ft_isinteger(char *arg)

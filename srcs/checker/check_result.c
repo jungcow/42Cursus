@@ -6,11 +6,10 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 12:43:28 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/22 01:37:46 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 16:53:33 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
 #include "checker.h"
 #include "libft.h"

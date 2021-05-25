@@ -6,15 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 02:01:50 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/23 16:58:17 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 18:02:11 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort.h"
 #include "operation.h"
-#include "test.h"
 
-#include <stdio.h>
 void	init_operation(t_operation *op)
 {
 	op->ra = 0;
@@ -23,29 +21,33 @@ void	init_operation(t_operation *op)
 	op->pb = 0;
 }
 
-void	sort_few_times_b(t_pair *pair, int time)
+int		pre_sort_few(t_pair *pair, t_operation *op, int time)
 {
-	int		pivot;
-	int		i;
-	t_operation	op;
-
-	printf("b time: %d\n", time);
 	if (time < 2)
 	{
-		pa(pair, &op.pa, 1);
-		return ;
+		pa(pair, &op->pa, 1);
+		return (1);
 	}
 	if (is_sorted(&pair->b, 'b', time))
 	{
 		while (time--)
-			pa(pair, &op.pa, 1);
-		return ;
+			pa(pair, &op->pa, 1);
+		return (1);
 	}
-	if (sort_23_nodes(pair, &pair->b, 'b') || sort_23_times(pair, time, 'b'))
+	return (0);
+}
+
+void	sort_few_times_b(t_pair *pair, int time)
+{
+	int			pivot;
+	int			i;
+	t_operation	op;
+
+	if (pre_sort_few(pair, &op, time))
+		return ;
+	if (sort_23_nodes(pair, &pair->b, 'b') || sort_23_times(pair, time, 'b', 0))
 		return ;
 	get_pivot(&pair->b, &pivot, time, 1.0);
-	printf("pivot: %d\n", pivot);
-	test_stack(pair);
 	init_operation(&op);
 	while (time--)
 	{
@@ -67,17 +69,14 @@ void	sort_few_times_a(t_pair *pair, int time)
 	int			i;
 	t_operation	op;
 
-	printf("a time: %d\n", time);
 	if (time < 2)
 		return ;
 	if (is_sorted(&pair->a, 'a', time))
 		return ;
-	if (sort_23_nodes(pair, &pair->a, 'a') || sort_23_times(pair, time, 'a'))
+	if (sort_23_nodes(pair, &pair->a, 'a') || sort_23_times(pair, time, 'a', 0))
 		return ;
 	init_operation(&op);
 	get_pivot(&pair->a, &pivot, time, 1.0);
-	printf("pivot: %d\n", pivot);
-	test_stack(pair);
 	while (time--)
 	{
 		if (pair->a.head->value > pivot)
@@ -94,7 +93,12 @@ void	sort_few_times_a(t_pair *pair, int time)
 
 int		sort_few_times(t_pair *pair, int time, int type)
 {
-	if (time > 5)
+	t_stack	*stack;
+
+	stack = &pair->a;
+	if (type == 'b')
+		stack = &pair->b;
+	if (stack->size > 5)
 		return (0);
 	if (type == 'a')
 		sort_few_times_a(pair, time);

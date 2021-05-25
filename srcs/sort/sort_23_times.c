@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:51:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/23 15:46:24 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 18:02:25 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,69 +55,65 @@ void	sort_2_times(t_pair *pair, t_stack *stack, int time, int type)
 		pa(pair, &dump, 1);
 }
 
-void	sort_3_times_a(t_pair *pair, int time, int min, int max)
+void	sort_3_times_a(t_pair *pair, int min, int max)
 {
 	t_node	*node;
 	int		dump;
 
-	time = 0;
 	node = pair->a.head;
-	while (!is_sorted(&pair->a, 'a', time))
-		if (node->value == max ||
-			(node->next->value == min && node->next->next->value == max))
-		{
-			sa(&pair->a, &dump, 1);
-		}
-		if (node->next->value == max && node->next->next->value == min)
-		{
-			pb(pair, &dump, 1);
-			sa(&pair->a, &dump, 1);
-			ra(&pair->a, &dump, 1);
-			pa(pair, &dump, 1);
-			rra(&pair->a, 1);
-		}
-		if (node->value == min && node->next->value == max)
-		{
-			pb(pair, &dump, 1);
-			sa(&pair->a, &dump, 1);
-			pa(pair, &dump, 1);
-		}
+	if (node->value == max ||
+		(node->next->value == min && node->next->next->value == max))
+	{
+		sa(&pair->a, &dump, 1);
+	}
+	if (node->next->value == max && node->next->next->value == min)
+	{
+		pb(pair, &dump, 1);
+		sa(&pair->a, &dump, 1);
+		ra(&pair->a, &dump, 1);
+		pa(pair, &dump, 1);
+		rra(&pair->a, 1);
+	}
+	if (node->value == min && node->next->value == max)
+	{
+		pb(pair, &dump, 1);
+		sa(&pair->a, &dump, 1);
+		pa(pair, &dump, 1);
+	}
 }
 
-void	sort_3_times_b(t_pair *pair, int time, int min, int max)
+void	sort_3_times_b(t_pair *pair, int min, int max)
 {
 	t_node	*node;
 	int		dump;
 
-	time = 0;
 	node = pair->b.head;
-		if (node->value == min ||
-			(node->next->value == max && node->next->next->value == min))
-		{
-			sb(&pair->b, &dump, 1);
-		}
-		if (node->next->value == min && node->next->next->value == max)
-		{
-			pa(pair, &dump, 1);
-			sb(&pair->b, &dump, 1);
-			rb(&pair->b, &dump, 1);
-			pb(pair, &dump, 1);
-			rrb(&pair->b, 1);
-		}
-		if (node->value == max && node->next->value == min)
-		{
-			pa(pair, &dump, 1);
-			sb(&pair->b, &dump, 1);
-			pb(pair, &dump, 1);
-		}
+	if (node->value == min ||
+		(node->next->value == max && node->next->next->value == min))
+	{
+		sb(&pair->b, &dump, 1);
+	}
+	if (node->next->value == min && node->next->next->value == max)
+	{
+		pa(pair, &dump, 1);
+		sb(&pair->b, &dump, 1);
+		rb(&pair->b, &dump, 1);
+		pb(pair, &dump, 1);
+		rrb(&pair->b, 1);
+	}
+	if (node->value == max && node->next->value == min)
+	{
+		pa(pair, &dump, 1);
+		sb(&pair->b, &dump, 1);
+		pb(pair, &dump, 1);
+	}
 }
 
-int		sort_23_times(t_pair *pair, int time, int type)
+int		sort_23_times(t_pair *pair, int time, int type, int dump)
 {
 	t_stack	*stack;
 	int		min;
 	int		max;
-	int		dump;
 
 	stack = &pair->b;
 	if (type == 'a')
@@ -127,15 +123,17 @@ int		sort_23_times(t_pair *pair, int time, int type)
 	if (time != 2 && time != 3)
 		return (0);
 	if (time == 2)
+	{
 		sort_2_times(pair, stack, time, type);
+		return (1);
+	}
+	if (type == 'a')
+		sort_3_times_a(pair, min, max);
 	else
-		if (type == 'a')
-			sort_3_times_a(pair, time, min, max);
-		else
-		{
-			sort_3_times_b(pair, time, min, max);
-			while (time--)
-				pa(pair, &dump, 1);
-		}
+	{
+		sort_3_times_b(pair, min, max);
+		while (time--)
+			pa(pair, &dump, 1);
+	}
 	return (1);
 }

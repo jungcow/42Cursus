@@ -6,14 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 23:31:31 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/23 16:53:31 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 18:03:16 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort.h"
 #include "operation.h"
 
-#include "test.h"
 void	init_sort(t_stack *stack, int *pivot, int time, t_operation *op)
 {
 	op->ra = 0;
@@ -28,15 +27,17 @@ int		pre_sort(t_pair *pair, int time, int t)
 {
 	int		dump;
 
-	if (time > 5)
+	dump = 0;
+	if (time > 3)
 		return (0);
-	if (time <= 3)
-		sort_23_times(pair, time, t);
-	else if (time > 3 && time <= 5)
-		sort_few_times(pair, time, t);
-	if (t == 'b')
-		if (time == 1)
+	if (time == 1)
+	{
+		if (t == 'b')
 			pa(pair, &dump, 1);
+		return (1);
+	}
+	if (!sort_23_times(pair, time, t, dump))
+		return (0);
 	return (1);
 }
 
@@ -69,24 +70,18 @@ void	b_to_a(t_pair *pair, int time)
 			pa(pair, &op.pa, 1);
 		return ;
 	}
+	if (pair->b.size == 5)
+	{
+		sort_few_times(pair, time, 'b');
+		return ;
+	}
 	if (sort_23_nodes(pair, &pair->b, 'b') || pre_sort(pair, time, 'b'))
 		return ;
 	init_sort(&pair->b, pivot, time, &op);
 	while (time--)
-	{
-		if (pair->b.head->value < pivot[0])
-			rb(&pair->b, &op.rb, 1);
-		else
-		{
-			pa(pair, &op.pa, 1);
-			if (pair->a.head->value < pivot[1])
-				ra(&pair->a, &op.ra, 1);
-		}
-	//	test_stack(pair);
-	}
+		sorting(pair, pivot, &op, 'b');
 	a_to_b(pair, op.pa - op.ra);
 	re_sort(pair, &op);
-//	test_stack(pair);
 	a_to_b(pair, op.ra);
 	b_to_a(pair, op.rb);
 }
@@ -98,23 +93,18 @@ void	a_to_b(t_pair *pair, int time)
 
 	if (is_sorted(&pair->a, 'a', time))
 		return ;
-	if (sort_23_nodes(pair, &pair->a, 'a') || pre_sort(pair, time, 'a'))
+	if (pair->a.size == 5)
+	{
+		sort_few_times(pair, time, 'a');
+		return ;
+	}
+	if (sort_23_nodes(pair, &pair->a, 'a')
+		|| pre_sort(pair, time, 'a'))
 		return ;
 	init_sort(&pair->a, pivot, time, &op);
 	while (time--)
-	{
-		if (pair->a.head->value > pivot[1])
-			ra(&pair->a, &op.ra, 1);
-		else
-		{
-			pb(pair, &op.pb, 1);
-			if (pair->b.head->value > pivot[0])
-				rb(&pair->b, &op.rb, 1);
-		}
-	//	test_stack(pair);
-	}
+		sorting(pair, pivot, &op, 'a');
 	re_sort(pair, &op);
-	//test_stack(pair);
 	a_to_b(pair, op.ra);
 	b_to_a(pair, op.rb);
 	b_to_a(pair, op.pb - op.rb);

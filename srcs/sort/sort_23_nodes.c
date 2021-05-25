@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 15:53:01 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/23 16:39:25 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/25 17:32:46 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,17 @@ void	sort_2_nodes(t_stack *stack, int type)
 	if (type == 'a')
 	{
 		if (node->value > node->next->value)
+		{
 			sa(stack, &dump, 1);
+		}
 	}
-	else
+	else if (type == 'b')
+	{
 		if (node->value < node->next->value)
+		{
 			sb(stack, &dump, 1);
+		}
+	}
 }
 
 void	sort_3_nodes_b(t_pair *pair)
@@ -89,6 +95,7 @@ int		sort_23_nodes(t_pair *pair, t_stack *stack, int type)
 				pa(pair, &dump, 1);
 	}
 	else
+	{
 		if (type == 'a')
 			sort_3_nodes_a(pair);
 		else
@@ -97,5 +104,6 @@ int		sort_23_nodes(t_pair *pair, t_stack *stack, int type)
 			while (pair->b.size)
 				pa(pair, &dump, 1);
 		}
+	}
 	return (1);
 }
