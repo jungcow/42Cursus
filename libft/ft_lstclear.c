@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 03:03:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 14:30:20 by jungwkim         ###   ########.fr       */
+/*   Created: 2020/12/28 20:47:23 by jungwkim          #+#    #+#             */
+/*   Updated: 2020/12/28 20:55:09 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "validate.h"
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list *tmp;
 
-# include "execute.h"
-
-#endif
+	if (lst == 0 || del == 0)
+		return ;
+	while (*lst)
+	{
+		tmp = *lst;
+		del((*lst)->content);
+		*lst = (*lst)->next;
+		free(tmp);
+	}
+	free(*lst);
+}

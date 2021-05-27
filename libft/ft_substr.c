@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 03:32:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 14:39:58 by jungwkim         ###   ########.fr       */
+/*   Created: 2020/12/23 16:22:07 by jungwkim          #+#    #+#             */
+/*   Updated: 2020/12/30 01:47:25 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "error.h"
 #include "libft.h"
 
-int		ft_error(char *str)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	write(2, "Error: ", ft_strlen("Error: "));
-	write(2, str, ft_strlen(str));
-	write(1, "\n", 1);
-	return (0);
-}
+	char			*str;
+	unsigned int	slen;
+	unsigned int	i;
 
-int		ft_error_str(char *err_type, char *cause)
-{
-	write(2, cause, ft_strlen(cause));
-	write(2, ": ", 2);
-	write(2, err_type, ft_strlen(err_type));
-	write(1, "\n", 1);
-	return (0);
+	if (s == 0)
+		return (0);
+	slen = ft_strlen(s);
+	if (slen <= start)
+		return (ft_strdup(""));
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (str == 0)
+		return (0);
+	i = 0;
+	while (len-- && s[i + start])
+	{
+		str[i] = s[i + start];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seunghoh <seunghoh@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 03:03:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 14:30:20 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/04/15 20:07:34 by seunghoh          #+#    #+#             */
+/*   Updated: 2021/05/01 16:17:57 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include <stddef.h>
 
-# include "validate.h"
+void	ft_strncpy(char *dest, const char *src, int size)
+{
+	int	idx;
 
-# include "execute.h"
-
-#endif
+	idx = 0;
+	if (src == NULL || dest == NULL)
+		return ;
+	while (idx < size)
+	{
+		dest[idx] = src[idx];
+		idx++;
+	}
+}

@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 03:03:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 14:30:20 by jungwkim         ###   ########.fr       */
+/*   Created: 2020/12/28 18:03:55 by jungwkim          #+#    #+#             */
+/*   Updated: 2020/12/28 18:32:30 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "validate.h"
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new;
 
-# include "execute.h"
-
-#endif
+	new = (t_list *)malloc(sizeof(t_list));
+	if (new == NULL)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}

@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 03:03:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 14:30:20 by jungwkim         ###   ########.fr       */
+/*   Created: 2020/12/23 00:29:02 by jungwkim          #+#    #+#             */
+/*   Updated: 2020/12/28 12:11:19 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "validate.h"
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	const char		*str;
+	unsigned char	ch;
 
-# include "execute.h"
-
-#endif
+	str = s;
+	ch = c;
+	while (n--)
+	{
+		if (*str == c)
+			return ((void *)str);
+		str++;
+	}
+	return (0);
+}

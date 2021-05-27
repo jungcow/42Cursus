@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 03:03:58 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 14:30:20 by jungwkim         ###   ########.fr       */
+/*   Created: 2020/12/22 20:41:09 by jungwkim          #+#    #+#             */
+/*   Updated: 2020/12/27 18:20:55 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "validate.h"
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+{
+	char			*dest;
+	const char		*source;
 
-# include "execute.h"
-
-#endif
+	dest = (char *)dst;
+	source = (const char *)src;
+	while (n--)
+	{
+		*dest = *source;
+		if ((unsigned char)(*source) == (unsigned char)c)
+			return ((void *)(dest + 1));
+		dest++;
+		source++;
+	}
+	return (0);
+}
