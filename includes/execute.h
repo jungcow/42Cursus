@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:41:09 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 17:02:37 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/28 19:01:22 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int					init_execution(t_execute *execute, int argc, char *argv[]);
 /*
 **	pipeline
 */
-int					create_pipeline(int *fd, int idx);
-int					treat_pipeline(t_execute *execute, int (*fd)[2], int idx);
+int					ft_pipe(int *fd, int index);
+int					treat_pipeline(t_execute *execute, int *new_fd, int *old_fd, int idx);
 
 /*
 **	redirection
