@@ -6,14 +6,14 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 14:01:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 16:10:50 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/28 21:58:26 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "execute.h"
 
-void	close_fds(int	*fds)
+void	close_fds(int *fds)
 {
 	close(fds[0]);
 	close(fds[1]);

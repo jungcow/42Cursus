@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:58:24 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 19:05:54 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/28 21:47:53 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@
 int		ft_pipe(int *fd, int i)
 {
 	char	*index;
+	char	*path;
 
 	index = ft_itoa(i);
-	fd[0] = open(index, O_CREAT | O_RDONLY, 0644);
-	fd[1] = open(index, O_CREAT | O_WRONLY, 0644);
+	path = ft_strjoin("./pipe/", index);
+	free(index);
+	if (path == NULL)
+		exit(1);
+	fd[0] = open(path, O_CREAT | O_RDONLY, 0644);
+	fd[1] = open(path, O_CREAT | O_WRONLY, 0644);
 	if (fd[0] < 0 || fd[1] < 0)
 	{
-		free(index);
+		free(path);
 		return (-1);
 	}
-	free(index);
+	free(path);
 	return (1);
 }
 

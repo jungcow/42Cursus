@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr_idx.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seunghoh <seunghoh@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 02:59:10 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 21:56:55 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/04/28 22:55:41 by seunghoh          #+#    #+#             */
+/*   Updated: 2021/05/11 17:54:09 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int		main(int argc, char *argv[], char *envp[])
+char	*ft_strlchr(const char *s, int c)
 {
-	t_execute	execute;
+	size_t	idx;
 
-	if (!validate(argc, argv))
-		return (1);
-	init_execution(&execute, argc, argv);
-	ft_execute(&execute, envp);
-	clear_execution(&execute);
-	return (0);
+	idx = 0;
+	while (s[idx])
+	{
+		if (s[idx] == (char)c)
+			return ((char *)s + idx);
+		idx++;
+	}
+	return ((char *)s + idx);
 }

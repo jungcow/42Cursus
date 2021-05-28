@@ -5,50 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 03:25:31 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/13 02:24:08 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/05/28 20:45:44 by jungwkim          #+#    #+#             */
+/*   Updated: 2021/05/28 21:41:37 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/stat.h>
-#include <dirent.h>
-#include "execute/execute.h"
+#include <fcntl.h>
+#include <stdlib.h>
+#include "execute.h"
 #include "libft.h"
-
-int		check_path_validation(char *command)
-{
-	struct stat	buf;
-	int			type;
-	int			permission;
-
-	if (stat(command, &buf) < 0)
-		return (NO_SUCH);
-	type = buf.st_mode & 0xF000;
-	permission = buf.st_mode & 0777;
-	if ((permission / 0100) % 2 == 0 ||
-			(permission / 010) % 2 == 0 || (permission / 01) % 2 == 0)
-		return (PERMISSION);
-	if (type == DIRECTORY)
-		return (DIRECTORY);
-	return (1);
-}
 
 int		has_file(char *path, char *filename)
 {
-	DIR				*dir;
-	struct dirent	*entry;
+	char	*tmp;
+	char	*full_path;
+	int		fd;
 
-	dir = opendir(path);
-	if (dir == NULL)
-		return (0);
-	while ((entry = readdir(dir)))
+	tmp = ft_strjoin(path, "/");
+	if (tmp == NULL)
+		exit(1);
+	full_path = ft_strjoin(tmp, filename);
+	if (full_path == NULL)
+		exit(1);
+	fd = open(full_path, O_RDONLY);
+	if (fd < 0)
 	{
-		if (ft_strcmp(entry->d_name, filename) == 0)
-		{
-			closedir(dir);
-			return (1);
-		}
+		free(full_path);
+		return (0);
 	}
-	closedir(dir);
-	return (0);
+	free(full_path);
+	return (1);
+}
+
+int		dup_str(char **env, char *str)
+{
+	free(*env);
+	*env = ft_strdup(str);
+	if (*env == NULL)
+		return (-1);
+	return (1);
 }

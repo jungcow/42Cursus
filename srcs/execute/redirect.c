@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:59:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/27 19:12:14 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/28 21:58:39 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		input_redirection(t_execute *execute)
 int		output_redirection(t_execute *execute)
 {
 	close(WRITE);
-	execute->output_fd = open(execute->output, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	execute->output_fd = open(execute->output,
+							O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (execute->output_fd < 0)
 		return (ft_error_str(PERMISSION_ERR, execute->output));
 	return (1);

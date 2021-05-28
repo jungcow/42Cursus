@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 02:59:10 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 21:56:55 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/05/28 20:37:04 by jungwkim          #+#    #+#             */
+/*   Updated: 2021/05/28 20:37:24 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int		main(int argc, char *argv[], char *envp[])
+char		*ft_strndup(char *str, size_t idx)
 {
-	t_execute	execute;
+	char	*ptr;
+	size_t	i;
 
-	if (!validate(argc, argv))
-		return (1);
-	init_execution(&execute, argc, argv);
-	ft_execute(&execute, envp);
-	clear_execution(&execute);
-	return (0);
+	i = 0;
+	ptr = (char *)malloc(sizeof(char) * (idx + 1));
+	if (str == 0)
+		return (0);
+	while (idx--)
+	{
+		ptr[i] = str[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }

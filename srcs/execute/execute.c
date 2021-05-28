@@ -6,18 +6,18 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:39:09 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 19:08:21 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/28 21:59:33 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include "execute.h"
 #include "libft.h"
 #include "error.h"
 
-#include <stdio.h>
 int		create_execution(t_execute *execute, int argc, char *argv[])
 {
 	int		i;
@@ -57,25 +57,22 @@ int		init_execution(t_execute *execute, int argc, char *argv[])
 	return (1);
 }
 
-int		execute_child(t_execute *execute, int *new_fd, int *old_fd, int idx)
+int		execute_child(t_execute *execute, char *envp[], int (*fd)[2], int idx)
 {
 	char	***command;
 	char	*dir;
-	int		ret;
 
 	command = execute->command;
-	ret = get_path(execute, &dir);
-	if (treat_pipeline(execute, new_fd, old_fd, idx) < 0)
+	if (get_path(execute->command[idx][0], &dir, envp) < 0)
+		exit(1);
+	if (treat_pipeline(execute, fd[NEW], fd[OLD], idx) < 0)
 		exit(1);
 	if (idx == 0)
 		input_redirection(execute);
 	if (idx + 1 == execute->num)
 		output_redirection(execute);
-	if (execve(command[idx][0], command[idx], NULL) < 0)
-	{
-		ft_error_str(COMMAND_ERR, command[idx][0]);
+	if (execve(dir, command[idx], NULL) < 0)
 		exit(1);
-	}
 	if (idx == 0)
 		close(execute->input_fd);
 	else if (idx + 1 == execute->num)
@@ -83,12 +80,12 @@ int		execute_child(t_execute *execute, int *new_fd, int *old_fd, int idx)
 	exit(0);
 }
 
-int		ft_execute(t_execute *execute, char *argv[])
+int		ft_execute(t_execute *execute, char *envp[])
 {
 	pid_t	pid;
 	int		i;
 	int		fd[2][2];
-	(void)argv;
+	int		status;
 
 	i = -1;
 	while (++i < execute->num)
@@ -99,9 +96,12 @@ int		ft_execute(t_execute *execute, char *argv[])
 		if (pid < 0)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
-			execute_child(execute, fd[NEW], fd[OLD], i);
+			execute_child(execute, envp, fd, i);
 		else if (pid > 0 && i > 0)
+		{
+			waitpid(pid, &status, 0);
 			close_fds(fd[OLD]);
+		}
 		fd[OLD][0] = fd[NEW][0];
 		fd[OLD][1] = fd[NEW][1];
 	}
@@ -109,3 +109,13 @@ int		ft_execute(t_execute *execute, char *argv[])
 	return (1);
 }
 
+void	clear_execution(t_execute *execute)
+{
+	int		i;
+
+	free(execute->input);
+	free(execute->output);
+	i = -1;
+	while (execute->command[++i])
+		ft_strsfree(execute->command[i]);
+}

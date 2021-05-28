@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:41:09 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 19:01:22 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/05/28 21:58:09 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,38 @@ typedef struct		s_execute
 	int				num;
 }					t_execute;
 
-int					ft_execute(t_execute *execute, char *argv[]);
+int					ft_execute(t_execute *execute, char *envp[]);
 int					init_execution(t_execute *execute, int argc, char *argv[]);
+void				clear_execution(t_execute *execute);
 
 /*
 **	pipeline
 */
 int					ft_pipe(int *fd, int index);
-int					treat_pipeline(t_execute *execute, int *new_fd, int *old_fd, int idx);
+int					treat_pipeline(t_execute *execute,
+									int *new_fd, int *old_fd, int idx);
 
 /*
 **	redirection
 */
 int					input_redirection(t_execute *execute);
 int					output_redirection(t_execute *execute);
+
+/*
+**	path
+*/
+int					get_path(char *filename, char **dir, char *envp[]);
+
+/*
+**	path_utils
+*/
+int					has_file(char *path, char *filename);
+int					dup_str(char **env, char *str);
+
+/*
+**	environ
+*/
+char				*get_environ(char *env, char *envp[]);
 
 /*
 **	utils

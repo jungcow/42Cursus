@@ -6,7 +6,7 @@
 #    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/27 15:56:39 by jungwkim          #+#    #+#              #
-#    Updated: 2021/05/16 18:47:56 by jungwkim         ###   ########.fr        #
+#    Updated: 2021/05/28 21:10:46 by jungwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS	=	ft_memset.c\
 			ft_strlcat.c\
 			ft_strrchr.c\
 			ft_strchr.c\
+			ft_strlchr.c\
 			ft_strnstr.c\
 			ft_strncmp.c\
 			ft_strcmp.c\
@@ -46,6 +47,7 @@ SRCS	=	ft_memset.c\
 			ft_tolower.c\
 			ft_calloc.c\
 			ft_strdup.c\
+			ft_strndup.c\
 			ft_substr.c\
 			ft_strjoin.c\
 			ft_strtrim.c\
@@ -56,6 +58,7 @@ SRCS	=	ft_memset.c\
 			ft_putendl_fd.c\
 			ft_putnbr_fd.c\
 			ft_split.c\
+			ft_strsfree.c\
 
 BONUS_SRCS	=	ft_lstnew.c\
 				ft_lstadd_front.c\
