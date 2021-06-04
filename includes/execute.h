@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:41:09 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 21:58:09 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/06/03 12:40:49 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define OLD	0
 # define WRITE	1
 # define NEW	1
+
+# include <unistd.h>
 
 typedef struct		s_execute
 {
@@ -38,6 +40,7 @@ void				clear_execution(t_execute *execute);
 int					ft_pipe(int *fd, int index);
 int					treat_pipeline(t_execute *execute,
 									int *new_fd, int *old_fd, int idx);
+void				clear_pipeline(t_execute *execute);
 
 /*
 **	redirection
@@ -64,6 +67,7 @@ char				*get_environ(char *env, char *envp[]);
 /*
 **	utils
 */
+void				wait_process(pid_t *pid, t_execute *execute);
 void				close_fds(int *fds);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:02:05 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/28 21:59:10 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/06/03 12:07:07 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		validate(int argc, char *argv[])
 {
 	int		ret;
 
-	if (argc < 5)
+	if (argc != 5)
 		return (ft_error("Argument number error"));
 	ret = validate_filename(argv[1]);
 	if (ret == 1)

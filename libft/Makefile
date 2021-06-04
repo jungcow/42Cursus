@@ -6,13 +6,13 @@
 #    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/27 15:56:39 by jungwkim          #+#    #+#              #
-#    Updated: 2021/05/28 21:10:46 by jungwkim         ###   ########.fr        #
+#    Updated: 2021/06/04 20:17:50 by jungwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY	:	all clean fclean re bonus
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_memset.c\
 			ft_bzero.c\

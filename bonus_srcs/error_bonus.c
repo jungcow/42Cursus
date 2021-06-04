@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 02:59:10 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/03 12:26:26 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/05/27 03:32:58 by jungwkim          #+#    #+#             */
+/*   Updated: 2021/05/27 14:39:58 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include <unistd.h>
+#include "error.h"
+#include "libft.h"
 
-int		main(int argc, char *argv[], char *envp[])
+int		ft_error(char *str)
 {
-	t_execute	execute;
+	write(2, "Error: ", ft_strlen("Error: "));
+	write(2, str, ft_strlen(str));
+	write(1, "\n", 1);
+	return (0);
+}
 
-	if (!validate(argc, argv))
-		return (1);
-	init_execution(&execute, argc, argv);
-	ft_execute(&execute, envp);
-	clear_execution(&execute);
+int		ft_error_str(char *err_type, char *cause)
+{
+	write(2, cause, ft_strlen(cause));
+	write(2, ": ", 2);
+	write(2, err_type, ft_strlen(err_type));
+	write(1, "\n", 1);
 	return (0);
 }

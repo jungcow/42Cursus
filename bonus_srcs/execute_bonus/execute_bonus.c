@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:39:09 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:25:13 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/06/03 13:05:11 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int		ft_execute(t_execute *execute, char *envp[])
 	while (++i < execute->num)
 	{
 		if (ft_pipe(fd[NEW], i) < 0)
-	//	if (pipe(fd[NEW]) < 0)
 			exit(EXIT_FAILURE);
 		pid[i] = fork();
 		if (pid < 0)

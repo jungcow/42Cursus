@@ -1,15 +1,27 @@
+ifndef	MAKECMDGOALS
+	MAKECMDGOALS = all
+endif
+
 NAME	=	pipex
+BONUS_NAME	=	pipex_bonus
+
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g
-INC		=	-I ./includes -I./libft -I./srcs/get_next_line
+CFLAGS	=	-Wall -Wextra -Werror
+INC		=	-I ./includes -I./libft
 LIB		=	-L./libft -lft
-PIPE_DIR	=	$(HOME)/Documents/42cursus/subject/circle02/pipex/pipe
-FILE_DIR	=	$(HOME)/Documents/42cursus/subject/circle02/pipex/file
-FILE1	=	$(HOME)/Documents/42cursus/subject/circle02/pipex/file/file1
+
+CUR_DER		=	$(PWD)
+PIPE_DIR	=	$(PWD)/.pipe
+FILE_DIR	=	$(PWD)/file
 
 VALIDATE_SRCS	=	$(addprefix ./srcs/validate/, \
 					validate.c \
 					)
+
+BONUS_VALIDATE_SRCS = $(addprefix ./srcs/validate/, \
+					validate_bonus.c \
+					)
+
 
 EXECUTE_SRCS	=	$(addprefix ./srcs/execute/, \
 					execute.c \
@@ -26,31 +38,43 @@ SRCS	=	srcs/main.c \
 			$(VALIDATE_SRCS) \
 			$(EXECUTE_SRCS) \
 
+BONUS_SRCS	=	srcs/main.c \
+				srcs/error.c \
+				$(BONUS_VALIDATE_SRCS) \
+				$(EXECUTE_SRCS) \
+
 OBJS	=	$(SRCS:.c=.o)
+
+BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 %.o		:	%.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 all		:	$(NAME)
 
+bonus	: $(BONUS_OBJS) $(NAME)
+
 $(NAME)	:	$(OBJS)
 	@if [ ! -d $(PIPE_DIR) ]; then \
-		mkdir pipe; \
-	fi
-	@if [ ! -d $(FILE_DIR) ]; then \
-		mkdir file; \
+		mkdir .pipe; \
 	fi
 	make -C ./libft
+ifeq	($(MAKECMDGOALS),all)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
-
-bonus	:	all
+else ifeq	($(MAKECMDGOALS),$(NAME))
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
+else ifeq	($(MAKECMDGOALS),bonus)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIB) -o $(NAME)
+endif
 
 clean	:
 	make -C ./libft clean
-	rm -rf $(OBJS) ./file/file2 ./pipe/*
+	rm -rf $(OBJS) $(BONUS_OBJS) ./.pipe/*
 
 fclean	:	clean
 	make -C ./libft fclean
-	rm -rf $(NAME) ./file ./pipe
+	rm -rf $(NAME) ./.pipe
 
 re		:	fclean all
+
+.PHONY	:	all re clean fclean bonus

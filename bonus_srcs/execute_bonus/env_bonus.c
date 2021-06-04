@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 14:01:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/03 13:05:49 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/05/08 17:31:13 by jungwkim          #+#    #+#             */
+/*   Updated: 2021/05/28 21:36:28 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/wait.h>
 #include <stdlib.h>
-#include "execute.h"
+#include "libft.h"
 
-#include <stdio.h>
-void	wait_process(pid_t *pid, t_execute *execute)
+char	*get_environ(char *env, char *envp[])
 {
-	int		i;
-	int		status;
+	char		*ptr;
+	char		*key;
+	char		*ret;
+	int			i;
 
-	i = 0;
-	while (i < execute->num)
+	i = -1;
+	while (envp[++i])
 	{
-		if (waitpid(pid[i], &status, 0) < 0)
+		ptr = ft_strlchr(envp[i], '=');
+		key = ft_strndup(envp[i], ptr - envp[i]);
+		if (!key)
+			exit(-1);
+		if (ft_strcmp(key, env) == 0)
 		{
-			clear_pipeline(execute);
-			exit(EXIT_FAILURE);
+			if (ptr + 1 == NULL)
+				ret = ft_strdup("");
+			else
+				ret = ft_strdup(ptr + 1);
+			free(key);
+			return (ret);
 		}
-		i++;
+		free(key);
 	}
-	clear_pipeline(execute);
-	free(pid);
-}
-
-void	close_fds(int *fds)
-{
-	close(fds[0]);
-	close(fds[1]);
+	return (NULL);
 }
