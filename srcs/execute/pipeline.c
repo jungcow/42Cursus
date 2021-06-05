@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:58:24 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/03 13:03:28 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/06/06 08:57:44 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "execute.h"
 #include "libft.h"
 
-#include <stdio.h>
 int		ft_pipe(int *fd, int i)
 {
 	char	*index;

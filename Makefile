@@ -3,16 +3,13 @@ ifndef	MAKECMDGOALS
 endif
 
 NAME	=	pipex
-BONUS_NAME	=	pipex_bonus
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 INC		=	-I ./includes -I./libft
 LIB		=	-L./libft -lft
 
-CUR_DER		=	$(PWD)
 PIPE_DIR	=	$(PWD)/.pipe
-FILE_DIR	=	$(PWD)/file
 
 VALIDATE_SRCS	=	$(addprefix ./srcs/validate/, \
 					validate.c \

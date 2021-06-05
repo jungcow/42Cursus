@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 14:01:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/03 13:05:49 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/06/06 08:57:29 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include "execute.h"
 
-#include <stdio.h>
 void	wait_process(pid_t *pid, t_execute *execute)
 {
 	int		i;
