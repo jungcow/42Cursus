@@ -41,7 +41,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: telegraf
-  namespace: monitoring
   labels:
     app: telegraf
 spec:
