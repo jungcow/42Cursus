@@ -6,13 +6,13 @@
 #    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/27 15:56:39 by jungwkim          #+#    #+#              #
-#    Updated: 2021/05/08 16:06:55 by jungwkim         ###   ########.fr        #
+#    Updated: 2021/07/12 17:31:20 by jungwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY	:	all clean fclean re bonus
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_memset.c\
 			ft_bzero.c\
@@ -44,6 +44,7 @@ SRCS	=	ft_memset.c\
 			ft_tolower.c\
 			ft_calloc.c\
 			ft_strdup.c\
+			ft_strndup.c\
 			ft_substr.c\
 			ft_strjoin.c\
 			ft_strtrim.c\

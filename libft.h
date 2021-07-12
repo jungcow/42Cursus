@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 01:39:29 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/05/08 16:06:46 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:30:35 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ size_t				ft_strlcpy(char *dst, char *src, size_t dstsize);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strdup(const char *s1);
+char				*ft_strndup(char *s1, size_t idx);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *haystack,
