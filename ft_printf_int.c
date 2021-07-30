@@ -6,13 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:24 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/27 02:09:29 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/03/20 23:52:06 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		alloc_zero(t_format *formats, int i, int prec, int width)
+static int		alloc_zero(t_format *formats, int i, int prec, int width)
 {
 	char			*str;
 	int				len1;
@@ -39,7 +39,7 @@ int		alloc_zero(t_format *formats, int i, int prec, int width)
 	return (len1 + len2 + flag);
 }
 
-int		get_len(t_format *formats, int i, int prec, int width)
+static int		get_len(t_format *formats, int i, int prec, int width)
 {
 	char			*str;
 	int				len1;
@@ -61,7 +61,7 @@ int		get_len(t_format *formats, int i, int prec, int width)
 	return (len1 + len2 + flag);
 }
 
-int		ft_printf_int(t_format *formats, va_list *ap)
+int				ft_printf_int(t_format *formats, va_list *ap)
 {
 	int				i;
 	int				j;

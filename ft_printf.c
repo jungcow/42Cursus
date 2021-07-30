@@ -6,13 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:21:56 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/28 01:33:15 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/07/30 15:48:20 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		save_info(const char *str, t_format *formats)
+static int		save_info(const char *str, t_format *formats)
 {
 	char	*tmp;
 	int		idx;
@@ -37,7 +37,7 @@ int		save_info(const char *str, t_format *formats)
 	return (0);
 }
 
-int		parse_info(const char *str, t_format **formats, int *count)
+static int		parse_info(const char *str, t_format **formats, int *count)
 {
 	int			idx;
 	int			i;
@@ -64,7 +64,7 @@ int		parse_info(const char *str, t_format **formats, int *count)
 	return (1);
 }
 
-int		ft_printf_all(t_format *formats, int *sum, va_list *ap)
+static int		ft_printf_all(t_format *formats, int *sum, va_list *ap)
 {
 	int		tmp;
 
@@ -93,7 +93,7 @@ int		ft_printf_all(t_format *formats, int *sum, va_list *ap)
 	return (1);
 }
 
-int		ft_printf_loop(const char *str, int *sum,
+static int		ft_printf_loop(const char *str, int *sum,
 		t_format *formats, va_list *ap)
 {
 	int		idx;
@@ -116,7 +116,7 @@ int		ft_printf_loop(const char *str, int *sum,
 	return (1);
 }
 
-int		ft_printf(const char *str, ...)
+int				ft_printf(const char *str, ...)
 {
 	t_format	*formats;
 	va_list		ap;
@@ -144,13 +144,3 @@ int		ft_printf(const char *str, ...)
 	clear_format(&formats, count);
 	return (sum);
 }
-#include <stdio.h>
-int main(void)
-{
-	int i;
-
-	i = 123;
-	printf("%d\n", printf("%05c", i));
-	return (0);
-}
-	

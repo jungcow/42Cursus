@@ -6,19 +6,19 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 01:31:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/27 17:37:41 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/03/21 00:02:05 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	print_blank(int len)
+void		print_blank(int len)
 {
 	while (len--)
 		write(1, " ", 1);
 }
 
-void	alloc_star(t_format *formats, va_list *ap)
+static void	alloc_star(t_format *formats, va_list *ap)
 {
 	if (formats->width_starred == TRUE)
 	{
@@ -38,7 +38,7 @@ void	alloc_star(t_format *formats, va_list *ap)
 	}
 }
 
-void	alloc_va_arg(t_format *formats, va_list *ap, int format, ...)
+void		alloc_va_arg(t_format *formats, va_list *ap, int format, ...)
 {
 	va_list	aq;
 
@@ -57,7 +57,7 @@ void	alloc_va_arg(t_format *formats, va_list *ap, int format, ...)
 	return ;
 }
 
-void	clear_format(t_format **formats, int count)
+void		clear_format(t_format **formats, int count)
 {
 	t_format	*ptr;
 

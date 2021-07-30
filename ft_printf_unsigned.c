@@ -6,13 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:46:57 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/27 02:17:32 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/03/21 00:01:34 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		alloc_u_zero(t_format *formats, unsigned i, int prec, int width)
+static int		alloc_u_zero(t_format *formats, unsigned i, int prec, int width)
 {
 	char			*str;
 	int				len1;
@@ -37,7 +37,7 @@ int		alloc_u_zero(t_format *formats, unsigned i, int prec, int width)
 	return (len1 + len2 + flag);
 }
 
-int		get_u_len(t_format *formats, unsigned i, int prec, int width)
+static int		get_u_len(t_format *formats, unsigned i, int prec, int width)
 {
 	char			*str;
 	int				len1;
@@ -57,7 +57,7 @@ int		get_u_len(t_format *formats, unsigned i, int prec, int width)
 	return (len1 + len2 + flag);
 }
 
-int		ft_printf_unsigned(t_format *formats, va_list *ap)
+int				ft_printf_unsigned(t_format *formats, va_list *ap)
 {
 	unsigned int	i;
 	int				j;

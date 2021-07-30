@@ -6,13 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 00:42:48 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/27 15:53:04 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/03/20 23:50:22 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	count_addr(unsigned long long addr, int *count)
+static void	count_addr(unsigned long long addr, int *count)
 {
 	if (addr >= 16)
 	{
@@ -23,7 +23,7 @@ void	count_addr(unsigned long long addr, int *count)
 		*count += 1;
 }
 
-void	print_addr(t_format *formats, unsigned long long addr, int len)
+static void	print_addr(t_format *formats, unsigned long long addr, int len)
 {
 	char	*hex;
 
@@ -48,7 +48,7 @@ void	print_addr(t_format *formats, unsigned long long addr, int len)
 	}
 }
 
-int		ft_printf_addr(t_format *formats, va_list *ap)
+int			ft_printf_addr(t_format *formats, va_list *ap)
 {
 	void				*ptr;
 	unsigned long long	addr;

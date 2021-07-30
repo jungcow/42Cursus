@@ -6,13 +6,13 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 02:30:52 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/01/27 22:41:19 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/03/20 23:51:44 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	init_flag(t_format *ptr)
+static void	init_flag(t_format *ptr)
 {
 	int		minus;
 	int		zero;
@@ -35,7 +35,7 @@ void	init_flag(t_format *ptr)
 		ptr->flag = FALSE;
 }
 
-void	init_width(t_format *ptr)
+static void	init_width(t_format *ptr)
 {
 	ptr->width = ft_atoi(&ptr->tmp);
 	if (ptr->width < 0)
@@ -50,7 +50,7 @@ void	init_width(t_format *ptr)
 	}
 }
 
-void	init_precision(t_format *ptr)
+static void	init_precision(t_format *ptr)
 {
 	ptr->tmp++;
 	ptr->precision = ft_atoi(&ptr->tmp);
@@ -61,7 +61,7 @@ void	init_precision(t_format *ptr)
 	}
 }
 
-void	init_all(t_format *ptr)
+static void	init_all(t_format *ptr)
 {
 	ptr->flag = FALSE;
 	ptr->width = 0;
@@ -72,7 +72,7 @@ void	init_all(t_format *ptr)
 	ptr->precision_starred = FALSE;
 }
 
-int		init_info(t_format **format)
+int			init_info(t_format **format)
 {
 	t_format	*ptr;
 	char		*tmp;
