@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 17:37:59 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/03 23:45:13 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/03/22 18:49:15 by jungwkim          #+#    #+#             */
+/*   Updated: 2021/08/02 17:34:45 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "validate.h"
-#include "simulate.h"
+#include "utils.h"
 
-int	main(int argc, char *argv[])
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	int	ret;
+	unsigned int	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	if (!validate_arguments(argc, argv))
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	if (!str1 && !str2)
+		return (0);
+	if (!str1 || !str2)
+		return (str1 != NULL ? *str1 : -1 * *str2);
+	i = 0;
+	while (str1[i] && str2[i])
 	{
-		printf("Invalid Arguments");
-		return (1);
+		if (str1[i] != str2[i])
+			break ;
+		i++;
 	}
-	ret = simulate(argc, argv);
-	if (ret > 0)
-		printf("pthread_craete Error\n");
-	else if (ret < 0)
-		printf("Memory Error\n");
-	return (ret);
+	return (str1[i] - str2[i]);
 }

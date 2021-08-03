@@ -6,65 +6,110 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:44:04 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/02 11:52:53 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 02:14:08 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIMULATE_H
 # define SIMULATE_H
 
-# define UNSITEND_INT_MAX 4294967295
-# define TIME_UNIT
-# define THINKING 0
-# define START_EATING 1
-# define START_SLEEPING 2
-# define DIED 4
-# define TIMER_OFF 10
-# define TIMER_ON 11
+# define UNSIGNED_INT_MAX 4294967295
+# define TIME_UNIT 1000
+
+/*
+# define EATING 1
+# define SLEEPING 2
+# define THINKING 2
+# define DYING 4
+*/
+
+# define LIVE 0
+# define DEAD 4
+
+# define DEATH_TIMER_OFF 0
+# define DEATH_TIMER_ON 1
+# define DEATH_TIMER_DONE -1
+
+# define CONFIRMED 10
+
+# define SIMUL_DONE 4
+
+# define CLOCK_NOT_START 0
+# define CLOCK_START 1
+# define CLOCK_TERMINATE 4
 
 # include <pthread.h>
+
+typedef unsigned long long t_uint64;
 
 typedef struct s_info
 {
 	int			philo_num;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	long long	max_eat_num;
+	t_uint64 	time_to_die;
+	t_uint64	time_to_eat;
+	t_uint64	time_to_sleep;
+	t_uint64	max_eat_num;
 }				t_info;
 
 typedef struct s_philo
 {
+	int		index;
 	int		lfork;
 	int		rfork;
 }			t_philo;
 
 typedef struct s_mutex
 {
+	pthread_mutex_t	record;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t simul_index;
+	pthread_mutex_t	*timer_mutex;
+	pthread_mutex_t	*confirm_mutex;
+	pthread_mutex_t	clock_mutex;
+	pthread_mutex_t	philo_mutex;
+	pthread_mutex_t	philo_id_mutex;
+	pthread_mutex_t	monitor_id_mutex;
+	pthread_mutex_t simul_num_mutex;
 }					t_mutex;
 
 typedef struct s_shared
 {
-	int	*status; // philo마다 status한개씩갖는다.
+	int	*timer_status; // philo마다 status한개씩갖는다.
+	int	*confirmed;
+	int	clock_status;
+	int	philo_status;
 	int	simul_num;
 	int elapsed_time;
-	int	is_death;
-}		t_shared
+}		t_shared;
 
 typedef struct s_simul
 {
 	int				index;
+	int				monitor_index;
 	pthread_t		*philo_ids;
-	pthread_t		*timer_ids;
+	pthread_t		*monitor_ids;
+	pthread_t		clock_id;
 	t_info			info; // to eat, sleep, need philo_num
 	t_philo			*philo;
 	t_mutex			mutex;
 	t_shared		shared;
 }					t_simul;
 
-int	simulate(int argc, char **argv);
-int	start_simulation(t_simul *simul);
+int		simulate(int argc, char **argv);
+int		init_simulation(t_simul *simul, int argc, char **argv);
+int		exec_simulation(t_simul *simul);
+void	clear_simulation(t_simul *simul);
+void	*philosopher(void *param);
+void	*monitoring(void *param);
+void	*elapsed_timer(void *param);
+void	ft_sleep(t_uint64 time, t_simul *simul);
+
+t_uint64	get_time(void);
+
+int		check_elapsed_timer(t_simul *simul);
+int		check_timer_keepgoing(t_simul *simul, t_uint64 time, t_uint64 start);
+int		check_death_timer_on(t_simul *simul, t_philo *philo);
+int		check_death_timer_off(t_simul *simul, t_philo *philo);
+int		check_timer_off_confirmed(t_simul *simul, t_philo *philo);
+int		check_monitoring(t_simul *simul, t_philo *philo);
 
 #endif
