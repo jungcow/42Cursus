@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 12:46:42 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 03:06:31 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 18:02:09 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "simulate.h"
-
-t_uint64		get_time(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_usec + (time.tv_sec * 1000000));
-}
-
-void	ft_sleep(t_uint64 time, t_simul *simul)
-{
-	t_uint64	start;
-
-	start = get_time();
-	while (check_timer_keepgoing(simul, time, start))
-		;
-}
 
 void	*elapsed_timer(void *param)
 {
@@ -45,9 +28,7 @@ void	*elapsed_timer(void *param)
 	start = get_time();
 	while (check_elapsed_timer(simul))
 		shared->elapsed_time = (get_time() - start) / TIME_UNIT;
-//	pthread_mutex_lock(&simul->mutex.record);
 	printf("CLOCK 종료\n");
-//	pthread_mutex_unlock(&simul->mutex.record);
 	return ((void *)NULL);
 }
 
@@ -90,16 +71,12 @@ void	*monitoring(void *param)
 		{
 			if (!death_timer(simul->info.time_to_die * TIME_UNIT, simul, &philo))
 			{
+				print_mutex(simul, philo.index, DEAD);
 				pthread_mutex_lock(&simul->mutex.philo_mutex);
 				simul->shared.philo_status = DEAD;
 				pthread_mutex_unlock(&simul->mutex.philo_mutex);
-//				pthread_mutex_lock(&simul->mutex.record);
-				printf("MONITOR: %dms, %d번 철학자- 죽음\n", simul->shared.elapsed_time, philo.index + 1);
-//				pthread_mutex_unlock(&simul->mutex.record);
 				return ((void *)NULL);
 			}
-			else
-				usleep(50);
 		}
 	}
 	printf("%d번 모니터 종료\n", philo.index + 1);

@@ -2,7 +2,7 @@ NAME	=	philo
 INC		=	-I ./includes
 LIBS	=	-lpthread
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
+#CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 
 VALIDATE_SRCS	=	$(addprefix ./srcs/validate/, \
 					validate.c \
@@ -10,6 +10,7 @@ VALIDATE_SRCS	=	$(addprefix ./srcs/validate/, \
 
 SIMULATE_SRCS	=	$(addprefix ./srcs/simulate/, \
 					simulate.c \
+					simulate_utils.c \
 					init_simulation.c \
 					exec_simulation.c \
 					clear_simulation.c \

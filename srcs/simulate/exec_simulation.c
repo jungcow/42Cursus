@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:30:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 03:25:42 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 12:42:35 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include "simulate.h"
+#include "utils.h"
 
 #include <stdio.h>
 int	init_mutex(t_mutex *mutex, int philo_num)
@@ -44,7 +45,7 @@ int	create_thread(t_simul *simul)
 	int	ret;
 	
 	ret = false;
-	ret = ret || pthread_create(&simul->clock_id, NULL, elapsed_timer, (void *)simul);
+//	ret = ret || pthread_create(&simul->clock_id, NULL, elapsed_timer, (void *)simul);
 	i = -1;
 	while (++i < simul->info.philo_num && !ret)
 	{
@@ -58,7 +59,7 @@ int	create_thread(t_simul *simul)
 		simul->shared.philo_status = DEAD;
 		simul->shared.clock_status = CLOCK_TERMINATE;
 	}
-	return (ret);
+	return (ret * 10);
 }
 
 int	join_thread(t_simul *simul)
@@ -72,13 +73,16 @@ int	join_thread(t_simul *simul)
 	while (++i < simul->info.philo_num)
 	{
 		ret = ret || pthread_join(simul->philo_ids[i], (void **)&status);
-//		ret = ret || pthread_detach(simul->philo_ids[i]);
-//		ret = ret || pthread_detach(simul->monitor_ids[i]);
 		ret = ret || pthread_join(simul->monitor_ids[i], (void **)&status);
 	}
 	simul->shared.clock_status = CLOCK_TERMINATE;
-	ret = ret || pthread_join(simul->clock_id, (void **)&status);
-	return (ret);
+//	ret = ret || pthread_join(simul->clock_id, (void **)&status);
+	if (ret)
+	{
+		write(1, "Pthread Join Error\n", ft_strlen("Pthread Join Error\n"));
+		printf("ret: %d\n", ret);
+	}
+	return (ret * 100);
 }
 
 int destroy_mutex(t_mutex *mutex, int philo_num)
@@ -100,7 +104,11 @@ int destroy_mutex(t_mutex *mutex, int philo_num)
 	ret = ret || pthread_mutex_destroy(&mutex->clock_mutex);
 	ret = ret || pthread_mutex_destroy(&mutex->philo_id_mutex);
 	ret = ret || pthread_mutex_destroy(&mutex->monitor_id_mutex);
-	return (ret);
+	if (ret)
+	{
+		write(1, "Mutex Destroy Error\n", ft_strlen("Mutex Destroy Error\n"));
+	}
+	return (ret * 1000);
 }
 
 int	exec_simulation(t_simul *simul)

@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:49:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 03:21:33 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 10:45:07 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_timer_off_confirmed(t_simul *simul, t_philo *philo)
 	if (simul->shared.confirmed[philo->index] == CONFIRMED)
 	{
 		flag = 1;
-		simul->shared.confirmed[philo->index] = 0;
+		simul->shared.confirmed[philo->index] = NOT_CONFIRMED;
 	}
 	pthread_mutex_unlock(&simul->mutex.confirm_mutex[philo->index]);
 	return (flag);

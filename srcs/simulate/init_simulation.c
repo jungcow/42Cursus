@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:00:55 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 02:40:09 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 12:46:10 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,21 @@ int	init_shared_data(t_shared *shared, int philo_num)
 {
 	int	i;
 
-	shared->timer_status = (int *)malloc(sizeof(int ) * philo_num);
-	shared->confirmed = (int *)malloc(sizeof(int ) * philo_num);
+	shared->timer_status = (int *)malloc(sizeof(int) * philo_num);
+	shared->confirmed = (int *)malloc(sizeof(int) * philo_num);
+	shared->start = (t_uint64 *)malloc(sizeof(t_uint64) * philo_num);
 	if (shared->timer_status == NULL || shared->confirmed == NULL)
+//		|| shared->start == NULL)
+	{
+		printf("할당 안됨?\n");
 		return (0);
+	}
 	i = -1;
 	while (++i < philo_num)
 	{
 		shared->timer_status[i] = DEATH_TIMER_OFF;
-		shared->confirmed[i] = 0;
+		shared->confirmed[i] = NOT_CONFIRMED;
+		shared->start[i] = 0;
 	}
 	shared->simul_num = 0;
 	shared->elapsed_time = 0;

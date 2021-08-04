@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 00:38:27 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 03:21:49 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 14:53:54 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_timer_keepgoing(t_simul *simul, t_uint64 time, t_uint64 start)
 
 	flag = 0;
 	pthread_mutex_lock(&simul->mutex.philo_mutex);
-	if ((get_time() - start) <= time
+	if ((get_time() - start) / time == 0
 		&& simul->shared.philo_status == LIVE)
 		flag = 1;
 	pthread_mutex_unlock(&simul->mutex.philo_mutex);
@@ -43,9 +43,11 @@ int	check_timer_keepgoing(t_simul *simul, t_uint64 time, t_uint64 start)
 
 int	check_monitoring(t_simul *simul, t_philo *philo)
 {
-	int	flag;
+	int			flag;
+	t_uint64	tmp;
 
 	flag = 0;
+	tmp = get_time();
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo->index]);
 	pthread_mutex_lock(&simul->mutex.philo_mutex);
 	if (simul->shared.timer_status[philo->index] != DEATH_TIMER_DONE
@@ -53,5 +55,6 @@ int	check_monitoring(t_simul *simul, t_philo *philo)
 		flag = 1;
 	pthread_mutex_unlock(&simul->mutex.philo_mutex);
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo->index]);
+	simul->shared.start[philo->index] += get_time() - tmp;
 	return (flag);
 }
