@@ -6,14 +6,12 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:49:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 10:45:07 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:48:35 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "simulate.h"
 
-#include <stdio.h>
 int	check_timer_off_confirmed(t_simul *simul, t_philo *philo)
 {
 	int	flag;

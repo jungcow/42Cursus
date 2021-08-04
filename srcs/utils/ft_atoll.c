@@ -6,13 +6,13 @@
 /*   By: seunghoh <seunghoh@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 18:47:29 by seunghoh          #+#    #+#             */
-/*   Updated: 2021/08/02 17:34:30 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:39:18 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-long long	get_offset(char *str)
+static long long	get_offset(char *str)
 {
 	long long	offset;
 
@@ -23,6 +23,13 @@ long long	get_offset(char *str)
 		offset = 1;
 	}
 	return (offset);
+}
+
+static long long	return_err(long long sign)
+{
+	if (sign < 0)
+		return (0);
+	return (-1);
 }
 
 long long	ft_atoll(char *str)
@@ -45,7 +52,7 @@ long long	ft_atoll(char *str)
 	while (ft_isdigit(*str) && *str)
 	{
 		if (sum < 0)
-			return ((sign < 0) ? 0 : -1);
+			return (return_err(sign));
 		sum = sum * 10 + *str - '0';
 		str++;
 	}

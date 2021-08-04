@@ -6,18 +6,15 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:30:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 12:42:35 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:47:25 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdbool.h>
-#include <unistd.h>
 #include "simulate.h"
 #include "utils.h"
 
-#include <stdio.h>
-int	init_mutex(t_mutex *mutex, int philo_num)
+static int	init_mutex(t_mutex *mutex, int philo_num)
 {
 	int	i;
 	int	ret;
@@ -39,34 +36,37 @@ int	init_mutex(t_mutex *mutex, int philo_num)
 	return (ret);
 }
 
-int	create_thread(t_simul *simul)
+static int	create_thread(t_simul *simul)
 {
 	int	i;
 	int	ret;
-	
+
 	ret = false;
-//	ret = ret || pthread_create(&simul->clock_id, NULL, elapsed_timer, (void *)simul);
 	i = -1;
 	while (++i < simul->info.philo_num && !ret)
 	{
-		ret = ret || pthread_create(&simul->monitor_ids[i], NULL, monitoring, (void *)simul);
-		ret = ret || pthread_create(&simul->philo_ids[i], NULL, philosopher, (void *)simul);
+		ret = ret || pthread_create(&simul->monitor_ids[i],
+				NULL, monitoring, (void *)simul);
+		ret = ret || pthread_create(&simul->philo_ids[i],
+				NULL, philosopher, (void *)simul);
 	}
 	if (!ret)
 		simul->shared.clock_status = CLOCK_START;
 	else
 	{
+		pthread_mutex_lock(&simul->mutex.philo_mutex);
 		simul->shared.philo_status = DEAD;
+		pthread_mutex_unlock(&simul->mutex.philo_mutex);
 		simul->shared.clock_status = CLOCK_TERMINATE;
 	}
-	return (ret * 10);
+	return (ret * 100);
 }
 
-int	join_thread(t_simul *simul)
+static int	join_thread(t_simul *simul)
 {
 	int	i;
-	int ret;
-	int *status;
+	int	ret;
+	int	*status;
 
 	i = -1;
 	ret = false;
@@ -75,17 +75,10 @@ int	join_thread(t_simul *simul)
 		ret = ret || pthread_join(simul->philo_ids[i], (void **)&status);
 		ret = ret || pthread_join(simul->monitor_ids[i], (void **)&status);
 	}
-	simul->shared.clock_status = CLOCK_TERMINATE;
-//	ret = ret || pthread_join(simul->clock_id, (void **)&status);
-	if (ret)
-	{
-		write(1, "Pthread Join Error\n", ft_strlen("Pthread Join Error\n"));
-		printf("ret: %d\n", ret);
-	}
-	return (ret * 100);
+	return (ret * 10000);
 }
 
-int destroy_mutex(t_mutex *mutex, int philo_num)
+static int	destroy_mutex(t_mutex *mutex, int philo_num)
 {
 	int	i;
 	int	ret;
@@ -104,23 +97,25 @@ int destroy_mutex(t_mutex *mutex, int philo_num)
 	ret = ret || pthread_mutex_destroy(&mutex->clock_mutex);
 	ret = ret || pthread_mutex_destroy(&mutex->philo_id_mutex);
 	ret = ret || pthread_mutex_destroy(&mutex->monitor_id_mutex);
-	if (ret)
-	{
-		write(1, "Mutex Destroy Error\n", ft_strlen("Mutex Destroy Error\n"));
-	}
-	return (ret * 1000);
+	return (ret * 1000000);
 }
 
 int	exec_simulation(t_simul *simul)
 {
 	int	ret;
+	int	flag;
+	int	exit_flag;
 
 	ret = false;
-	printf("exec\n");
-	ret = ret || init_mutex(&simul->mutex, simul->info.philo_num);
-	ret = ret || create_thread(simul);
-	ret = ret || join_thread(simul);
-	ret = ret || destroy_mutex(&simul->mutex, simul->info.philo_num);
-	printf("ret: %d\n", ret);
-	return (ret);
+	flag = 0;
+	exit_flag = 0;
+	ret = ret || (flag = init_mutex(&simul->mutex, simul->info.philo_num));
+	ret = ret || (flag = create_thread(simul));
+	if (flag)
+		exit_flag = flag;
+	ret = (flag = join_thread(simul));
+	if (exit_flag)
+		return (exit_flag);
+	ret = ret || (flag = destroy_mutex(&simul->mutex, simul->info.philo_num));
+	return (flag);
 }

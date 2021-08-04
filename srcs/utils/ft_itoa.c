@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:51:42 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 15:55:10 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:41:21 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	put_num_str(char *str, unsigned int n)
 	*str = n % 10 + '0';
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	unsigned int	k;
 	unsigned int	num;
@@ -46,8 +46,10 @@ char		*ft_itoa(int n)
 	else
 		num = n;
 	count_digits(num, &k);
-	str = n < 0 ? (char *)malloc(sizeof(char) * (k + 2))
-		: (char *)malloc(sizeof(char) * (k + 1));
+	if (n < 0)
+		str = (char *)malloc(sizeof(char) * (k + 2));
+	else
+		str = (char *)malloc(sizeof(char) * (k + 1));
 	if (str == 0)
 		return (0);
 	if (n < 0)

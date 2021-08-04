@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/08/04 23:55:33 by jungwkim          #+#    #+#              #
+#    Updated: 2021/08/04 23:55:37 by jungwkim         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	philo
 INC		=	-I ./includes
 LIBS	=	-lpthread
 CC		=	gcc
-#CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 
 VALIDATE_SRCS	=	$(addprefix ./srcs/validate/, \
 					validate.c \
@@ -30,6 +42,7 @@ UTILS_SRCS		=	$(addprefix ./srcs/utils/, \
 					)
 
 SRCS	=	./srcs/main.c \
+			./srcs/error.c \
 			$(VALIDATE_SRCS) \
 			$(SIMULATE_SRCS) \
 			$(UTILS_SRCS)
