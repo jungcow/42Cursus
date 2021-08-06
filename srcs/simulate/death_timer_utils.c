@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:49:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 23:48:35 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/07 03:52:10 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	check_death_timer_off(t_simul *simul, t_philo *philo)
 
 	flag = 0;
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo->index]);
-	if (simul->shared.timer_status[philo->index] == DEATH_TIMER_DONE
-		|| simul->shared.timer_status[philo->index] == DEATH_TIMER_OFF)
+	if (simul->shared.timer_status[philo->index] == DEATH_TIMER_OFF
+		|| simul->shared.timer_status[philo->index] == DEATH_TIMER_DONE)
 		flag = 1;
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo->index]);
 	return (flag);

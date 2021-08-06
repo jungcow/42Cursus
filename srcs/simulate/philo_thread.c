@@ -6,62 +6,59 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:59:21 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 23:47:49 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/07 04:17:24 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
 #include "simulate.h"
 
-static int	thinking(t_simul *simul, t_philo *philo)
+static void	take_fork(t_simul *simul, t_philo *philo, int mode)
 {
-	int	i;
-	int	philo_idx;
-	int	max_simultaneous;
-	int	simul_index;
-
-	philo_idx = philo->index + 1;
-	if (philo_idx == simul->info.philo_num)
-		philo_idx = 0;
-	max_simultaneous = simul->info.philo_num / 2;
-	simul_index = (simul->shared.simul_num / max_simultaneous) + 1;
-	i = -1;
-	while (++i < max_simultaneous)
-		if (philo_idx == ((simul_index % simul->info.philo_num) + (i * 2))
-			% simul->info.philo_num)
-			return (0);
-	return (1);
+	if (mode == TAKE)
+	{
+		if (philo->index % 2)
+			pthread_mutex_lock(&simul->mutex.forks[philo->lfork]);
+		pthread_mutex_lock(&simul->mutex.forks[philo->rfork]);
+		if (philo->index % 2 == 0)
+			pthread_mutex_lock(&simul->mutex.forks[philo->lfork]);
+	}
+	else if (mode == PUT)
+	{
+		if (philo->index % 2)
+			pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
+		pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
+		if (philo->index % 2 == 0)
+			pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
+	}
 }
 
 static int	eating(t_simul *simul, t_philo *philo)
 {
-	pthread_mutex_lock(&simul->mutex.forks[philo->rfork]);
-	pthread_mutex_lock(&simul->mutex.forks[philo->lfork]);
+	if (philo->lfork == philo->rfork)
+		return (0);
+	take_fork(simul, philo, TAKE);
+	print_mutex(simul, philo->index, FORK);
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo->index]);
 	simul->shared.timer_status[philo->index] = DEATH_TIMER_OFF;
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo->index]);
 	print_mutex(simul, philo->index, EATING);
 	while (simul->shared.philo_status == LIVE
 		&& check_timer_off_confirmed(simul, philo) == NOT_CONFIRMED)
-		;
+		usleep(100);
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo->index]);
 	simul->shared.timer_status[philo->index] = DEATH_TIMER_ON;
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo->index]);
-	ft_sleep(simul->info.time_to_eat * TIME_UNIT, simul);
-	pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
-	pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
-	pthread_mutex_lock(&simul->mutex.simul_num_mutex);
-	simul->shared.simul_num++;
-	pthread_mutex_unlock(&simul->mutex.simul_num_mutex);
-	return (simul->shared.philo_status);
+	ft_sleep(simul->info.time_to_eat, simul);
+	take_fork(simul, philo, PUT);
+	return (0);
 }
 
 static int	sleeping(t_simul *simul, t_philo *philo)
 {
 	print_mutex(simul, philo->index, SLEEPING);
-	ft_sleep(simul->info.time_to_sleep * TIME_UNIT, simul);
-	return (simul->shared.philo_status);
+	ft_sleep(simul->info.time_to_sleep, simul);
+	return (0);
 }
 
 static void	init_philo_thread(t_simul *simul, t_philo *philo)
@@ -73,8 +70,7 @@ static void	init_philo_thread(t_simul *simul, t_philo *philo)
 	pthread_mutex_unlock(&simul->mutex.philo_id_mutex);
 	while (simul->shared.clock_status == CLOCK_NOT_START
 		&& simul->shared.philo_status == LIVE)
-		;
-	simul->shared.start[philo->index] = get_time();
+		usleep(100);
 	simul->shared.timer_status[philo->index] = DEATH_TIMER_ON;
 }
 
@@ -95,8 +91,8 @@ void	*philosopher(void *param)
 				|| sleeping(simul, &philo) == DEAD)
 				return ((void *) NULL);
 		print_mutex(simul, philo.index, THINKING);
-		while (simul->shared.philo_status == LIVE && thinking(simul, &philo))
-			;
+		if (num == 0 && (philo.index + 1) % 2 == 0)
+			ft_sleep(simul->info.time_to_eat / 2, simul);
 		if (simul->shared.philo_status == DEAD || eating(simul, &philo) == DEAD)
 			return ((void *) NULL);
 	}

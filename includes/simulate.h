@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:44:04 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 23:55:03 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/07 03:56:44 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@
 # define THINKING 0
 # define EATING 1
 # define SLEEPING 2
+# define FORK 3
 # define DEAD 4
+
+# define TAKE 0
+# define PUT 1
 
 # define LIVE 0
 # define DEAD 4
@@ -75,7 +79,7 @@ typedef struct s_mutex
 	pthread_mutex_t	philo_mutex;
 	pthread_mutex_t	philo_id_mutex;
 	pthread_mutex_t	monitor_id_mutex;
-	pthread_mutex_t	simul_num_mutex;
+	pthread_mutex_t	elapsed_mutex;
 }					t_mutex;
 
 typedef struct s_shared
@@ -84,9 +88,7 @@ typedef struct s_shared
 	int			*confirmed;
 	int			clock_status;
 	int			philo_status;
-	int			simul_num;
-	int			elapsed_time;
-	t_uint64	*start;
+	t_uint64	elapsed_time;
 }				t_shared;
 
 typedef struct s_simul
@@ -95,6 +97,7 @@ typedef struct s_simul
 	int				monitor_index;
 	pthread_t		*philo_ids;
 	pthread_t		*monitor_ids;
+	pthread_t		clock_id;
 	t_info			info;
 	t_philo			*philo;
 	t_mutex			mutex;
@@ -110,6 +113,7 @@ int			exec_simulation(t_simul *simul);
 void		clear_simulation(t_simul *simul);
 void		*philosopher(void *param);
 void		*monitoring(void *param);
+void		*elapsed_timer(void *param);
 
 /*
 **		utils_for_simulation
@@ -127,6 +131,7 @@ int			check_death_timer_on(t_simul *simul, t_philo *philo);
 int			check_death_timer_off(t_simul *simul, t_philo *philo);
 int			check_timer_off_confirmed(t_simul *simul, t_philo *philo);
 int			check_monitoring(t_simul *simul, t_philo *philo);
+int			check_philo_died(t_simul *simul);
 
 void		print_mutex(t_simul *simul, int philo_idx, int purpose);
 

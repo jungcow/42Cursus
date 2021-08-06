@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:00:55 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 23:46:54 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/07 02:56:05 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,16 @@ static int	init_shared_data(t_shared *shared, int philo_num)
 
 	shared->timer_status = (int *)malloc(sizeof(int) * philo_num);
 	shared->confirmed = (int *)malloc(sizeof(int) * philo_num);
-	shared->start = (t_uint64 *)malloc(sizeof(t_uint64) * philo_num);
-	if (shared->timer_status == NULL || shared->confirmed == NULL
-		|| shared->start == NULL)
+	if (shared->timer_status == NULL || shared->confirmed == NULL)
 		return (0);
 	i = -1;
 	while (++i < philo_num)
 	{
 		shared->timer_status[i] = DEATH_TIMER_OFF;
 		shared->confirmed[i] = NOT_CONFIRMED;
-		shared->start[i] = 0;
 	}
 	shared->philo_status = LIVE;
 	shared->clock_status = CLOCK_NOT_START;
-	shared->simul_num = 0;
 	shared->elapsed_time = 0;
 	return (1);
 }
@@ -85,7 +81,6 @@ static int	init_shared_data(t_shared *shared, int philo_num)
 int	init_simulation(t_simul *simul, int argc, char **argv)
 {
 	int	flag;
-	int	i;
 
 	simul->index = 0;
 	simul->monitor_index = 0;
@@ -96,13 +91,6 @@ int	init_simulation(t_simul *simul, int argc, char **argv)
 	simul->monitor_ids = (pthread_t *)malloc(sizeof(pthread_t)
 			* simul->info.philo_num);
 	flag = flag && simul->philo_ids;
-	i = -1;
-	while (flag && ++i < simul->info.philo_num)
-		simul->philo_ids[i] = NULL;
-	flag = flag && simul->monitor_ids;
-	i = -1;
-	while (++i < simul->info.philo_num)
-		simul->monitor_ids[i] = NULL;
 	flag = flag && init_philosopher(&simul->philo, simul->info.philo_num);
 	flag = flag && init_mutex_var(&simul->mutex, simul->info.philo_num);
 	flag = flag && init_shared_data(&simul->shared, simul->info.philo_num);
