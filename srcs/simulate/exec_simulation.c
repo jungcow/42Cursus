@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:30:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/07 04:19:09 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 01:47:53 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "simulate.h"
 #include "utils.h"
 
+#include <unistd.h>
 static int	init_mutex(t_mutex *mutex, int philo_num)
 {
 	int	i;
@@ -56,7 +57,7 @@ static int	create_thread(t_simul *simul)
 		ret = ret || (flag = pthread_create(&simul->philo_ids[i],
 					NULL, philosopher, (void *)simul));
 	}
-	if (!ret)
+	if (ret == 0)
 		simul->shared.clock_status = CLOCK_START;
 	else
 	{

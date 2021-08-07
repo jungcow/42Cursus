@@ -6,7 +6,7 @@
 #    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 23:55:33 by jungwkim          #+#    #+#              #
-#    Updated: 2021/08/07 04:20:55 by jungwkim         ###   ########.fr        #
+#    Updated: 2021/08/08 01:12:16 by jungwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	philo
 INC		=	-I ./includes
 LIBS	=	-lpthread
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 VALIDATE_SRCS	=	$(addprefix ./srcs/validate/, \
 					validate.c \

@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 23:32:19 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/07 04:09:44 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 01:26:07 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ void	ft_sleep(t_uint64 time, t_simul *simul)
 
 	start = get_time();
 	micro_time = time * TIME_UNIT;
-	while (check_timer_keepgoing(simul, micro_time, start))
-		usleep(100);
+	while ((get_time() - start) / micro_time <= 0)
+		if (simul->shared.philo_status == DEAD)
+			break;
 }
 
 void	print_mutex(t_simul *simul, int philo_idx, int purpose)
 {
 	int		tmp;
 
-	tmp = simul->shared.elapsed_time;
 	pthread_mutex_lock(&simul->mutex.record);
+	tmp = simul->shared.elapsed_time;
 	if (check_philo_died(simul))
 	{
 		pthread_mutex_unlock(&simul->mutex.record);
@@ -69,6 +70,11 @@ void	print_mutex(t_simul *simul, int philo_idx, int purpose)
 	else if (purpose == FORK)
 		printf(GREEN "has taken a Fork.\n" RESET);
 	else
+	{
+		pthread_mutex_lock(&simul->mutex.philo_mutex);
+		simul->shared.philo_status = DEAD;
+		pthread_mutex_unlock(&simul->mutex.philo_mutex);
 		printf(RED "is Died.\n" RESET);
+	}
 	pthread_mutex_unlock(&simul->mutex.record);
 }

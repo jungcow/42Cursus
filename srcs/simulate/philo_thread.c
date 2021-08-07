@@ -6,13 +6,14 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:59:21 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/07 04:17:24 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 01:53:32 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "simulate.h"
 
+#include <stdio.h>
 static void	take_fork(t_simul *simul, t_philo *philo, int mode)
 {
 	if (mode == TAKE)
@@ -26,10 +27,10 @@ static void	take_fork(t_simul *simul, t_philo *philo, int mode)
 	else if (mode == PUT)
 	{
 		if (philo->index % 2)
-			pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
-		pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
+			pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
+		pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
 		if (philo->index % 2 == 0)
-			pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
+			pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
 	}
 }
 
@@ -39,16 +40,18 @@ static int	eating(t_simul *simul, t_philo *philo)
 		return (0);
 	take_fork(simul, philo, TAKE);
 	print_mutex(simul, philo->index, FORK);
+	/*
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo->index]);
 	simul->shared.timer_status[philo->index] = DEATH_TIMER_OFF;
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo->index]);
-	print_mutex(simul, philo->index, EATING);
-	while (simul->shared.philo_status == LIVE
-		&& check_timer_off_confirmed(simul, philo) == NOT_CONFIRMED)
-		usleep(100);
+	while (check_timer_off_confirmed(simul, philo) == NOT_CONFIRMED)
+		if (simul->shared.philo_status == DEAD)
+			break ;
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo->index]);
 	simul->shared.timer_status[philo->index] = DEATH_TIMER_ON;
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo->index]);
+	*/
+	print_mutex(simul, philo->index, EATING);
 	ft_sleep(simul->info.time_to_eat, simul);
 	take_fork(simul, philo, PUT);
 	return (0);
@@ -66,12 +69,12 @@ static void	init_philo_thread(t_simul *simul, t_philo *philo)
 	pthread_mutex_lock(&simul->mutex.philo_id_mutex);
 	*philo = simul->philo[simul->index];
 	philo->index = simul->index;
+	simul->shared.timer_status[philo->index] = DEATH_TIMER_ON;
 	simul->index++;
 	pthread_mutex_unlock(&simul->mutex.philo_id_mutex);
 	while (simul->shared.clock_status == CLOCK_NOT_START
 		&& simul->shared.philo_status == LIVE)
-		usleep(100);
-	simul->shared.timer_status[philo->index] = DEATH_TIMER_ON;
+		;
 }
 
 void	*philosopher(void *param)
@@ -89,15 +92,23 @@ void	*philosopher(void *param)
 		if (num != 0)
 			if (simul->shared.philo_status == DEAD
 				|| sleeping(simul, &philo) == DEAD)
+			{
+				printf("[%d] 철학자 종료\n", philo.index + 1);
 				return ((void *) NULL);
+			}
 		print_mutex(simul, philo.index, THINKING);
 		if (num == 0 && (philo.index + 1) % 2 == 0)
 			ft_sleep(simul->info.time_to_eat / 2, simul);
 		if (simul->shared.philo_status == DEAD || eating(simul, &philo) == DEAD)
+		{
+			printf("[%d] 철학자 종료\n", philo.index + 1);
 			return ((void *) NULL);
+		}
 	}
+	printf("[%d] 철학자 종료\n", philo.index + 1);
 	pthread_mutex_lock(&simul->mutex.timer_mutex[philo.index]);
-	simul->shared.timer_status[philo.index] = DEATH_TIMER_DONE;
+	simul->shared.timer_status[philo.index] = DEATH_TIMER_OFF;
+	simul->shared.philo_status = DEAD;
 	pthread_mutex_unlock(&simul->mutex.timer_mutex[philo.index]);
 	return ((void *) NULL);
 }
