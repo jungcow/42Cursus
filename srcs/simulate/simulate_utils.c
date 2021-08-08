@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 23:32:19 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 01:26:07 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 23:20:38 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,18 @@ int	check_philo_died(t_simul *simul)
 	return (flag);
 }
 
-t_uint64	get_time(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_usec + (time.tv_sec * 1000000));
-}
-
 void	ft_sleep(t_uint64 time, t_simul *simul)
 {
-	t_uint64	start;
-	t_uint64	micro_time;
+	t_uint64	goal;
 
-	start = get_time();
-	micro_time = time * TIME_UNIT;
-	while ((get_time() - start) / micro_time <= 0)
-		if (simul->shared.philo_status == DEAD)
-			break;
+	goal = simul->shared.elapsed_time + time;
+	while (simul->shared.elapsed_time != goal
+		&& simul->shared.philo_status == LIVE)
+		usleep(500);
 }
 
-void	print_mutex(t_simul *simul, int philo_idx, int purpose)
+static void	print_purpose(t_simul *simul, int purpose)
 {
-	int		tmp;
-
-	pthread_mutex_lock(&simul->mutex.record);
-	tmp = simul->shared.elapsed_time;
-	if (check_philo_died(simul))
-	{
-		pthread_mutex_unlock(&simul->mutex.record);
-		return ;
-	}
-	printf(YELLOW "%dms " RESET, tmp);
-	printf(CYAN "NO.%d번" RESET "철학자---- ", philo_idx + 1);
 	if (purpose == THINKING)
 		printf(BLUE "is Thinking.\n" RESET);
 	else if (purpose == EATING)
@@ -76,5 +55,27 @@ void	print_mutex(t_simul *simul, int philo_idx, int purpose)
 		pthread_mutex_unlock(&simul->mutex.philo_mutex);
 		printf(RED "is Died.\n" RESET);
 	}
+}
+
+void	print_mutex(t_simul *simul, int philo_idx, int purpose)
+{
+	t_shared	*shared;
+
+	shared = &simul->shared;
+	pthread_mutex_lock(&simul->mutex.record);
+	if (purpose == EATING)
+	{
+		pthread_mutex_lock(&simul->mutex.start_mutex[philo_idx]);
+		shared->start_time[philo_idx] = shared->elapsed_time;
+		pthread_mutex_unlock(&simul->mutex.start_mutex[philo_idx]);
+	}
+	if (check_philo_died(simul))
+	{
+		pthread_mutex_unlock(&simul->mutex.record);
+		return ;
+	}
+	printf(YELLOW "%lldms " RESET, shared->elapsed_time);
+	printf(CYAN "NO.%d번" RESET "철학자---- ", philo_idx + 1);
+	print_purpose(simul, purpose);
 	pthread_mutex_unlock(&simul->mutex.record);
 }

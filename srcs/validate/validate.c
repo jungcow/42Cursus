@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:37:54 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/02 17:34:03 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 15:11:16 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	check_range(char **argv)
 	{
 		if (ft_strlen(argv[i]) > 19)
 			return (0);
-		if (ft_strcmp("9223372036854775807", argv[i]) < 0)
-			return (0);
+		if (ft_strlen(argv[i]) == 19)
+			if (ft_strcmp("9223372036854775807", argv[i]) < 0)
+				return (0);
 		i++;
 	}
 	return (1);

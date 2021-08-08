@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:44:04 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 01:55:18 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 23:42:53 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,7 @@
 # define LIVE 0
 # define DEAD 4
 
-# define DEATH_TIMER_OFF 0
-# define DEATH_TIMER_ON 1
-# define DEATH_TIMER_DONE -1
-
-# define NOT_CONFIRMED 0
-# define CONFIRMED 10
-
-# define SIMUL_DONE 4
+# define DONE 2
 
 # define CLOCK_NOT_START 0
 # define CLOCK_START 1
@@ -73,22 +66,20 @@ typedef struct s_mutex
 {
 	pthread_mutex_t	record;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*timer_mutex;
-	pthread_mutex_t	*confirm_mutex;
-	pthread_mutex_t	clock_mutex;
+	pthread_mutex_t	*start_mutex;
+	pthread_mutex_t	*simul_mutex;
 	pthread_mutex_t	philo_mutex;
 	pthread_mutex_t	philo_id_mutex;
 	pthread_mutex_t	monitor_id_mutex;
-	pthread_mutex_t	elapsed_mutex;
 }					t_mutex;
 
 typedef struct s_shared
 {
-	int			*timer_status;
-	int			*confirmed;
+	t_uint64	*start_time;
+	t_uint64	elapsed_time;
 	int			clock_status;
 	int			philo_status;
-	t_uint64	elapsed_time;
+	int			*simul_status;
 }				t_shared;
 
 typedef struct s_simul
@@ -119,20 +110,7 @@ void		*elapsed_timer(void *param);
 **		utils_for_simulation
 */
 void		ft_sleep(t_uint64 time, t_simul *simul);
-t_uint64	get_time(void);
-
-/*
-**		utils_for_check_timer
-*/
-int			check_elapsed_timer(t_simul *simul);
-int			check_timer_keepgoing(t_simul *simul,
-				t_uint64 time, t_uint64 start);
-int			check_death_timer_on(t_simul *simul, t_philo *philo);
-int			check_death_timer_off(t_simul *simul, t_philo *philo);
-int			check_timer_off_confirmed(t_simul *simul, t_philo *philo);
-int			check_monitoring(t_simul *simul, t_philo *philo);
 int			check_philo_died(t_simul *simul);
-
 void		print_mutex(t_simul *simul, int philo_idx, int purpose);
 
 #endif

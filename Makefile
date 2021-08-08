@@ -6,7 +6,7 @@
 #    By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 23:55:33 by jungwkim          #+#    #+#              #
-#    Updated: 2021/08/08 01:12:16 by jungwkim         ###   ########.fr        #
+#    Updated: 2021/08/08 23:43:35 by jungwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,6 @@ SIMULATE_SRCS	=	$(addprefix ./srcs/simulate/, \
 					clear_simulation.c \
 					philo_thread.c \
 					timer_thread.c \
-					timer_thread_utils.c \
-					death_timer_utils.c \
 					)
 
 UTILS_SRCS		=	$(addprefix ./srcs/utils/, \

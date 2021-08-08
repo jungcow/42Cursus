@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:30:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 01:47:53 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/08 23:05:11 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "simulate.h"
 #include "utils.h"
 
+#include <stdio.h>
 #include <unistd.h>
 static int	init_mutex(t_mutex *mutex, int philo_num)
 {
@@ -27,14 +28,12 @@ static int	init_mutex(t_mutex *mutex, int philo_num)
 	while (++i < philo_num)
 	{
 		ret = ret || (r = pthread_mutex_init(&mutex->forks[i], NULL));
-		ret = ret || (r = pthread_mutex_init(&mutex->timer_mutex[i], NULL));
-		ret = ret || (r = pthread_mutex_init(&mutex->confirm_mutex[i], NULL));
+		ret = ret || (r = pthread_mutex_init(&mutex->start_mutex[i], NULL));
+		ret = ret || (r = pthread_mutex_init(&mutex->simul_mutex[i], NULL));
 	}
 	ret = ret || (r = pthread_mutex_init(&mutex->philo_mutex, NULL));
-	ret = ret || (r = pthread_mutex_init(&mutex->clock_mutex, NULL));
 	ret = ret || (r = pthread_mutex_init(&mutex->philo_id_mutex, NULL));
 	ret = ret || (r = pthread_mutex_init(&mutex->monitor_id_mutex, NULL));
-	ret = ret || (r = pthread_mutex_init(&mutex->elapsed_mutex, NULL));
 	ret = ret || (r = pthread_mutex_init(&mutex->record, NULL));
 	return (r);
 }
@@ -100,15 +99,13 @@ static int	destroy_mutex(t_mutex *mutex, int philo_num)
 	while (++i < philo_num)
 	{
 		ret = ret || (r = pthread_mutex_destroy(&mutex->forks[i]));
-		ret = ret || (r = pthread_mutex_destroy(&mutex->timer_mutex[i]));
-		ret = ret || (r = pthread_mutex_destroy(&mutex->confirm_mutex[i]));
+		ret = ret || (r = pthread_mutex_destroy(&mutex->start_mutex[i]));
+		ret = ret || (r = pthread_mutex_destroy(&mutex->simul_mutex[i]));
 	}
 	ret = ret || (r = pthread_mutex_destroy(&mutex->record));
 	ret = ret || (r = pthread_mutex_destroy(&mutex->philo_mutex));
-	ret = ret || (r = pthread_mutex_destroy(&mutex->clock_mutex));
 	ret = ret || (r = pthread_mutex_destroy(&mutex->philo_id_mutex));
 	ret = ret || (r = pthread_mutex_destroy(&mutex->monitor_id_mutex));
-	ret = ret || (r = pthread_mutex_destroy(&mutex->elapsed_mutex));
 	return (r * 1000000);
 }
 
