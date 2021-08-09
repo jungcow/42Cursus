@@ -6,12 +6,18 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:20:22 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/04 22:02:35 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:22:55 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
+
+# define ARG_ERR_NUM -2
+# define ARG_ERR					"ERROR: Invalid Arguments"
+# define USAGE "usage: \n./philo [time_to_die] [time_to_sleep] [time_to_eat] "
+# define USAGE2	"([max_eat_number])\n [max_eat_number] is optional.\n"
+# define CAUSE " Warning: All Arguments should not to Negative!\n"
 
 # define MEMORY_ERR					"Error on Memory Allocation."
 

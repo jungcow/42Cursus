@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:44:04 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 23:42:53 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:26:25 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 
 # define UNSIGNED_INT_MAX 4294967295
 # define TIME_UNIT 1000
-
-# define RED		"\x1b[31m"
-# define GREEN		"\x1b[32m"
-# define YELLOW		"\x1b[33m"
-# define BLUE		"\x1b[34m"
-# define MAGENTA	"\x1b[35m"
-# define CYAN		"\x1b[36m"
-# define RESET		"\x1b[0m"
 
 # define THINKING 0
 # define EATING 1

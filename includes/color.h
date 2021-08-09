@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 17:37:59 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/09 15:30:03 by jungwkim         ###   ########.fr       */
+/*   Created: 2021/08/09 15:25:42 by jungwkim          #+#    #+#             */
+/*   Updated: 2021/08/09 15:26:17 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "simulate.h"
-#include "utils.h"
-#include "validate.h"
-#include "error.h"
+#ifndef COLOR_H
+# define COLOR_H
 
-int	main(int argc, char *argv[])
-{
-	int	ret;
+# define RED		"\x1b[31m"
+# define GREEN		"\x1b[32m"
+# define YELLOW		"\x1b[33m"
+# define BLUE		"\x1b[34m"
+# define MAGENTA	"\x1b[35m"
+# define CYAN		"\x1b[36m"
+# define RESET		"\x1b[0m"
 
-	if (!validate_arguments(argc, argv))
-	{
-		show_error(ARG_ERR_NUM);
-		return (1);
-	}
-	ret = simulate(argc, argv);
-	if (ret)
-		show_error(ret);
-	else
-		printf("시뮬레이션이 종료되었습니다.\n");
-	return (ret);
-}
+#endif

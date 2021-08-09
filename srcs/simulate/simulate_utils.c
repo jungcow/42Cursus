@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 23:32:19 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 23:20:38 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:27:03 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "utils.h"
+#include "color.h"
 #include "simulate.h"
 
 int	check_philo_died(t_simul *simul)
