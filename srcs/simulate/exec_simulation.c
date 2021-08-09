@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:30:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 23:05:11 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 16:48:39 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "simulate.h"
 #include "utils.h"
 
-#include <stdio.h>
-#include <unistd.h>
 static int	init_mutex(t_mutex *mutex, int philo_num)
 {
 	int	i;

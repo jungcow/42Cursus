@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:00:55 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/08 22:57:08 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 16:48:08 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "utils.h"
 #include "simulate.h"
 
-#include <stdio.h>
 static void	init_info(t_info *info, int argc, char **argv)
 {
 	info->philo_num = ft_atoi(argv[1]);
