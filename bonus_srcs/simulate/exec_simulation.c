@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:30:37 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/09 23:26:45 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/10 07:26:17 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include "bonus/simulate.h"
 #include "bonus/utils.h"
 
-#include <stdio.h>
 static int	wait_process(t_simul *simul)
 {
 	int	i;
+	int	j;
 	int	status;
 
 	i = 0;
@@ -28,23 +28,27 @@ static int	wait_process(t_simul *simul)
 	{
 		if (waitpid(-1, &status, 0) < 0)
 			return (-1);
-		if ((unsigned int)(status >> 8) == DEAD)
+		if ((unsigned int)(status >> 8) == 1)
 		{
-			kill(-1, SIGKILL);
+			j = simul->info.philo_num;
+			while (j--)
+				kill(simul->pids[j], SIGKILL);
 			return (0);
 		}
+		else if ((unsigned int)(status >> 8) == 255)
+			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-#include <stdlib.h>
 static int	create_process(t_simul *simul)
 {
 	int	i;
 
 	i = 0;
-//	simul->start_time = get_time();
+	simul->start_time = get_time();
+	simul->last_eat_time = simul->start_time;
 	while (i < simul->info.philo_num)
 	{
 		simul->pids[i] = fork();
@@ -66,8 +70,6 @@ int	exec_simulation(t_simul *simul)
 {
 	int	ret;
 
-	printf("100\n");
 	ret = create_process(simul);
-	printf("101\n");
 	return (ret);
 }

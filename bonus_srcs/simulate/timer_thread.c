@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 12:46:42 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/09 23:09:19 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/10 07:34:27 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,26 @@
 
 static int	death_timer(t_uint64 time, t_simul *simul)
 {
-	t_uint64	num;
-
-	num = 0;
-//	while (check_death_timer(simul, philo, time))
-	while ((simul->elapsed_time - simul->start_time) / time <= 0)
+	while ((get_time() - simul->last_eat_time) / time <= 0)
 	{
 		if (simul->simul_status == DONE)
 			return (1);
-		usleep(500);
-		if (++num % 2 == 0)
-			simul->elapsed_time += 1;
+		usleep(200);
 	}
 	return (0);
 }
 
 void	*monitoring(void *param)
 {
-	t_simul *simul;
+	t_simul	*simul;
 
 	simul = (t_simul *)param;
-	while (simul->philo_status == LIVE)
+	while (simul->philo_status == LIVE && simul->simul_status != DONE)
 	{
 		if (!death_timer(simul->info.time_to_die, simul))
 		{
 			print_record(simul, simul->index, DEAD);
-			exit(DEAD);
-//			return ((void *) NULL);
+			exit(1);
 		}
 	}
 	return ((void *) NULL);
