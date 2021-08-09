@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:59:21 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/09 00:15:53 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 21:16:07 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ static void	take_fork(t_simul *simul, t_philo *philo, int mode)
 {
 	if (mode == TAKE)
 	{
-		if (philo->index % 2)
+		if (philo->index % 2 || simul->info.philo_num % 2)
 			pthread_mutex_lock(&simul->mutex.forks[philo->lfork]);
 		pthread_mutex_lock(&simul->mutex.forks[philo->rfork]);
-		if (philo->index % 2 == 0)
+		if (philo->index % 2 == 0 && !(simul->info.philo_num % 2))
 			pthread_mutex_lock(&simul->mutex.forks[philo->lfork]);
 	}
 	else if (mode == PUT)
 	{
-		if (philo->index % 2)
+		if (philo->index % 2 && !(simul->info.philo_num % 2))
 			pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
 		pthread_mutex_unlock(&simul->mutex.forks[philo->rfork]);
-		if (philo->index % 2 == 0)
+		if (philo->index % 2 == 0 || simul->info.philo_num % 2)
 			pthread_mutex_unlock(&simul->mutex.forks[philo->lfork]);
 	}
 }

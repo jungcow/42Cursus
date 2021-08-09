@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 23:32:19 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/08/09 15:27:03 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/08/09 21:29:54 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	ft_sleep(t_uint64 time, t_simul *simul)
 {
 	t_uint64	goal;
 
+	if (time == 0)
+	{
+		usleep(250);
+		return ;
+	}
 	goal = simul->shared.elapsed_time + time;
 	while (simul->shared.elapsed_time != goal
 		&& simul->shared.philo_status == LIVE)
