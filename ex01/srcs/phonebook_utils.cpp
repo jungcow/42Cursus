@@ -4,7 +4,7 @@ using std::cout;
 
 std::string CinWithEOF() {
   std::string input;
-  std::cin >> input;
+  std::getline(std::cin, input);
   if (std::cin.eof())
     exit(0);
   return (input);
