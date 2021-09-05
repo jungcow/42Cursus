@@ -1,5 +1,8 @@
 #include <iostream>
 
+#ifndef __PHONEBOOK_H__
+#define __PHONEBOOK_H__
+
 #include "contact.hpp"
 
 class PhoneBook {
@@ -22,3 +25,5 @@ void DrawTableTop();
 void DrawTableBottom();
 
 std::string CinWithEOF();
+
+#endif

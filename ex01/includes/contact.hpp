@@ -1,5 +1,8 @@
 #include <iostream>
 
+#ifndef __CONTACT_H__
+#define __CONTACT_H__
+
 class Contact {
  private:
   std::string firstname_;
@@ -23,3 +26,5 @@ class Contact {
   void OutputLastName();
   void OutputNicktName();
 };
+
+#endif
