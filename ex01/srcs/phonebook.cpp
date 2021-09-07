@@ -4,6 +4,20 @@
 
 using std::cout;
 
+void PhoneBook::DrawTableRow() {
+  cout << "├──────────┼──────────┼──────────┼──────────┤" << std::endl;
+}
+
+void PhoneBook::DrawTableTop() {
+  cout << "┌──────────┬──────────┬──────────┬──────────┐\n"
+       << "│  INDEX.  │FIRST NAME│LAST NAME.│NICK NAME.│\n"
+       << "├──────────┼──────────┼──────────┼──────────┤\n";
+}
+
+void PhoneBook::DrawTableBottom() {
+  cout << "└──────────┴──────────┴──────────┴──────────┘" << std::endl;
+}
+
 void PhoneBook::OutputPreview() {
   DrawTableTop();
   for (int i = 0; i < num_; i++) {
@@ -35,30 +49,53 @@ void PhoneBook::OutputContact(const int index) {
   cout << "------------------------------------" << std::endl;
 }
 
+bool PhoneBook::TryScanContactNumber(const int num) {
+  if (num > 0)
+    return (true);
+  return (false);
+}
+
+void PhoneBook::CatchNoContactError() {
+  cout << "[🔺 Sorry, No Contact here]" << std::endl;
+}
+
+int PhoneBook::InputSearchingIndex() {
+  int index;
+  cout << "\nEnter a Index: ";
+  std::cin >> index;
+  return (index);
+}
+
+bool PhoneBook::TrySearchingIndex(int index) {
+  if (index > 0 && index <= num_) {
+    OutputContact(index);
+    return (true);
+  }
+  return (false);
+}
+
+void PhoneBook::CatchInputError() {
+  if (std::cin.fail()) {
+    if (std::cin.eof())
+      exit(0);
+    cout << "❌ Hey, Put Integer for Index ❌\n";
+    std::cin.clear();
+    std::cin.ignore(256, '\n');
+  } else
+    cout << "❌ WRONG RANGE ERROR ❌: Check Index" << std::endl;
+}
+
 void PhoneBook::SearchContact() {
-  if (num_ == 0) {
-    cout << "[🔺 Sorry, No Contact here]" << std::endl;
-    return;
-  }
-  OutputPreview();
-  while (1) {
-    int index;
-    cout << "\nEnter a Index: ";
-    std::cin >> index;
-    if (std::cin.fail()) {
-      if (std::cin.eof())
-        exit(0);
-      cout << "❌ Hey, Put Integer for Index ❌\n";
-      std::cin.clear();
-      std::cin.ignore(256, '\n');
-      continue;
+  if (TryScanContactNumber(num_)) {
+    OutputPreview();
+    while (true) {
+      if (!TrySearchingIndex(InputSearchingIndex()))
+        CatchInputError();
+      else
+        break;
     }
-    if (index > 0 && index <= num_) {
-      OutputContact(index);
-      break;
-    } else
-      cout << "❌ WRONG RANGE ERROR ❌: Check Index" << std::endl;
-  }
+  } else
+    CatchNoContactError();
 }
 
 void PhoneBook::AddContact() {

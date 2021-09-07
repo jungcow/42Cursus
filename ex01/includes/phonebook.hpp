@@ -11,6 +11,14 @@ class PhoneBook {
   Contact Contact_[8];
   void OutputPreview();
   void OutputContact(const int index);
+  bool TryScanContactNumber(const int num);
+  void CatchNoContactError();
+  int InputSearchingIndex();
+  bool TrySearchingIndex(const int index);
+  void CatchInputError();
+  static void DrawTableRow();
+  static void DrawTableTop();
+  static void DrawTableBottom();
 
  public:
   PhoneBook() : Contact_() {
@@ -18,11 +26,8 @@ class PhoneBook {
   }
   void AddContact();
   void SearchContact();
+  int CheckCommand(std::string input);
 };
-
-void DrawTableRow();
-void DrawTableTop();
-void DrawTableBottom();
 
 std::string CinWithEOF();
 
