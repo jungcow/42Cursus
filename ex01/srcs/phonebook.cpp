@@ -81,8 +81,9 @@ void PhoneBook::CatchInputError() {
     cout << "❌ Hey, Put Integer for Index ❌\n";
     std::cin.clear();
     std::cin.ignore(256, '\n');
-  } else
+  } else {
     cout << "❌ WRONG RANGE ERROR ❌: Check Index" << std::endl;
+  }
 }
 
 void PhoneBook::SearchContact() {
