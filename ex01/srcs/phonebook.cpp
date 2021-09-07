@@ -49,7 +49,7 @@ void PhoneBook::OutputContact(const int index) {
   cout << "------------------------------------" << std::endl;
 }
 
-bool PhoneBook::TryScanContactNumber(const int num) {
+bool PhoneBook::TrySearchContact(const int num) {
   if (num > 0)
     return (true);
   return (false);
@@ -86,7 +86,7 @@ void PhoneBook::CatchInputError() {
 }
 
 void PhoneBook::SearchContact() {
-  if (TryScanContactNumber(num_)) {
+  if (TrySearchContact(num_)) {
     OutputPreview();
     while (true) {
       if (!TrySearchingIndex(InputSearchingIndex()))

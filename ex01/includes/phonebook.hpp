@@ -11,7 +11,7 @@ class PhoneBook {
   Contact Contact_[8];
   void OutputPreview();
   void OutputContact(const int index);
-  bool TryScanContactNumber(const int num);
+  bool TrySearchContact(const int num);
   void CatchNoContactError();
   int InputSearchingIndex();
   bool TrySearchingIndex(const int index);
