@@ -21,9 +21,7 @@ class PhoneBook {
   static void DrawTableBottom();
 
  public:
-  PhoneBook() : Contact_() {
-    num_ = 0;
-  }
+  PhoneBook() :num_(0), Contact_() {}
   void AddContact();
   void SearchContact();
   int CheckCommand(std::string input);
