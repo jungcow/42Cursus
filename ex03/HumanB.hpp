@@ -6,7 +6,6 @@
 class HumanB {
  private:
   Weapon *_pWeapon;
-  bool _isWeapon;
   std::string _name;
 
  public:
@@ -17,9 +16,7 @@ class HumanB {
   const std::string &getName() const;
   void setName(const std::string name);
 
-  void createWeapon();
-  void createWeapon(const std::string type);
-  void deleteWeapon();
+  void setWeapon(Weapon &weapon);
 
   void attack();
 };

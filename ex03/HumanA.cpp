@@ -18,7 +18,8 @@ void HumanA::setName(const std::string name) {
 void HumanA::attack() {
   std::cout << "<"
             << _name
-            << "> attacks with his "
+            << "> attacks with his \""
             << _weapon.getType()
+            << "\""
             << std::endl;
 }

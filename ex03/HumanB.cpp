@@ -1,19 +1,17 @@
 #include "HumanB.hpp"
 
+#include <stdio.h>
+
 HumanB::HumanB() {
-  _pWeapon = new Weapon();
-  _isWeapon = false;
+  _pWeapon = NULL;
   _name = "Anonymous";
 }
 
 HumanB::HumanB(std::string name) {
-  _isWeapon = false;
   _name = name;
 }
 
 HumanB::~HumanB() {
-  if (_isWeapon)
-    delete _pWeapon;
   std::cout << "<"
             << _name
             << "> Destructed"
@@ -28,47 +26,16 @@ void HumanB::setName(const std::string name) {
   _name = name;
 }
 
-void HumanB::createWeapon() {
-  if (_isWeapon)
-    delete _pWeapon;
-  _pWeapon = new Weapon();
-  _isWeapon = true;
+void HumanB::setWeapon(Weapon &weapon) {
+  _pWeapon = &weapon;
   std::cout << "<"
             << _name
             << "> Created Weapon!"
-            << std::endl;
-}
-
-void HumanB::createWeapon(const std::string type) {
-  if (_isWeapon)
-    delete _pWeapon;
-  _pWeapon = new Weapon(type);
-  _isWeapon = true;
-  std::cout << "<"
-            << _name
-            << "> Created Weapon!"
-            << std::endl;
-}
-
-void HumanB::deleteWeapon() {
-  if (!_isWeapon) {
-    std::cout << "<"
-              << _name
-              << "> No Weapon Yet..."
-              << std::endl;
-    return;
-  }
-  if (_isWeapon)
-    delete _pWeapon;
-  _isWeapon = false;
-  std::cout << "<"
-            << _name
-            << "> Lost Weapon!"
             << std::endl;
 }
 
 void HumanB::attack() {
-  if (!_isWeapon) {
+  if (!_pWeapon) {
     std::cout << "<"
               << _name
               << "> No Weapon... So, No Attack"
@@ -76,8 +43,9 @@ void HumanB::attack() {
   } else {
     std::cout << "<"
               << _name
-              << "> attacks with his "
+              << "> attacks with his \""
               << _pWeapon->getType()
+              << "\""
               << std::endl;
   }
 }
