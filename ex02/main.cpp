@@ -35,5 +35,8 @@ int main(void) {
   std::cout << a << std::endl;
   std::cout << a-- << std::endl;
   std::cout << a << std::endl;
+
+  std::cout << a + b << "\n"
+            << (a + b < 11) << std::endl;
   return 0;
 }
