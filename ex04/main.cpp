@@ -20,9 +20,11 @@ int main(int argc, char *argv[]) {
   if (!validateArgument(argc, argv))
     return (0);
 
+/*
+** Open Files
+*/
   std::string filename = argv[1];
   std::string filename_replace = filename + ".replace";
-
   std::fstream fs;
   std::fstream fs_replace;
   fs.open(filename, std::istream::in);
@@ -37,6 +39,9 @@ int main(int argc, char *argv[]) {
     return (0);
   }
 
+/*
+** Find And Replace
+*/
   std::string line;
   std::string find_to = argv[2];
   std::string replace_to = argv[3];
