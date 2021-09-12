@@ -24,6 +24,6 @@ clean		:
 fclean		:	clean
 			rm -rf $(NAME)
 
-re			:	fclean re
+re			:	fclean all
 
--include $(DEPS))
+-include $(DEPS)
