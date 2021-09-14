@@ -10,11 +10,12 @@ Karen::Karen() {
   _pf[2] = &Karen::warning;
   _pf[3] = &Karen::error;
 }
+
 Karen::~Karen() {}
 
 int Karen::find(const std::string level) {
   for (int i = 0; level.length() && (i < 4); i++) {
-    if (_level[i].find(level) != std::string::npos)
+	if (_level[i] == level)
       return (i);
   }
   throw -1;
