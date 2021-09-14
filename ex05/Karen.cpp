@@ -12,7 +12,7 @@ Karen::Karen() {
 }
 Karen::~Karen() {}
 
-int Karen::find(const std::string level) {
+int Karen::find(const std::string level) const{
   for (int i = 0; level.length() && (i < 4); i++) {
     if (_level[i].find(level) != std::string::npos)
       return (i);

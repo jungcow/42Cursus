@@ -7,18 +7,18 @@ class Karen;
 typedef void (Karen::*funcptr)(void);
 
 class Karen {
- private:
+private:
   void debug(void);
   void info(void);
   void warning(void);
   void error(void);
 
-  int find(std::string level);
+  int find(std::string level) const;
 
   std::string _level[4];
-  funcptr _pf[4];
+  funcptr     _pf[4];
 
- public:
+public:
   Karen();
   ~Karen();
   void complain(std::string level);
