@@ -9,7 +9,7 @@ public:
   FragTrap(const std::string name);
   FragTrap(const FragTrap &other);
   FragTrap &operator=(const FragTrap &other);
-  ~FragTrap();
+  virtual ~FragTrap();
 
   virtual void attack(std::string const &target);
   virtual void takeDamage(unsigned int amount);

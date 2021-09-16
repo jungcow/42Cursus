@@ -13,7 +13,7 @@ public:
   DiamondTrap(std::string name);
   DiamondTrap(const DiamondTrap &other);
   DiamondTrap &operator=(const DiamondTrap &other);
-  ~DiamondTrap();
+  virtual ~DiamondTrap();
 
   // using ScavTrap::attack;
   virtual void attack(std::string const &target) { ScavTrap::attack(target); }

@@ -16,7 +16,9 @@ public:
   }
   ScavTrap &operator=(const ScavTrap &other);
 
-  ~ScavTrap() { std::cout << "**ScavTrap** Destructor called" << std::endl; }
+  virtual ~ScavTrap() {
+    std::cout << "**ScavTrap** Destructor called" << std::endl;
+  }
 
   virtual void attack(std::string const &target);
   virtual void takeDamage(unsigned int amount);
