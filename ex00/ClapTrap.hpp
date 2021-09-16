@@ -11,9 +11,6 @@ class ClapTrap {
   unsigned int _attackDamage;
 
  public:
-  /*
-  ** string 클래스는 멤버 이니셜라이저 리스트로 초기화가 안된다..!
-  */
   ClapTrap();
   ClapTrap(const std::string& name);
   ClapTrap(const ClapTrap& other);
