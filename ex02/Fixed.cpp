@@ -7,7 +7,7 @@ const int Fixed::_fractionalBits = 8;
 /*
 ** min, max 함수
 */
-const Fixed &Fixed::min(Fixed &a, Fixed &b) {
+Fixed &Fixed::min(Fixed &a, Fixed &b) {
   return (a > b ? b : a);
 }
 
@@ -15,7 +15,7 @@ const Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
   return (a > b ? b : a);
 }
 
-const Fixed &Fixed::max(Fixed &a, Fixed &b) {
+Fixed &Fixed::max(Fixed &a, Fixed &b) {
   return (a > b ? a : b);
 }
 

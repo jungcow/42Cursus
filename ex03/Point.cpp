@@ -18,14 +18,6 @@ const Point Point::operator-(const Point &other) const {
   return Point(x - other.x, y - other.y);
 }
 
-// const Point Point::operator*(const Point &other) const {
-//   return Point(x * other.x, y * other.y);
-// }
-
-// const Point Point::operator/(const Point &other) const {
-//   return Point(x / other.x, y / other.y);
-// }
-
 const Fixed Point::dotVector(const Point &a, const Point &b) {
   return (Fixed((a.x * b.x) + (a.y * b.y)));
 }

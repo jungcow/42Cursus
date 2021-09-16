@@ -17,7 +17,7 @@ class Fixed {
 
   Fixed& operator=(const Fixed& other);
 
-/*
+  /*
 ** 정수와 Fixed 객체의 사칙연산을 만들지 않은 이유:
 ** 정수를 더할 때, raw에 더할지, 아니면 원래 수에 더할지 애매모호하기 때문이다.
 ** 프로그래밍에서 애매모호함은 곧 해선 안되는 것
@@ -40,9 +40,9 @@ class Fixed {
   Fixed& operator--(void);
   const Fixed operator--(int);
 
-  static const Fixed& min(Fixed& a, Fixed& b);
+  static Fixed& min(Fixed& a, Fixed& b);
   static const Fixed& min(const Fixed& a, const Fixed& b);
-  static const Fixed& max(Fixed& a, Fixed& b);
+  static Fixed& max(Fixed& a, Fixed& b);
   static const Fixed& max(const Fixed& a, const Fixed& b);
 
   float toFloat(void) const;
