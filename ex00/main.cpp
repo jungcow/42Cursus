@@ -4,7 +4,7 @@ int main(void) {
   ClapTrap a("aaaa");
   ClapTrap b;
 
-	a.attack("bbbb");
+	a.attack(b.getName());
 
 	b.takeDamage(a.getAD());
 	b.beRepaired(5);

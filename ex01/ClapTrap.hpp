@@ -22,11 +22,11 @@ public:
   ClapTrap &operator=(const ClapTrap &other);
   virtual ~ClapTrap();
 
-  virtual void attack(std::string const &target);
+  virtual void attack(std::string const &target) const;
   virtual void takeDamage(unsigned int amount);
   virtual void beRepaired(unsigned int amount);
 
-  const std::string &getName(void) const;
+  std::string const &getName(void) const;
   int                getHP(void) const;
   int                getMP(void) const;
   int                getAD(void) const;

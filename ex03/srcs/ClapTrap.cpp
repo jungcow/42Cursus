@@ -35,7 +35,7 @@ ClapTrap::~ClapTrap() {
             << "> **ClapTrap** Destructor called\n" << std::endl;
 }
 
-const std::string& ClapTrap::getName(void) const {
+std::string const & ClapTrap::getName(void) const {
   return _name;
 }
 int ClapTrap::getHP(void) const {
@@ -60,7 +60,7 @@ void ClapTrap::setAD(int ad) {
   _attackDamage = ad;
 }
 
-void ClapTrap::attack(std::string const& target) {
+void ClapTrap::attack(std::string const& target) const {
   std::cout << "\n[ Attack ] ClapTrap " << _name << " attacks " << target << ", causing "
             << _attackDamage << " points of damage!" << std::endl;
 }

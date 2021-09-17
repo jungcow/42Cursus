@@ -40,7 +40,7 @@ std::ostream& operator<<(std::ostream& c, const ClapTrap& clap) {
   return c;
 }
 
-const std::string& ClapTrap::getName(void) const {
+std::string const & ClapTrap::getName(void) const {
   return _name;
 }
 
@@ -67,7 +67,7 @@ void ClapTrap::setAD(int ad) {
   _attackDamage = ad;
 }
 
-void ClapTrap::attack(std::string const& target) {
+void ClapTrap::attack(std::string const& target) const {
   std::cout << "\n[ Attack ] ClapTrap " << _name << " attacks " << target << ", causing "
             << _attackDamage << " points of damage!" << std::endl;
 }

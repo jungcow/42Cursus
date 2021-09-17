@@ -8,7 +8,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &other) {
   return *this;
 }
 
-void ScavTrap::attack(std::string const &target) {
+void ScavTrap::attack(std::string const &target) const {
   std::cout << "\n[ Attack ] ScavTrap " << getName() << " attacks " << target
             << ", causing " << _attackDamage << " points of damage!"
             << std::endl;

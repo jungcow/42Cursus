@@ -17,11 +17,11 @@ class ClapTrap {
   ClapTrap& operator=(const ClapTrap& other);
   ~ClapTrap();
 
-  void attack(std::string const& target);
+  void attack(std::string const& target) const;
   void takeDamage(unsigned int amount);
   void beRepaired(unsigned int amount);
 
-  const std::string& getName(void) const;
+  std::string const & getName(void) const;
   int getHP(void) const;
   int getMP(void) const;
   int getAD(void) const;

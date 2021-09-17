@@ -49,7 +49,7 @@ void DiamondTrap::beRepaired(unsigned int amount) {
             << std::endl;
 }
 
-const std::string &DiamondTrap::getName(void) const { return _name; }
+std::string const &DiamondTrap::getName(void) const { return _name; }
 
 void DiamondTrap::whoAmI(void) {
   std::cout << "My name: <" << _name << ">, ClapTrap name: <"

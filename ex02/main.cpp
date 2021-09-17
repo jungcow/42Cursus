@@ -11,13 +11,13 @@ int main(void) {
 
   cc.attack(aa.getName());
   aa.takeDamage(cc.getAD());
-  cc.attack("bb");
+  cc.attack(bb.getName());
   bb.takeDamage(cc.getAD());
   bb.beRepaired(3);
 
   ff.attack(dd.getName());
   dd.takeDamage(ff.getAD());
-  ff.attack("ee");
+  ff.attack(ee.getName());
   ee.takeDamage(ff.getAD());
   ee.beRepaired(3);
 

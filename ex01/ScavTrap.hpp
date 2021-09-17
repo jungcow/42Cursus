@@ -20,7 +20,7 @@ public:
     std::cout << "**ScavTrap** Destructor called" << std::endl;
   }
 
-  virtual void attack(std::string const &target);
+  virtual void attack(std::string const &target) const;
   virtual void takeDamage(unsigned int amount);
   virtual void beRepaired(unsigned int amount);
 

@@ -16,11 +16,11 @@ public:
   virtual ~DiamondTrap();
 
   // using ScavTrap::attack;
-  virtual void attack(std::string const &target) { ScavTrap::attack(target); }
+  virtual void attack(std::string const &target) const { ScavTrap::attack(target); }
   virtual void takeDamage(unsigned int amount);
   virtual void beRepaired(unsigned int amount);
 
-  const std::string &getName(void) const;
+  std::string const &getName(void) const;
 
   void whoAmI(void);
 };

@@ -5,9 +5,9 @@ int main(void) {
   ScavTrap bb("bbcc");
   ScavTrap cc = bb;
 
-  cc.attack("bb");
+  cc.attack(bb.getName());
   aa.takeDamage(cc.getAD());
-  cc.attack("bb");
+  cc.attack(bb.getName());
   bb.takeDamage(cc.getAD());
   bb.beRepaired(3);
 
