@@ -2,4 +2,4 @@
 *.d
 *.swp
 *.pdf
-vscode/
+.vscode/
