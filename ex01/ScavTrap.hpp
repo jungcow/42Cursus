@@ -5,20 +5,11 @@
 
 class ScavTrap : public ClapTrap {
 public:
-  ScavTrap() : ClapTrap() {
-    std::cout << "**ScavTrap** Default Constructor called" << std::endl;
-  }
-  ScavTrap(const std::string name) : ClapTrap(name) {
-    std::cout << "**ScavTrap** Using name Constructor called" << std::endl;
-  }
-  ScavTrap(const ScavTrap &other) : ClapTrap(other) {
-    std::cout << "**ScavTrap** Copy Constructor called" << std::endl;
-  }
+  ScavTrap();
+  ScavTrap(const std::string &name);
+  ScavTrap(const ScavTrap &other);
   ScavTrap &operator=(const ScavTrap &other);
-
-  virtual ~ScavTrap() {
-    std::cout << "**ScavTrap** Destructor called" << std::endl;
-  }
+  virtual ~ScavTrap();
 
   virtual void attack(std::string const &target) const;
   virtual void takeDamage(unsigned int amount);
