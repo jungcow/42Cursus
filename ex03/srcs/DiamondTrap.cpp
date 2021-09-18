@@ -6,7 +6,7 @@ DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap() {
   _energyPoints = 50;
 }
 
-DiamondTrap::DiamondTrap(const std::string name)
+DiamondTrap::DiamondTrap(const std::string &name)
     : ClapTrap(name), ScavTrap(name), FragTrap(name) {
   std::cout << "**DiamondTrap** Using name Constructor called\n" << std::endl;
   _name = name;
