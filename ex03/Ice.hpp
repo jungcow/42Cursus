@@ -5,8 +5,10 @@
 
 class Ice : public AMateria {
 public:
-	Ice();
+  Ice();
   Ice(std::string const &type);
+  Ice(const Ice &other) : AMateria(other) {}
+  Ice &operator=(const Ice &other);
   ~Ice() {}
 
   virtual Ice *clone() const;

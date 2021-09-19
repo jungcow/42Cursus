@@ -1,7 +1,7 @@
 .PHONY		:	all re clean fclean
 NAME		=	interface
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 SRCS		=	main.cpp \
 				AMateria.cpp \
@@ -20,7 +20,7 @@ $(NAME)		:	$(OBJS)
 			$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o			:	%.cpp
-			$(CXX) $(CXXFLALGS) -c $< -o $@ -MD
+			$(CXX) $(CXXFLAGS) -c $< -o $@ -MD
 
 clean		:
 			rm -rf $(OBJS) $(DEPS)

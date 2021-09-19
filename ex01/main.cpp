@@ -57,6 +57,19 @@ int main(void) {
     dog1.outputBrain();
     dog2.outputBrain();
     dog3.outputBrain();
+
+    std::cout << "\n-----------( Dog Copy Constructor Test )-----------"
+              << std::endl;
+    Dog dog4 = dog3;
+    dog3.outputBrain();
+    dog4.outputBrain();
+    std::cout << "\n-----------( Dog Double Free Test )--------------"
+              << std::endl;
+    Dog *dog5 = new Dog();
+    Dog *dog6 = new Dog();
+    *dog5 = *dog6;
+    delete dog5;
+    delete dog6;
   }
   {
     std::cout << "\n-----------( cat Assignment operator Test )---------"

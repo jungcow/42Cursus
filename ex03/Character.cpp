@@ -31,7 +31,7 @@ Character &Character::operator=(const Character &other) {
     }
   }
   _equipNum = other._equipNum;
-  _createdNum = other._createdNum;
+  _createdNum = other._equipNum;
   return *this;
 }
 
@@ -78,7 +78,7 @@ void Character::equip(AMateria *m) {
     clearCreated();
     initializeCreated();
     _createdNum = _equipNum;
-    for (int i = 0; i < _equipNum; i++) {
+    for (unsigned int i = 0; i < _equipNum; i++) {
       _created[i] = _inventory[i];
     }
   }

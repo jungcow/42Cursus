@@ -49,7 +49,7 @@ void MateriaSource::learnMateria(AMateria *m) {
 }
 
 AMateria *MateriaSource::createMateria(std::string const &type) {
-  for (int i = 0; i < _materiaStorageNum; i++) {
+  for (unsigned int i = 0; i < _materiaStorageNum; i++) {
     if (_materiaStorage[i] && type == _materiaStorage[i]->getType()) {
       return _materiaStorage[i]->clone();
     }

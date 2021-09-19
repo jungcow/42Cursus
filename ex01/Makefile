@@ -19,7 +19,7 @@ $(NAME)		:	$(OBJS)
 			$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o			:	%.cpp
-			$(CXX) $(CXXFLALGS) -c $< -o $@ -MD
+			$(CXX) $(CXXFLAGS) -c $< -o $@ -MD
 
 clean		:
 			rm -rf $(OBJS) $(DEPS)

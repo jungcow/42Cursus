@@ -2,6 +2,7 @@
 #include "Cure.hpp"
 #include "Ice.hpp"
 #include "MateriaSource.hpp"
+#include <stdlib.h>
 
 int main() {
   IMateriaSource *src = new MateriaSource();
@@ -72,5 +73,6 @@ int main() {
   delete me;
   delete src;
 
+  system("leaks interface");
   return 0;
 }
