@@ -3,8 +3,6 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-// typedef Form *(Intern::*FUNCPTR)(std::string const &);
-
 const std::string Intern::_formArray[3] = {
     "shrubbery creation", "robotomy request", "presidential pardon"};
 
@@ -31,7 +29,8 @@ Form *Intern::createPresidentialForm(std::string const &target) {
   return new PresidentialPardonForm(target);
 }
 
-Intern::InternException::InternException() : _message("There's No Type") {}
+Intern::InternException::InternException()
+    : _message("[ Error ] There's No Type") {}
 Intern::InternException::InternException(std::string const &message)
     : _message(message) {}
 Intern::InternException::~InternException() throw() {}
@@ -53,7 +52,7 @@ Form *Intern::makeForm(std::string const &formType, std::string const &target) {
   try {
     for (int i = 0; i < 3; i++) {
       if (_formArray[i] == tmp) {
-        std::cout << "Intern creates <" + _formArray[i] + ">\n";
+        std::cout << "[ Success ] Intern creates <" + _formArray[i] + ">\n";
         return (this->*_fptrArray[i])(target);
       }
     }
