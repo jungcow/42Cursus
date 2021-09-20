@@ -39,7 +39,6 @@ int main(void) {
 
     albert.increaseGrade();
     try {
-      // paper.besigned(albert);
       albert.signForm(paper);
     } catch (const std::exception &e) {
       std::cout << e.what() << '\n';

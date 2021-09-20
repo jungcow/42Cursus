@@ -3,8 +3,6 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-// typedef Form *(Intern::*FUNCPTR)(std::string const &);
-
 const std::string Intern::_formArray[3] = {
     "shrubbery creation", "robotomy request", "presidential pardon"};
 
