@@ -20,6 +20,7 @@ int main(void) {
     au.executeForm(*forms[i]);
     cr.executeForm(*forms[i]);
     at.executeForm(*forms[i]);
+	std::cout << '\n';
   }
 
   std::cout << "\n[ Can you Sign Test ]\n\n";
@@ -29,6 +30,7 @@ int main(void) {
     au.signForm(*forms[i]);
     cr.signForm(*forms[i]);
     at.signForm(*forms[i]);
+	std::cout << '\n';
   }
 
   std::cout << "\n[ Can you Exec Test ]\n\n";
@@ -38,6 +40,7 @@ int main(void) {
     au.executeForm(*forms[i]);
     cr.executeForm(*forms[i]);
     at.executeForm(*forms[i]);
+	std::cout << '\n';
   }
   for (int i = 0; i < 3; i++) {
     delete forms[i];
