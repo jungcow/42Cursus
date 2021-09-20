@@ -17,6 +17,8 @@ int main(void) {
       someRandomIntern.makeForm("robotomy request", "robotoTarget"),
       someRandomIntern.makeForm("PRESIDENTIAL Pardon", "presidentialTarget")};
 
+  someRandomIntern.makeForm("nonoTypeType", "asdfasdf");
+
   std::cout << "[ No Sign Error Test ]\n\n";
   for (int i = 0; i < 3; i++) {
     bu.executeForm(*forms[i]);

@@ -51,7 +51,7 @@ public:
   bool               getSignedFlag(void) const;
   void               setSignedFlag(bool flag);
 
-  void besigned(const Bureaucrat &b);
+  void beSigned(const Bureaucrat &b);
 };
 
 std::ostream &operator<<(std::ostream &c, const Form &f);

@@ -27,9 +27,10 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
   std::srand(time(0));
 
   if (std::rand() % 2)
-    std::cout << "<" + _target + "> has been robotomized successfully ----- ";
+    std::cout << "[ Success ] <" + _target +
+                     "> has been robotomized successfully ----- ";
   else {
-    throw NoExecException("<" + _target + "> Failed...");
+    throw NoExecException("[ Failed ] <" + _target + "> Failed...");
   }
 }
 

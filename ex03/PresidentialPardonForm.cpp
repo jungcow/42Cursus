@@ -24,7 +24,7 @@ std::string const &PresidentialPardonForm::getTarget() const {
 
 void PresidentialPardonForm::execute(Bureaucrat const &executor) const {
   Form::execute(executor);
-  std::cout << _target + " has been pardoned by Zafod Beeblebrox. ----- ";
+  std::cout <<  "[ Success ]" + _target + " has been pardoned by Zafod Beeblebrox. ----- ";
 }
 
 std::ostream &operator<<(std::ostream &c, const PresidentialPardonForm &f) {

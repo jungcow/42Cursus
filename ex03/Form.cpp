@@ -85,16 +85,17 @@ int                Form::getExecGrade() const { return (_execGrade); }
 bool               Form::getSignedFlag() const { return (_signed); }
 void               Form::setSignedFlag(bool flag) { _signed = flag; }
 
-void Form::besigned(const Bureaucrat &b) {
-  std::stringstream formGradeString, BureaucratGradeString;
-  formGradeString << _signedGrade;
-  BureaucratGradeString << b.getGrade();
-  std::string tmp = "<" + _name + "> cannot sign <" + _name +
-                    "> because Form Grade(" + formGradeString.str() +
-                    ") is Higher than " + b.getName() + "(" +
-                    BureaucratGradeString.str() + ")!";
-  if (_signedGrade < b.getGrade())
+void Form::beSigned(const Bureaucrat &b) {
+  if (_signedGrade < b.getGrade()) {
+    std::stringstream formGradeString, BureaucratGradeString;
+    formGradeString << _signedGrade;
+    BureaucratGradeString << b.getGrade();
+    std::string tmp = "[ Failed ] <" + b.getName() + "> cannot sign <" + _name +
+                      "> because Form Sign_Grade(" + formGradeString.str() +
+                      ") is Higher than " + b.getName() + "(" +
+                      BureaucratGradeString.str() + ")!";
     throw GradeTooLowException(tmp);
+  }
   _signed = true;
 }
 
@@ -102,15 +103,17 @@ void Form::execute(Bureaucrat const &executor) const {
   if (!_signed) {
     throw NoSignException();
   }
-  std::stringstream formGradeString, BureaucratGradeString;
-  formGradeString << _execGrade;
-  BureaucratGradeString << executor.getGrade();
-  std::string tmp = "<" + _name + "> cannot Execute <" + _name +
-                    "> because Form Exec_Grade(" + formGradeString.str() +
-                    ") is Higher than " + executor.getName() + "(" +
-                    BureaucratGradeString.str() + ")!";
-  if (_execGrade < executor.getGrade())
+  if (_execGrade < executor.getGrade()) {
+    std::stringstream formGradeString, BureaucratGradeString;
+    formGradeString << _execGrade;
+    BureaucratGradeString << executor.getGrade();
+    std::string tmp = "[ Failed ] <" + executor.getName() +
+                      "> cannot Execute <" + _name +
+                      "> because Form Exec_Grade(" + formGradeString.str() +
+                      ") is Higher than " + executor.getName() + "(" +
+                      BureaucratGradeString.str() + ")!";
     throw GradeTooLowException(tmp);
+  }
 }
 
 std::ostream &operator<<(std::ostream &c, const Form &f) {

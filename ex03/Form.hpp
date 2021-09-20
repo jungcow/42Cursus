@@ -74,7 +74,7 @@ public:
   bool               getSignedFlag(void) const;
   void               setSignedFlag(bool flag);
 
-  void besigned(const Bureaucrat &b);
+  void beSigned(const Bureaucrat &b);
 
   virtual void execute(Bureaucrat const &executor) const = 0;
 };

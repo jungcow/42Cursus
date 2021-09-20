@@ -13,6 +13,12 @@ int main(void) {
   Form *forms[3] = {new ShrubberyCreationForm("Shru"),
                     new RobotomyRequestForm("Robo"),
                     new PresidentialPardonForm("Pres")};
+  std::cout << bu << '\n'
+            << re << '\n'
+            << au << '\n'
+            << cr << '\n'
+            << at << '\n'
+            << std::endl;
   std::cout << "[ No Sign Error Test ]\n\n";
   for (int i = 0; i < 3; i++) {
     bu.executeForm(*forms[i]);
@@ -20,7 +26,7 @@ int main(void) {
     au.executeForm(*forms[i]);
     cr.executeForm(*forms[i]);
     at.executeForm(*forms[i]);
-	std::cout << '\n';
+    std::cout << '\n';
   }
 
   std::cout << "\n[ Can you Sign Test ]\n\n";
@@ -30,7 +36,7 @@ int main(void) {
     au.signForm(*forms[i]);
     cr.signForm(*forms[i]);
     at.signForm(*forms[i]);
-	std::cout << '\n';
+    std::cout << '\n';
   }
 
   std::cout << "\n[ Can you Exec Test ]\n\n";
@@ -40,7 +46,7 @@ int main(void) {
     au.executeForm(*forms[i]);
     cr.executeForm(*forms[i]);
     at.executeForm(*forms[i]);
-	std::cout << '\n';
+    std::cout << '\n';
   }
   for (int i = 0; i < 3; i++) {
     delete forms[i];

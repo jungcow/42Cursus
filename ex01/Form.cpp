@@ -71,15 +71,15 @@ int                Form::getExecGrade() const { return (_execGrade); }
 bool               Form::getSignedFlag() const { return (_signed); }
 void               Form::setSignedFlag(bool flag) { _signed = flag; }
 
-void Form::besigned(const Bureaucrat &b) {
-  std::stringstream formGradeString, BureaucratGradeString;
-  formGradeString << _signedGrade;
-  BureaucratGradeString << b.getGrade();
-  std::string tmp = "<" + _name + "> cannot sign <" + _name +
-                    "> because Form Grade(" + formGradeString.str() +
-                    ") is Higher than " + b.getName() + "(" +
-                    BureaucratGradeString.str() + ")!";
+void Form::beSigned(const Bureaucrat &b) {
   if (_signedGrade < b.getGrade()) {
+    std::stringstream formGradeString, BureaucratGradeString;
+    formGradeString << _signedGrade;
+    BureaucratGradeString << b.getGrade();
+    std::string tmp = "[ Failed ] <" + b.getName() + "> cannot sign <" + _name +
+                      "> because Form Sign_Grade(" + formGradeString.str() +
+                      ") is Higher than " + b.getName() + "(" +
+                      BureaucratGradeString.str() + ")!";
     throw GradeTooLowException(tmp);
   }
   _signed = true;

@@ -52,7 +52,7 @@ void               Bureaucrat::setGrade(int grade) {
 }
 
 void Bureaucrat::increaseGrade() {
-  if (_grade - 1 > 150)
+  if (_grade - 1 < 1)
     throw GradeTooHighException(_grade - 1);
   int tmp = _grade--;
   std::cout << _name << "'s Grade is Increased!"
@@ -60,7 +60,7 @@ void Bureaucrat::increaseGrade() {
 }
 
 void Bureaucrat::decreaseGrade() {
-  if (_grade + 1 < 1)
+  if (_grade + 1 > 150)
     throw GradeTooLowException(_grade + 1);
   int tmp = _grade++;
   std::cout << _name << "'s Grade is Decreased!"
@@ -69,8 +69,8 @@ void Bureaucrat::decreaseGrade() {
 
 void Bureaucrat::signForm(Form &form) const {
   try {
-    form.besigned(*this);
-    std::cout << "<" << _name << "> signs "
+    form.beSigned(*this);
+    std::cout << "[ Success ] <" << _name << "> signs "
               << "<" << form.getName() << ">" << std::endl;
   } catch (const std::exception &e) {
     std::cout << e.what() << '\n';
@@ -78,6 +78,6 @@ void Bureaucrat::signForm(Form &form) const {
 }
 
 std::ostream &operator<<(std::ostream &c, const Bureaucrat &b) {
-  c << "<" << b.getName() << ">, bureaucrat grade " << b.getGrade();
+  c << "<" << b.getName() << ">, bureaucrat grade " << b.getGrade() << '\n';
   return c;
 }
