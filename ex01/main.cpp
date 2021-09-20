@@ -11,7 +11,7 @@ int main(void) {
 
       std::cout << a << '\n' << b << std::endl;
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout << "\n=================[ Main Test ]==================\n\n";
 
@@ -26,14 +26,14 @@ int main(void) {
     try {
       albert.signForm(form);
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout << form << std::endl;
 
     try {
       albert.signForm(paper);
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout << paper << std::endl;
 
@@ -42,7 +42,7 @@ int main(void) {
       // paper.besigned(albert);
       albert.signForm(paper);
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout << paper << std::endl;
 
@@ -50,7 +50,7 @@ int main(void) {
     try {
       albert.signForm(paper);
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout << paper << std::endl;
 
@@ -66,7 +66,7 @@ int main(void) {
     albert.signForm(form2);
 
   } catch (const std::exception &e) {
-    std::cerr << e.what() << '\n';
+    std::cout << e.what() << '\n';
   }
 
   return 0;

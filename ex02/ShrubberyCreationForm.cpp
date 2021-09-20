@@ -2,18 +2,19 @@
 #include <fstream>
 
 ShrubberyCreationForm::ShrubberyCreationForm()
-    : Form(145, 137), _target("Anonymous") {}
+    : Form("Shrubbery", 145, 137), _target("Anonymous") {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target)
-    : Form(145, 137), _target(target) {}
+    : Form("Shrubbery", 145, 137), _target(target) {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
-    : Form(145, 137), _target(other.getTarget()) {}
+    : Form("Shrubbery", 145, 137), _target(other.getTarget()) {}
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
 ShrubberyCreationForm &
 ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other) {
+  (void)other;
   return *this;
 }
 
@@ -53,6 +54,15 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
     ws << "          ~~~w/w~'~~,\\` `:/,-(~`'~~~~~~~~'~o~\\~/~w|/~\n";
     ws << "dew   ~~~~~~~~~~~~~~~~~~~~~~~\\W~~~~~~~~~~~~\\|/~~\n";
   } catch (std::exception &e) {
-    std::cerr << e.what() << '\n';
+    std::cout << e.what() << '\n';
   }
+}
+
+std::ostream &operator<<(std::ostream &c, const ShrubberyCreationForm &f) {
+  c << "[ Form ]\n\"Name\": " << f.getName()
+    << "\n\"Target\": " << f.getTarget()
+    << "\n\"Status\": " << f.getSignedFlag()
+    << "\n\"Sign_Grade\": " << f.getSignedGrade()
+    << "\n\"Exec_Grade\": " << f.getExecGrade() << '\n';
+  return c;
 }

@@ -15,7 +15,7 @@ int main(void) {
       std::cout << c << std::endl;
       std::cout << d << std::endl;
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout
         << "\n============================================================\n"
@@ -33,7 +33,7 @@ int main(void) {
       std::cout << c << std::endl;
       std::cout << d << std::endl;
     } catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
+      std::cout << e.what() << '\n';
     }
     std::cout << "\n========================================================\n"
               << std::endl;
@@ -41,7 +41,7 @@ int main(void) {
     std::cout << a << std::endl;
     std::cout << b << std::endl;
   } catch (const std::exception &e) {
-    std::cerr << e.what() << '\n';
+    std::cout << e.what() << '\n';
   }
   return 0;
 }

@@ -11,12 +11,14 @@ public:
   PresidentialPardonForm();
   PresidentialPardonForm(std::string const &target);
   PresidentialPardonForm(const PresidentialPardonForm &other);
-  ~PresidentialPardonForm();
+  virtual ~PresidentialPardonForm();
   PresidentialPardonForm &operator=(const PresidentialPardonForm &other);
 
   std::string const &getTarget(void) const;
 
   virtual void execute(Bureaucrat const &executor) const;
 };
+
+std::ostream &operator<<(std::ostream &c, const PresidentialPardonForm &f);
 
 #endif

@@ -47,13 +47,25 @@ private:
     virtual const char *what() const throw();
   };
 
+protected:
+  class NoExecException : public std::exception {
+  private:
+    std::string const _message;
+
+  public:
+    NoExecException();
+    NoExecException(std::string const &message);
+    ~NoExecException() throw();
+    virtual const char *what() const throw();
+  };
+
 public:
   Form();
   Form(std::string const &name);
   Form(int signedGrade, int execGrade);
   Form(std::string const &name, int signedGrade, int execGrade);
   Form(const Form &other);
-  ~Form();
+  virtual ~Form();
   Form &operator=(const Form &other);
 
   std::string const &getName(void) const;

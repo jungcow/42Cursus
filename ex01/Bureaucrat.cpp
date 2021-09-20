@@ -73,7 +73,7 @@ void Bureaucrat::signForm(Form &form) const {
     std::cout << "<" << _name << "> signs "
               << "<" << form.getName() << ">" << std::endl;
   } catch (const std::exception &e) {
-    std::cerr << e.what() << '\n';
+    std::cout << e.what() << '\n';
   }
 }
 

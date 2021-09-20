@@ -11,12 +11,14 @@ public:
   RobotomyRequestForm();
   RobotomyRequestForm(std::string const &target);
   RobotomyRequestForm(const RobotomyRequestForm &other);
-  ~RobotomyRequestForm();
+  virtual ~RobotomyRequestForm();
   RobotomyRequestForm &operator=(const RobotomyRequestForm &other);
 
   std::string const &getTarget(void) const;
 
   virtual void execute(Bureaucrat const &executor) const;
 };
+
+std::ostream &operator<<(std::ostream &c, const RobotomyRequestForm &f);
 
 #endif

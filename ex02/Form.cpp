@@ -50,6 +50,7 @@ Form::GradeTooHighException::GradeTooHighException()
 Form::GradeTooLowException::GradeTooLowException()
     : _message("Grade is Too Low") {}
 Form::NoSignException::NoSignException() : _message("There isn't No Sign!") {}
+Form::NoExecException::NoExecException() : _message("You Can't Execute It!") {}
 
 Form::GradeTooHighException::GradeTooHighException(std::string const &message)
     : _message(message) {}
@@ -57,10 +58,13 @@ Form::GradeTooLowException::GradeTooLowException(std::string const &message)
     : _message(message) {}
 Form::NoSignException::NoSignException(std::string const &message)
     : _message(message) {}
+Form::NoExecException::NoExecException(std::string const &message)
+    : _message(message) {}
 
 Form::GradeTooHighException::~GradeTooHighException() throw() {}
 Form::GradeTooLowException::~GradeTooLowException() throw() {}
 Form::NoSignException::~NoSignException() throw() {}
+Form::NoExecException::~NoExecException() throw() {}
 
 const char *Form::GradeTooHighException::what() const throw() {
   return _message.c_str();
@@ -69,6 +73,9 @@ const char *Form::GradeTooLowException::what() const throw() {
   return _message.c_str();
 }
 const char *Form::NoSignException::what() const throw() {
+  return _message.c_str();
+}
+const char *Form::NoExecException::what() const throw() {
   return _message.c_str();
 }
 
@@ -96,7 +103,7 @@ void Form::execute(Bureaucrat const &executor) const {
     throw NoSignException();
   }
   std::stringstream formGradeString, BureaucratGradeString;
-  formGradeString << _signedGrade;
+  formGradeString << _execGrade;
   BureaucratGradeString << executor.getGrade();
   std::string tmp = "<" + _name + "> cannot Execute <" + _name +
                     "> because Form Exec_Grade(" + formGradeString.str() +
@@ -104,7 +111,6 @@ void Form::execute(Bureaucrat const &executor) const {
                     BureaucratGradeString.str() + ")!";
   if (_execGrade < executor.getGrade())
     throw GradeTooLowException(tmp);
-  
 }
 
 std::ostream &operator<<(std::ostream &c, const Form &f) {

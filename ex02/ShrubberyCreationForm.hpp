@@ -11,12 +11,14 @@ public:
   ShrubberyCreationForm();
   ShrubberyCreationForm(std::string const &target);
   ShrubberyCreationForm(const ShrubberyCreationForm &other);
-  ~ShrubberyCreationForm();
+  virtual ~ShrubberyCreationForm();
   ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
 
   std::string const &getTarget(void) const;
 
   virtual void execute(Bureaucrat const &executor) const;
 };
+
+std::ostream &operator<<(std::ostream &c, const ShrubberyCreationForm &f);
 
 #endif

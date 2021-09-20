@@ -68,17 +68,21 @@ void Bureaucrat::decreaseGrade() {
 }
 
 void Bureaucrat::signForm(Form &form) const {
-  form.besigned(*this);
-  std::cout << "<" << _name << "> signs "
-            << "<" << form.getName() << ">" << std::endl;
+  try {
+    form.besigned(*this);
+    std::cout << "<" << _name << "> signs "
+              << "<" << form.getName() << ">" << std::endl;
+  } catch (const std::exception &e) {
+    std::cout << e.what() << '\n';
+  }
 }
 
 void Bureaucrat::executeForm(Form const &form) {
   try {
     form.execute(*this);
-    std::cout << _name + " executes <" + form.getName() + ">\n";
+    std::cout << "<" + _name + "> executes <" + form.getName() + ">\n";
   } catch (const std::exception &e) {
-    std::cerr << e.what() << '\n';
+    std::cout << e.what() << '\n';
   }
 }
 
