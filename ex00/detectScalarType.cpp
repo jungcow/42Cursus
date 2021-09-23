@@ -1,6 +1,8 @@
 #include "ScalarType.hpp"
 
 bool ScalarType::detectValidDoubleMantissa(double d) {
+  if (d < 0.0001f)
+    _convertUtilBit.exponentialBit = true;
   uint64 *ptr = reinterpret_cast<uint64 *>(&d);
   uint64  get_mantissa = -1;
 
@@ -17,6 +19,8 @@ bool ScalarType::detectValidDoubleMantissa(double d) {
   return (true);
 }
 bool ScalarType::detectValidSingleMantissa(float f) {
+  if (f < 0.0001f)
+    _convertUtilBit.exponentialBit = true;
   uint *ptr = reinterpret_cast<uint *>(&f);
   uint  get_mantissa = -1;
   get_mantissa = get_mantissa >> 9;
