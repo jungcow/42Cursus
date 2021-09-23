@@ -71,7 +71,10 @@ void ScalarType::outputFloatTypeConversion() {
     std::cout << "char: impossible\n";
     std::cout << "int: impossible\n";
     std::cout << "float: " << _str << '\n';
-    std::cout << "double: " << _str.substr(0, _str.length() - 1) << '\n';
+    std::cout << "double: ";
+    for (unsigned long i = 0; i < _strlen - 1; i++)
+      std::cout << _str[i];
+    std::cout << '\n';
     return;
   }
   std::cout << "char: ";

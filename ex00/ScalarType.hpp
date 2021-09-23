@@ -12,7 +12,7 @@
 
 class ScalarType;
 
-typedef unsigned int uint;
+typedef unsigned int           uint;
 typedef unsigned long long int uint64;
 typedef bool (ScalarType::*BOOLPTR)(void);
 typedef void (ScalarType::*VOIDPTR)(void);
@@ -20,6 +20,7 @@ typedef void (ScalarType::*VOIDPTR)(void);
 class ScalarType {
 private:
   std::string const _str;
+  size_t            _strlen;
   char              _type;
   char              _c;
   int               _i;
@@ -31,8 +32,9 @@ private:
     int intImpossibleBit : 1;
     int doubleImpossibleBit : 1;
     int floatImpossibleBit : 1;
-    int exponentialBit : 3;
+    int exponentialBit : 1;
     int fractionBit : 1;
+    int padding : 2;
   } t_convertUtilBit;
 
   t_convertUtilBit _convertUtilBit;
@@ -68,6 +70,7 @@ public:
   ~ScalarType();
   ScalarType &operator=(const ScalarType &other);
 
+  size_t   getStrlen(void) const;
   char   getType(void) const;
   char   getChar(void) const;
   int    getInt(void) const;
@@ -84,6 +87,8 @@ public:
   void convertType();
   void detectType();
   void outputType();
+
+  size_t ft_strlen(char const *str) const;
 };
 
 #endif

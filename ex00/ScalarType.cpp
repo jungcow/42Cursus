@@ -16,6 +16,7 @@ VOIDPTR ScalarType::_outputFPtr[4] = {&ScalarType::outputCharTypeConversion,
                                       &ScalarType::outputFloatTypeConversion};
 
 ScalarType::ScalarType() {
+  _strlen = 0;
   _type = 0;
   _convertUtilBit.charImpossibleBit = 0;
   _convertUtilBit.intImpossibleBit = 0;
@@ -23,8 +24,10 @@ ScalarType::ScalarType() {
   _convertUtilBit.floatImpossibleBit = 0;
   _convertUtilBit.exponentialBit = 0;
   _convertUtilBit.fractionBit = 0;
+  _convertUtilBit.padding = 0;
 }
 ScalarType::ScalarType(const char *arg) : _str(arg) {
+  _strlen = ft_strlen(arg);
   _type = 0;
   _convertUtilBit.charImpossibleBit = 0;
   _convertUtilBit.intImpossibleBit = 0;
@@ -32,11 +35,13 @@ ScalarType::ScalarType(const char *arg) : _str(arg) {
   _convertUtilBit.floatImpossibleBit = 0;
   _convertUtilBit.exponentialBit = 0;
   _convertUtilBit.fractionBit = 0;
+  _convertUtilBit.padding = 0;
 }
 ScalarType::ScalarType(const ScalarType &other) { *this = other; }
 ScalarType::~ScalarType() {}
 
 ScalarType &ScalarType::operator=(const ScalarType &other) {
+  _strlen = other.getStrlen();
   _type = other.getType();
   _c = other.getChar();
   _i = other.getInt();
@@ -51,6 +56,7 @@ ScalarType &ScalarType::operator=(const ScalarType &other) {
   return *this;
 }
 
+size_t ScalarType::getStrlen(void) const { return _type; }
 char   ScalarType::getType(void) const { return _type; }
 char   ScalarType::getChar(void) const { return _c; }
 int    ScalarType::getInt(void) const { return _i; }
@@ -74,4 +80,12 @@ int ScalarType::getExponentialBit(void) const {
 }
 int ScalarType::getFractionBit(void) const {
   return _convertUtilBit.fractionBit;
+}
+
+size_t ScalarType::ft_strlen(char const *str) const {
+  size_t size = 0;
+  for (int i = 0; str[i]; i++) {
+    size++;
+  }
+  return (size);
 }

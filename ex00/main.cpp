@@ -6,6 +6,8 @@ int main(int argc, char *argv[]) {
     return (0);
   }
   for (int i = 1; i < argc; i++) {
+    if (!(*argv[i]))
+      continue;
     ScalarType scalar(argv[i]);
     scalar.convertType();
     scalar.outputType();
