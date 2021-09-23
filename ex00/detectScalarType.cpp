@@ -2,7 +2,7 @@
 
 bool ScalarType::detectValidDoubleMantissa(double d) {
   if (d < 0.0001f)
-    _convertUtilBit.exponentialBit = true;
+    _exponentialBit = true;
   uint64 *ptr = reinterpret_cast<uint64 *>(&d);
   uint64  get_mantissa = -1;
 
@@ -20,7 +20,7 @@ bool ScalarType::detectValidDoubleMantissa(double d) {
 }
 bool ScalarType::detectValidSingleMantissa(float f) {
   if (f < 0.0001f)
-    _convertUtilBit.exponentialBit = true;
+    _exponentialBit = true;
   uint *ptr = reinterpret_cast<uint *>(&f);
   uint  get_mantissa = -1;
   get_mantissa = get_mantissa >> 9;
@@ -31,6 +31,7 @@ bool ScalarType::detectValidSingleMantissa(float f) {
 
   expo -= 127;
   uint tmp = 0b1110;
+
   if (((mantissa << (expo + 9)) >> (expo + 9)) < tmp)
     return (false);
   return (true);
@@ -62,7 +63,7 @@ bool ScalarType::detectInt() {
   if (flag)
     return (false);
   if (_strlen > 7 + (minusFlag || plusFlag)) {
-    _convertUtilBit.exponentialBit = true;
+    _exponentialBit = true;
   }
   return (true);
 }
@@ -85,7 +86,7 @@ bool ScalarType::detectDouble() {
       if (_str[i] == '.') {
         pointNum++;
         if (i > (7 + (minusFlag || plusFlag)))
-          _convertUtilBit.exponentialBit = true;
+          _exponentialBit = true;
       } else
         return (false);
     }
@@ -93,7 +94,7 @@ bool ScalarType::detectDouble() {
   if (pointNum > 1)
     return (false);
   if (!pointNum && (_strlen > 7 + (minusFlag || plusFlag))) {
-    _convertUtilBit.exponentialBit = true;
+    _exponentialBit = true;
   }
   return (true);
 }
@@ -116,7 +117,7 @@ bool ScalarType::detectFloat() {
       if (_str[i] == '.') {
         pointNum++;
         if (i > (7 + (minusFlag || plusFlag)))
-          _convertUtilBit.exponentialBit = true;
+          _exponentialBit = true;
       } else if (!(i == _strlen - 1 && _str[i] == 'f'))
         return (false);
     }
@@ -124,7 +125,7 @@ bool ScalarType::detectFloat() {
   if (pointNum > 1)
     return (false);
   if (!pointNum && _strlen > (7 + (minusFlag || plusFlag))) {
-    _convertUtilBit.exponentialBit = true;
+    _exponentialBit = true;
   }
   return (true);
 }

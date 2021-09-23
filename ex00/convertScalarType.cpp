@@ -21,7 +21,9 @@ void ScalarType::convertDoubleToElse() {
   if (_str == "-inf" || _str == "inf" || _str == "+inf" || _str == "nan")
     return;
   _d = stod(_str);
-  _convertUtilBit.fractionBit = detectValidDoubleMantissa(_d);
+  if (detectValidDoubleMantissa(_d))
+    _fractionBit = true;
+
   if (_d < CHAR_MIN || _d > CHAR_MAX)
     _convertUtilBit.charImpossibleBit = true;
   else
@@ -41,7 +43,8 @@ void ScalarType::convertFloatToElse() {
   if (_str == "-inff" || _str == "inff" || _str == "+inff" || _str == "nanf")
     return;
   _f = stof(_str);
-  _convertUtilBit.fractionBit = detectValidSingleMantissa(_f);
+  if (detectValidSingleMantissa(_f))
+    _fractionBit = true;
   if (_f < CHAR_MIN || _f > CHAR_MAX)
     _convertUtilBit.charImpossibleBit = true;
   else

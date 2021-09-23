@@ -13,7 +13,7 @@ void ScalarType::outputCharTypeConversion() {
 
 void ScalarType::outputIntTypeConversion() {
   std::cout << "char: ";
-  if (_convertUtilBit.charImpossibleBit)
+  if (_convertUtilBit.charImpossibleBit == true)
     std::cout << "impossible\n";
   else if (_c < 32 || _c > 126)
     std::cout << "Non displayable\n";
@@ -21,11 +21,11 @@ void ScalarType::outputIntTypeConversion() {
     std::cout << "'" << _c << "'\n";
   std::cout << "int: " << _i << '\n';
   std::cout << "float: " << _f;
-  if (!_convertUtilBit.exponentialBit)
+  if (_exponentialBit == false)
     std::cout << ".0";
   std::cout << "f\n";
   std::cout << "double: " << _d;
-  if (!_convertUtilBit.exponentialBit)
+  if (_exponentialBit == false)
     std::cout << ".0";
   std::cout << '\n';
 }
@@ -39,29 +39,29 @@ void ScalarType::outputDoubleTypeConversion() {
     return;
   }
   std::cout << "char: ";
-  if (_convertUtilBit.charImpossibleBit)
+  if (_convertUtilBit.charImpossibleBit == true)
     std::cout << "impossible\n";
   else if (_c < 32 || _c > 126)
     std::cout << "Non displayable\n";
   else
     std::cout << "'" << _c << "'\n";
   std::cout << "int: ";
-  if (_convertUtilBit.intImpossibleBit)
+  if (_convertUtilBit.intImpossibleBit == true)
     std::cout << "impossible\n";
   else
     std::cout << _i << '\n';
   std::cout << "float: ";
-  if (_convertUtilBit.floatImpossibleBit)
+  if (_convertUtilBit.floatImpossibleBit == true)
     std::cout << "impossible\n";
   else {
     std::cout << _f;
-    if (_convertUtilBit.fractionBit || _convertUtilBit.exponentialBit)
+    if (_exponentialBit == true || (_fractionBit == true))
       std::cout << "f\n";
     else
       std::cout << ".0f\n";
   }
   std::cout << "double: " << _d;
-  if (!_convertUtilBit.fractionBit && !_convertUtilBit.exponentialBit)
+  if (_fractionBit == false && _exponentialBit == false)
     std::cout << ".0";
   std::cout << '\n';
 }
@@ -78,24 +78,24 @@ void ScalarType::outputFloatTypeConversion() {
     return;
   }
   std::cout << "char: ";
-  if (_convertUtilBit.charImpossibleBit)
+  if (_convertUtilBit.charImpossibleBit == true)
     std::cout << "impossible\n";
   else if (_c < 32 || _c > 126)
     std::cout << "Non displayable\n";
   else
     std::cout << "'" << _c << "'\n";
   std::cout << "int: ";
-  if (_convertUtilBit.intImpossibleBit)
+  if (_convertUtilBit.intImpossibleBit == true)
     std::cout << "impossible\n";
   else
     std::cout << _i << '\n';
   std::cout << "float: " << _f;
-  if (_convertUtilBit.fractionBit || _convertUtilBit.exponentialBit)
+  if (_exponentialBit == true || _fractionBit == true)
     std::cout << "f\n";
   else
     std::cout << ".0f\n";
   std::cout << "double: " << _d;
-  if (!_convertUtilBit.fractionBit && !_convertUtilBit.exponentialBit)
+  if (_fractionBit == false && _exponentialBit == false)
     std::cout << ".0";
   std::cout << '\n';
 }

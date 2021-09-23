@@ -32,12 +32,12 @@ private:
     int intImpossibleBit : 1;
     int doubleImpossibleBit : 1;
     int floatImpossibleBit : 1;
-    int exponentialBit : 1;
-    int fractionBit : 1;
     int padding : 2;
   } t_convertUtilBit;
 
   t_convertUtilBit _convertUtilBit;
+  int              _exponentialBit;
+  int              _fractionBit;
 
   static const std::string _types;
   static BOOLPTR           _detectFPtr[4];
@@ -70,7 +70,7 @@ public:
   ~ScalarType();
   ScalarType &operator=(const ScalarType &other);
 
-  size_t   getStrlen(void) const;
+  size_t getStrlen(void) const;
   char   getType(void) const;
   char   getChar(void) const;
   int    getInt(void) const;

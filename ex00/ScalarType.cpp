@@ -22,8 +22,8 @@ ScalarType::ScalarType() {
   _convertUtilBit.intImpossibleBit = 0;
   _convertUtilBit.doubleImpossibleBit = 0;
   _convertUtilBit.floatImpossibleBit = 0;
-  _convertUtilBit.exponentialBit = 0;
-  _convertUtilBit.fractionBit = 0;
+  _exponentialBit = 0;
+  _fractionBit = 0;
   _convertUtilBit.padding = 0;
 }
 ScalarType::ScalarType(const char *arg) : _str(arg) {
@@ -33,8 +33,8 @@ ScalarType::ScalarType(const char *arg) : _str(arg) {
   _convertUtilBit.intImpossibleBit = 0;
   _convertUtilBit.doubleImpossibleBit = 0;
   _convertUtilBit.floatImpossibleBit = 0;
-  _convertUtilBit.exponentialBit = 0;
-  _convertUtilBit.fractionBit = 0;
+  _exponentialBit = 0;
+  _fractionBit = 0;
   _convertUtilBit.padding = 0;
 }
 ScalarType::ScalarType(const ScalarType &other) { *this = other; }
@@ -51,8 +51,8 @@ ScalarType &ScalarType::operator=(const ScalarType &other) {
   _convertUtilBit.intImpossibleBit = other.getIntImpossibleBit();
   _convertUtilBit.doubleImpossibleBit = other.getDoubleImpossibleBit();
   _convertUtilBit.floatImpossibleBit = other.getFloatImpossibleBit();
-  _convertUtilBit.exponentialBit = other.getExponentialBit();
-  _convertUtilBit.fractionBit = other.getFractionBit();
+  _exponentialBit = other.getExponentialBit();
+  _fractionBit = other.getFractionBit();
   return *this;
 }
 
@@ -76,10 +76,10 @@ int ScalarType::getFloatImpossibleBit(void) const {
   return _convertUtilBit.floatImpossibleBit;
 }
 int ScalarType::getExponentialBit(void) const {
-  return _convertUtilBit.exponentialBit;
+  return _exponentialBit;
 }
 int ScalarType::getFractionBit(void) const {
-  return _convertUtilBit.fractionBit;
+  return _fractionBit;
 }
 
 size_t ScalarType::ft_strlen(char const *str) const {

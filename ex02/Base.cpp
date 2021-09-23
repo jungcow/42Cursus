@@ -17,6 +17,8 @@ Base *generate(void) {
   return new C();
 }
 
+
+
 void identify(Base *p) {
   if (dynamic_cast<A *>(p))
     std::cout << "A\n";
