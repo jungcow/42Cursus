@@ -2,10 +2,7 @@
 NAME			=	template01
 CXX				=	clang++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
-SRCS			=	main.cpp \
-						Form.cpp \
-						ShrubberyCreationForm.cpp \
-						Bureaucrat.cpp
+SRCS			=	main.cpp
 
 OBJS			=	$(SRCS:.cpp=.o)
 DEPS			=	$(OBJS:.o=.d)
