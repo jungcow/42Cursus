@@ -15,11 +15,11 @@ int main(void) {
     std::cout << "c = " << c << ", d = " << d << std::endl;
     std::cout << "min( c, d ) = " << ::min(c, d) << std::endl;
     std::cout << "max( c, d ) = " << ::max(c, d) << std::endl;
-    std::cout << min(2.2, 2.2) << std::endl;
+    std::cout << min(2.11111111, 2.111111) << std::endl;
   }
   {
     Awesome a(2), b(4);
-    swap(a, b);
+    wap(a, b);
     std::cout << a << " " << b << std::endl;
     std::cout << max(a, b) << std::endl;
     std::cout << min(a, b) << std::endl;
