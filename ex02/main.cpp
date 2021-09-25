@@ -4,6 +4,7 @@
 #define MAX_VAL 5
 int main(int, char **) {
   Array<int> numbers(MAX_VAL);
+  const Array<int> numbers2(MAX_VAL);
   int *      mirror = new int[MAX_VAL];
 
   srand(time(NULL));
@@ -23,6 +24,7 @@ int main(int, char **) {
 
   for (int i = 0; i < MAX_VAL; i++) {
     if (mirror[i] != numbers[i]) {
+      std::cout << numbers2[i] << std::endl;
       std::cerr << "didn't save the same value!!" << std::endl;
       return 1;
     }
