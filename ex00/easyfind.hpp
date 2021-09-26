@@ -4,14 +4,12 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include <map>
+#include <set>
 #include <vector>
 
-template <typename T> unsigned int easyfind(T &container, int n) {
-
-  if (std::find(container.begin(), container.end(), n) == container.end()) {
-    return (0);
-  }
-  return (1);
+template <typename T> typename T::iterator easyfind(T &container, int n) {
+  return (std::find(container.begin(), container.end(), n));
 }
 
 #endif
