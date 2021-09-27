@@ -24,7 +24,7 @@ unsigned int Span::shortestSpan(void) {
     throw std::logic_error("[ Error ] Num is Not Enough");
   std::multiset<unsigned int>::iterator si;
   std::multiset<unsigned int>           diffmultiset;
-  for (si = _arr.begin(); si != _arr.end(); si++)
+  for (si = _arr.begin(); si != --_arr.end(); si++)
     diffmultiset.insert(*(++si) - *(--si));
   return *(diffmultiset.begin());
 }
