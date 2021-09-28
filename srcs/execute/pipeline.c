@@ -16,10 +16,10 @@
 #include "execute.h"
 #include "libft.h"
 
-int		ft_pipe(int *fd, int i)
+int ft_pipe(int *fd, int i)
 {
-	char	*index;
-	char	*path;
+	char *index;
+	char *path;
 
 	index = ft_itoa(i);
 	path = ft_strjoin("./.pipe/", index);
@@ -37,7 +37,7 @@ int		ft_pipe(int *fd, int i)
 	return (1);
 }
 
-int		treat_pipeline(t_execute *execute, int *new_fd, int *old_fd, int idx)
+int treat_pipeline(t_execute *execute, int *new_fd, int *old_fd, int idx)
 {
 	if (idx + 1 < execute->num)
 	{
@@ -54,11 +54,11 @@ int		treat_pipeline(t_execute *execute, int *new_fd, int *old_fd, int idx)
 	return (1);
 }
 
-void	remove_pipeline(int i)
+void remove_pipeline(int i)
 {
-	char	*path;
-	char	*index;
-	char	*argv[4];
+	char *path;
+	char *index;
+	char *argv[4];
 
 	argv[0] = "/bin/rm";
 	argv[1] = "-rf";
@@ -75,10 +75,10 @@ void	remove_pipeline(int i)
 	exit(EXIT_SUCCESS);
 }
 
-void	clear_pipeline(t_execute *execute)
+void clear_pipeline(t_execute *execute)
 {
-	int		i;
-	pid_t	*pid;
+	int i;
+	pid_t *pid;
 
 	i = 0;
 	pid = (pid_t *)malloc(sizeof(pid_t) * execute->num);

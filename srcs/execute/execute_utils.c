@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 14:01:23 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/06 08:57:29 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:47:30 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@ void	wait_process(pid_t *pid, t_execute *execute)
 	i = 0;
 	while (i < execute->num)
 	{
-		if (waitpid(pid[i], &status, 0) < 0)
-		{
-			clear_pipeline(execute);
+		if (waitpid(-1, &status, 0) < 0)
 			exit(EXIT_FAILURE);
-		}
 		i++;
 	}
-	clear_pipeline(execute);
 	free(pid);
 }
 

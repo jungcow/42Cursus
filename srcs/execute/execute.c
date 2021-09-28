@@ -6,7 +6,7 @@
 /*   By: jungwkim <jungwkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 03:39:09 by jungwkim          #+#    #+#             */
-/*   Updated: 2021/06/06 08:57:55 by jungwkim         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:51:34 by jungwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 #include "libft.h"
 #include "error.h"
 
-int		create_execution(t_execute *execute, int argc, char *argv[])
+#include <stdio.h>
+int create_execution(t_execute *execute, int argc, char *argv[])
 {
-	int		i;
+	int i;
 
 	i = 0;
 	while (i + 3 < argc)
@@ -33,9 +34,9 @@ int		create_execution(t_execute *execute, int argc, char *argv[])
 	return (1);
 }
 
-int		init_execution(t_execute *execute, int argc, char *argv[])
+int init_execution(t_execute *execute, int argc, char *argv[])
 {
-	int		i;
+	int i;
 
 	execute->input = ft_strdup(argv[1]);
 	if (execute->input == NULL)
@@ -57,21 +58,22 @@ int		init_execution(t_execute *execute, int argc, char *argv[])
 	return (1);
 }
 
-int		execute_child(t_execute *execute, char *envp[], int (*fd)[2], int idx)
+int execute_child(t_execute *execute, char *envp[], int (*fd)[2], int idx)
 {
-	char	***command;
-	char	*dir;
+	char ***command;
+	char *dir;
 
 	command = execute->command;
 	if (get_path(execute->command[idx][0], &dir, envp) < 0)
 		exit(EXIT_FAILURE);
+	//printf("dir: %s\n", dir);
 	if (treat_pipeline(execute, fd[NEW], fd[OLD], idx) < 0)
 		exit(1);
 	if (idx == 0)
 		input_redirection(execute);
 	if (idx + 1 == execute->num)
 		output_redirection(execute);
-	if (execve(dir, command[idx], NULL) < 0)
+	if (execve(dir, command[idx], envp) < 0)
 		exit(EXIT_FAILURE);
 	if (idx == 0)
 		close(execute->input_fd);
@@ -80,17 +82,17 @@ int		execute_child(t_execute *execute, char *envp[], int (*fd)[2], int idx)
 	exit(0);
 }
 
-int		ft_execute(t_execute *execute, char *envp[])
+int ft_execute(t_execute *execute, char *envp[])
 {
-	pid_t	*pid;
-	int		i;
-	int		fd[2][2];
+	pid_t *pid;
+	int i;
+	int fd[2][2];
 
 	i = -1;
 	pid = (pid_t *)malloc(sizeof(pid_t) * execute->num);
 	while (++i < execute->num)
 	{
-		if (ft_pipe(fd[NEW], i) < 0)
+		if (pipe(fd[NEW]) < 0)
 			exit(EXIT_FAILURE);
 		pid[i] = fork();
 		if (pid < 0)
@@ -107,9 +109,9 @@ int		ft_execute(t_execute *execute, char *envp[])
 	return (1);
 }
 
-void	clear_execution(t_execute *execute)
+void clear_execution(t_execute *execute)
 {
-	int		i;
+	int i;
 
 	free(execute->input);
 	free(execute->output);
