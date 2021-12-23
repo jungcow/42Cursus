@@ -1,6 +1,5 @@
-# ft_printf
+# ft_printf - Logic
 
-## 전체 로직
 ### 1. va_arg를 통해 "*"을 통해 들어온 width나 precision등의 값을 할당 && 포맷에 해당하는 타입의 값을 할당.
 |**모두 공통적인 사항이다.**|
 |--|
@@ -8,7 +7,7 @@
 ```c
 alloc_va_arg(t_format *formats, va_list *ap, int flag, ...);
 ```
-
+---
 ### 2. 처리해줄 예외사항 처리해주기
 |%duixX|%s|
 |--|--|
@@ -26,7 +25,7 @@ if (tmp == 0)
     if (!(tmp = ft_strndup("(null)", 6)))
         return (-1);
 ```
-
+---
 ### 3. 공백을 제외한 출력문자의 길이를 구함.(0을 삽입한 후의 길이) && 예외사항 적용
 |%p|%s|
 |--|--|
@@ -53,7 +52,7 @@ if (formats->precision < len1 && formats->precision != MINUS) //예외사항
 //ft_printf_char.c && ft_printf_per.c
 그냥 1.
 ```
-
+---
 ### 4. 출력할 공백의 개수를 구함
 |모두 width와 비교하여 width가 더 크다면 그 차이만큼 공백 출력|
 |--|
@@ -73,6 +72,7 @@ len2 = formats->width > len1 ? (formats->width - len1) : 0;
 //ft_printf_char.c && ft_printf_per.c
 len = formats->width > 1 ? formats->width - 1 : 0;
 ```
+---
 ### 5. 공백과 공백이 아닌 문자(0이 삽입되있는)를 순서에 맞게(flag가 '-'냐 아니냐에 맞게) 출력
 |%%|else|
 |--|--|
@@ -98,4 +98,5 @@ print_tmp;
 if (formats->flag == '-')
     print_blank(int j);
 ```
+---
 ### 6. 출력한 공백의 개수 + 공백이 아닌 문자의 개수를 반환해준다.
