@@ -1,0 +1,3 @@
+[submodule "srcs/momontum"]
+	path = srcs/momontum
+	url = https://github.com/jungcow/momontum.git
