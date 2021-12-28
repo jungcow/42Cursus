@@ -3,6 +3,42 @@
 ![temple](https://user-images.githubusercontent.com/60311340/147248458-eb0099cf-8aa3-4bc8-a144-7e1a9d74d6fc.gif)
 
 ---
+## Index
+- [Directory Tree](#directory-tree)
+- [Execution](#execution)
+- [Camera with Sphere and Plane](#camera-with-sphere-and-plane)
+- [Rotating Object](#rotating-object)
+- [Event (key control)](#event-key-control)
+---
+## Directory tree
+```shell
+├── Makefile
+├── README.md
+├── includes
+├── lib
+│   ├── libft
+│   ├── minilibx_mms_20200219
+│   └── minilibx_opengl_20191021
+├── main.c
+├── scene
+└── src
+    ├── event
+    ├── parsing
+    │   ├── get_next_line
+    │   └── validate
+    ├── trace
+    ├── utils
+    ├── vec
+    └── world
+        └── create
+```
+---
+## Execution
+```shell
+make && make clean
+./miniRT scene/[any rt file]
+```
+---
 ## Camera with Sphere and Plane
 |Up and Down|Backward and Forward|Rotate with Pan|Rotate with Tilt|Object Transition|Camera Switching|
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
@@ -17,7 +53,7 @@
 |Cylinder|![cylinder_x_rotate](https://user-images.githubusercontent.com/60311340/147248581-682adc0b-6325-497a-8c78-d83a6f33c371.gif)|![cylinder_y_rotate](https://user-images.githubusercontent.com/60311340/147248582-bc355878-b8b9-4269-aca8-ae006e47531f.gif)|![cylinder_z_rotate](https://user-images.githubusercontent.com/60311340/147248585-e965b24e-8314-4723-a3c8-6c8ba942a372.gif)|
 
 ---
-## Event
+## Event (key control)
 
 > switch object
 - `c key`: Switch Object to Camera
