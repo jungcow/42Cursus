@@ -1,3 +1,7 @@
+[submodule "circle02/ft_server/srcs/momontum"]
+	path = circle02/ft_server/srcs/momontum
+	url = git@github.com:jungcow/momontum.git
+
 [submodule "circle05/ft_containers"]
 	path = circle05/ft_containers
 	url = git@github.com:jungcow/ft_containers.git
