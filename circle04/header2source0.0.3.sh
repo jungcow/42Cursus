@@ -14,10 +14,9 @@ COMMENT_END_CHAR='*/'
 SEMICOLON=';'
 SEMICOLON_AT_END='^.*;\s*'
 
-
 lineidx=0
 inClass=0
-echo "#include \"${FILENAME}.hpp\"\n" > ${DESTFILE}
+echo -e "#include \"${FILENAME}.hpp\"\n" > ${DESTFILE}
 while read -r line; do
 	if [[ $line =~ $CLASS_OPEN_SPECIFIER ]]; then
 		inClass=1
@@ -29,22 +28,27 @@ while read -r line; do
 		continue
 	fi
 	commentline=0;
-	if [[ $line =~ "^.*($COMMENT_START_CHAR).*$" ]]; then
-		commentline=1
-	fi
-	if [[ $line =~ "^.*($COMMENT_END_CHAR).*$" ]]; then
-		commentline=0
-	fi
-	if [[ $line =~ $FUNCTIONS_NOT_IMPLEMENTED ]]; then
+ 	if [[ $line =~ "^.*($COMMENT_START_CHAR).*$" ]]; then
+ 		commentline=1
+ 	fi
+ 	if [[ $line =~ "^.*($COMMENT_END_CHAR).*$" ]]; then
+ 		commentline=0
+ 	fi
+	if [[ $commentline -eq 0 && $line =~ $FUNCTIONS_NOT_IMPLEMENTED ]]; then
+		commentpart=0
 		for token in $line; do
+			if [[ $token =~ ^${COMMENT_ONELINE_CHAR}.*$ ]]; then
+				commentpart=1
+			fi
+			if [[ $commentpart -eq 1 ]]; then
+				continue
+			fi
 			# Check Range Operator(::) Position
 			rangeregex=".*\(.*"
-			#echo "$rangeregex, $token"
 			if [[ $inClass -eq 1 && "$token" =~ .*\(.* ]]; then
 				coloned=0
 				attheend=0
 				typeregex="[\&\*]"
-				nottyperegx="[^&*]"
 				for (( i=0; i<${#token}; i++ )); do
 					x=${token:$i:1}
 					if [[ $coloned -eq 0 && "$x" =~ [\&\*] ]]; then 
@@ -75,6 +79,7 @@ while read -r line; do
 				echo -n "$token " >> ${DESTFILE}
 			fi
 		done
+		commentpart=0
 		echo >> "${DESTFILE}"
 	fi
 done < "${1}"
@@ -95,3 +100,8 @@ done < "${1}"
 ## v0.0.2
 ###############################
 # include 아래로 한 줄 띄움
+
+###############################
+## v0.0.3
+###############################
+# 코멘트는 모두 소스파일로 들어가지 않도록 함
