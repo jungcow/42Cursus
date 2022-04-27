@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# virtual 키워드는 제거해서 넣기
-# static 키워드는 제거해서 넣기
-# 
-
 FILENAME=$(basename -- $1) && FILENAME=${FILENAME%.*}
 FILEPATH=$(dirname $1)
-DESTFILE=${FILENAME}.cpp
+DESTFILE=${FILEPATH}/${FILENAME}.cpp
 
-CLASS_OPEN_SPECIFIER="^\s*(class)\s*([^{]+)\s*[:]?([^{]+)\{$"
+CLASS_OPEN_SPECIFIER="^\s*(class)\s*([^{]+)\s*[:]?([^{]+).*$"
 CLASS_CLOSE_SPECIFIER="^\s*}\s*;\s*$"
 FUNCTIONS_NOT_IMPLEMENTED="^\s*.*\((.*)\)\s*[^{}]*;$"
 VIRTUAL_STATIC=".*(virtual|static).*"
@@ -21,7 +17,7 @@ SEMICOLON_AT_END='^.*;\s*'
 
 lineidx=0
 inClass=0
-echo "#include \"${FILENAME}.hpp\"" > ${DESTFILE}
+echo "#include \"${FILENAME}.hpp\"\n" > ${DESTFILE}
 while read -r line; do
 	if [[ $line =~ $CLASS_OPEN_SPECIFIER ]]; then
 		inClass=1
@@ -51,7 +47,6 @@ while read -r line; do
 				nottyperegx="[^&*]"
 				for (( i=0; i<${#token}; i++ )); do
 					x=${token:$i:1}
-				#for x in $(echo "$token" | grep -o '.'); do
 					if [[ $coloned -eq 0 && "$x" =~ [\&\*] ]]; then 
 						echo -n "$x" >> ${DESTFILE}
 					elif [[ $coloned -eq 0  && ! "$x" =~ "$typeregex" ]]; then
@@ -83,3 +78,20 @@ while read -r line; do
 		echo >> "${DESTFILE}"
 	fi
 done < "${1}"
+
+
+###############################
+## v0.0.0
+###############################
+# virtual 키워드는 제거해서 넣기
+# static 키워드는 제거해서 넣기
+
+###############################
+## v0.0.1
+###############################
+# class 여는 괄호가 아래 올 수도 있음 
+
+###############################
+## v0.0.2
+###############################
+# include 아래로 한 줄 띄움
